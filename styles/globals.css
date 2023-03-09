@@ -15,6 +15,14 @@
         @apply visible opacity-100 
     }
 
+    .show-language-popup {
+        @apply invisible opacity-0 transition duration-500 cursor-default
+    }
+
+    .show-language:hover .show-language-popup {
+        @apply visible opacity-100 
+    }
+
     .button-orange {
         @apply bg-gradient-to-b from-[#f8e3ad] to-[#EEBA37] border border-[#b0820f] rounded
     }

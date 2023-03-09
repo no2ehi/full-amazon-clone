@@ -45,8 +45,8 @@ const Header = () => {
 
                 {/* Search */}
                 <div className="hidden md:inline bg-amazon-orange relative md:flex flex-grow  w-1/2 items-center rounded-md">
-                    <select className="h-11 w-16 rounded-l text-gray-700 px-2 text-sm bg-gray-100 border-r border-gray-300">
-                        <option selected disabled value="All">
+                    <select value="All" className="h-11 w-16 rounded-l text-gray-700 px-2 text-sm bg-gray-100 border-r border-gray-300 cursor-pointer outline-none">
+                        <option disabled value="All">
                             All
                         </option>
                         <option value="Computers">Computers</option>
@@ -79,7 +79,7 @@ const Header = () => {
                 </div>
 
                 {/* Language */}
-                <div className="hidden md:inline md:flex items-center link self-end">
+                <div className="show-account relative hidden md:inline md:flex items-center link self-end">
                     <Image
                         src={enFlag}
                         alt="flag-country"
@@ -88,6 +88,33 @@ const Header = () => {
                     <p className="flex ml-2 font-bold text-sm">
                         EN <ChevronDownIcon className="h-4 self-end ml-1" />
                     </p>
+
+                    {/* popOver Language */}
+                    <div className="show-account-popup absolute w-56 top-8 -right-[3.7rem] h-auto bg-white rounded-sm border shadow-md mt-1">
+                        <div className="absolute h-3 w-3 bg-white rotate-45 -mt-1 right-[3.85rem] "></div>
+                        <div className="flex flex-col p-3">
+                            <p className="text-xs text-gray-900 my-2">Change Language <a className="text-[#05a] ml-1" href="">Learn more</a></p>
+                            <label className=" flex text-xs text-gray-900 mt-2 " htmlFor="">
+                                <input className="mr-2 text-amazon-orange" checked type="radio" name="" id="" />
+                                English - EN
+                            </label>
+                            <div className="w-full h-[1px] bg-gray-200 my-2" />
+                            <label className=" flex text-xs text-gray-900 mt-2 " htmlFor="">
+                                <input className="mr-2 text-amazon-orange" type="radio" name="" id="" />
+                                español - ES
+                            </label>
+                            <label className=" flex text-xs text-gray-900 mt-2 " htmlFor="">
+                                <input className="mr-2 text-amazon-orange" type="radio" name="" id="" />
+                                العربية - AR
+                            </label>
+                            <label className=" flex text-xs text-gray-900 mt-2 " htmlFor="">
+                                <input className="mr-2 text-amazon-orange" type="radio" name="" id="" />
+                                Deutsch - DE
+                            </label>
+                        </div>
+                        
+                    </div>
+
                 </div>
 
                 {/* Buttons */}
@@ -98,8 +125,9 @@ const Header = () => {
                             Account & Lists
                             <ChevronDownIcon className="h-4 self-end ml-1" />
                         </p>
-                        
-                        <div className="show-account-popup absolute w-96 -right-14 h-auto bg-white rounded-sm shadow-md mt-1">
+
+                        {/* popOver Account */}
+                        <div className="show-account-popup absolute w-96 -right-14 h-auto bg-white rounded-sm border shadow-md mt-1">
                             <div className="absolute h-3 w-3 bg-white rotate-45 -mt-1 right-[3.85rem] "></div>
                             
                             <div className="flex flex-col items-center p-3 m-3 border-b pb-2">
