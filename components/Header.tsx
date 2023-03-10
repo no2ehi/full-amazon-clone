@@ -90,7 +90,7 @@ const Header = () => {
                     </p>
 
                     {/* popOver Language */}
-                    <div className="show-account-popup absolute w-56 top-8 -right-[3.7rem] h-auto bg-white rounded-sm border shadow-md mt-1">
+                    <div className="z-20 show-account-popup absolute w-56 top-8 -right-[3.7rem] h-auto bg-white rounded-sm border shadow-md mt-1">
                         <div className="absolute h-3 w-3 bg-white rotate-45 -mt-1 right-[3.85rem] "></div>
                         <div className="flex flex-col p-3">
                             <p className="text-xs text-gray-900 my-2">Change Language <a className="text-[#05a] ml-1" href="">Learn more</a></p>
@@ -127,7 +127,7 @@ const Header = () => {
                         </p>
 
                         {/* popOver Account */}
-                        <div className="show-account-popup absolute w-96 -right-14 h-auto bg-white rounded-sm border shadow-md mt-1">
+                        <div className="z-20 show-account-popup absolute w-96 -right-14 h-auto bg-white rounded-sm border shadow-md mt-1">
                             <div className="absolute h-3 w-3 bg-white rotate-45 -mt-1 right-[3.85rem] "></div>
                             
                             <div className="flex flex-col items-center p-3 m-3 border-b pb-2">

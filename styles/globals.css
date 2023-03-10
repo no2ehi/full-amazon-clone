@@ -26,4 +26,5 @@
     .button-orange {
         @apply bg-gradient-to-b from-[#f8e3ad] to-[#EEBA37] border border-[#b0820f] rounded
     }
+
 }
