@@ -1,7 +1,7 @@
 {
   "name": "full-amazon-clone",
   "version": "0.1.0",
-  "homepage" "http://no2ehi.github.io/full-amazon-clone",
+  "homepage": "http://no2ehi.github.io/full-amazon-clone",
   "private": true,
   "scripts": {
     "dev": "next dev",
