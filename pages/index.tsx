@@ -1,4 +1,5 @@
 import CarouselContainer from "@/components/CarouselContainer";
+import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import HomeCategoriesProducts from "@/components/HomeCategoriesProduct/HomeCategoriesProducts";
 import MenuSideBar from "@/components/MenuSidebar";
@@ -27,6 +28,7 @@ export default function Home({ products, categories }: any) {
                 <TopProduct products={products} categories={categories} title="Top Seller" />
                 <TopProduct products={products} categories={categories} title="Popular items in" />
             </main>
+            <Footer />
             <MenuSideBar />
         </>
     );

@@ -27,4 +27,24 @@
         @apply bg-gradient-to-b from-[#f8e3ad] to-[#EEBA37] border border-[#b0820f] rounded
     }
 
+    .link-footer ul {
+        @apply text-slate-200 text-xs space-y-2
+    }
+
+    .link-footer h5 {
+        @apply font-semibold text-white mb-3
+    }
+
+    .link-footer  ul > li {
+        @apply hover:underline 
+    }
+
+    .footer-link-services li {
+        @apply w-24 hover:underline text-slate-300 text-xs 
+    }
+
+    .footer-link-services li p{
+        @apply text-[#999]
+    }
+
 }
