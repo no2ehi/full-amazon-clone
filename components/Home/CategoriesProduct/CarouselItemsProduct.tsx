@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { useState, useRef, useEffect } from 'react';
 
 // Data
@@ -111,11 +112,14 @@ const CarouselItemsProduct = ({ data }) => {
                   className="h-full w-full aspect-square block bg-origin-padding bg-left-top bg-cover bg-no-repeat z-0"
                   style={{ backgroundImage: `url(${resource.thumbnail || ''})` }}
                 >
-                  <img
-                    src={resource.thumbnail || ''}
-                    alt={resource.title}
-                    className="w-full aspect-square hidden"
-                  />
+                  <div className="relative">
+                    <Image
+                      src={resource.thumbnail || ''}
+                      alt={resource.title}
+                      className="aspect-square hidden"
+                      fill 
+                    />
+                  </div>
                 </a>
                 <a
                   href={resource.id}

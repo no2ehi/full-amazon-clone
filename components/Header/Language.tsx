@@ -9,7 +9,7 @@ const Language = () => {
             <Image
                 src={enFlag}
                 alt="flag-country"
-                className="object-contain h-10"
+                className="object-contain w-5 "
             />
             <p className="flex ml-2 font-bold text-sm">
                 EN <ChevronDownIcon className="h-4 self-end ml-1" />
