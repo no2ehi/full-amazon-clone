@@ -1,9 +1,9 @@
-import CarouselContainer from "@/components/CarouselContainer";
+import CarouselContainer from "@/components/Home/CarouselContainer";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header/Header";
-import HomeCategoriesProducts from "@/components/HomeCategoriesProduct/HomeCategoriesProducts";
-import MenuSideBar from "@/components/MenuSidebar";
-import TopProduct from "@/components/TopProduct";
+import CategoriesProduct from "@/components/Home/CategoriesProduct/CategoriesProducts";
+import MenuSideBar from "@/components/Header/MenuSidebar";
+import TopProduct from "@/components/Home/TopProduct";
 import Head from "next/head";
 
 export default function Home({ products, categories }: any) {
@@ -21,7 +21,7 @@ export default function Home({ products, categories }: any) {
             <Header />
             <main className="max-w-screen-2xl mx-auto bg-gray-100">
                 <CarouselContainer />
-                <HomeCategoriesProducts
+                <CategoriesProduct
                     products={products}
                     categories={categories}
                 />

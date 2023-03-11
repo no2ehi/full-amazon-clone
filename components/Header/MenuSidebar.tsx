@@ -28,65 +28,62 @@ const MenuSideBar = () => {
                         <b className="text-xl font-bold ml-3">Hello, sign in</b>
                     </div>
 
-                    <div className="flex flex-col py-2 overflow-y-scroll h-[85%]">
+                    <div className="menu-sidebar flex flex-col py-2 overflow-y-scroll h-[85%]">
 
-                        <h3 className="font-bold text-xl px-8 py-3">
+                        <h3>
                             Digital Content & Devices
                         </h3>
                         <ul className="border-b pb-2">
-                            <li className="group flex items-center px-8 py-3 hover:bg-gray-200 cursor-pointer">
+                            <li className="group">
                                 Amazon Music
-                                <ChevronRightIcon className="h-5 ml-auto text-gray-500 stroke-[3] group-hover:text-gray-800" />
+                                <ChevronRightIcon className="group-hover:text-gray-800"  />
                             </li>
-                            <li className="group flex items-center px-8 py-3 hover:bg-gray-200 cursor-pointer">
-                                Kindle E-readers & bookd
-                                <ChevronRightIcon className="h-5 ml-auto text-gray-500 stroke-[3] group-hover:text-gray-800" />
-                            </li>
-                            <li className="group flex items-center px-8 py-3 hover:bg-gray-200 cursor-pointer">
+                            <li className="group">
                                 Amazon Appstore
-                                <ChevronRightIcon className="h-5 ml-auto text-gray-500 stroke-[3] group-hover:text-gray-800" />
+                                <ChevronRightIcon className="group-hover:text-gray-800" />
                             </li>
                         </ul>
 
-                        <h3 className="font-bold text-xl px-8 py-3">
+                        <h3>
                             Shop By Department
                         </h3>
                         <ul className="border-b pb-2">
-                            <li className="group flex items-center px-8 py-3 hover:bg-gray-200 cursor-pointer">
+                            <li className="group">
                                 Electronics
-                                <ChevronRightIcon className="h-5 ml-auto text-gray-500 stroke-[3] group-hover:text-gray-800" />
+                                <ChevronRightIcon className="group-hover:text-gray-800" />
                             </li>
-                            <li className="group flex items-center px-8 py-3 hover:bg-gray-200 cursor-pointer">
+                            <li className="group flex">
                                 Computers
-                                <ChevronRightIcon className="h-5 ml-auto text-gray-500 stroke-[3] group-hover:text-gray-800" />
+                                <ChevronRightIcon className="group-hover:text-gray-800" />
                             </li>
-                            <li className="group flex items-center px-8 py-3 hover:bg-gray-200 cursor-pointer">
+                            <li className="group">
                                 Smart Home
-                                <ChevronRightIcon className="h-5 ml-auto text-gray-500 stroke-[3] group-hover:text-gray-800" />
+                                <ChevronRightIcon className="group-hover:text-gray-800" />
                             </li>
-                            <li className="group flex items-center px-8 py-3 hover:bg-gray-200 cursor-pointer">
+                            <li className="group">
                                 Arts & Crafts
-                                <ChevronRightIcon className="h-5 ml-auto text-gray-500 stroke-[3] group-hover:text-gray-800" />
+                                <ChevronRightIcon className="group-hover:text-gray-800" />
                             </li>
                         </ul>
 
-                        <h3 className="font-bold text-xl px-8 py-3">
+                        <h3>
                             Programs & Features
                         </h3>
                         <ul className="border-b pb-2">
-                            <li className="group flex items-center px-8 py-3 hover:bg-gray-200 cursor-pointer">
+                            <li className="group">
                                 Gift Cards
-                                <ChevronRightIcon className="h-5 ml-auto text-gray-500 stroke-[3] group-hover:text-gray-800" />
+                                <ChevronRightIcon className="group-hover:text-gray-800" />
                             </li>
-                            <li className="group flex items-center px-8 py-3 hover:bg-gray-200 cursor-pointer">
+                            <li className="group">
                                 Shop By Interest
-                                <ChevronRightIcon className="h-5 ml-auto text-gray-500 stroke-[3] group-hover:text-gray-800" />
+                                <ChevronRightIcon className="group-hover:text-gray-800" />
                             </li>
-                            <li className="group flex items-center px-8 py-3 hover:bg-gray-200 cursor-pointer">
+                            <li className="group">
                                 Amazon Live
-                                <ChevronRightIcon className="h-5 ml-auto text-gray-500 stroke-[3] group-hover:text-gray-800" />
+                                <ChevronRightIcon className="group-hover:text-gray-800" />
                             </li>
                         </ul>
+
                     </div>
                 </div>
             </div>

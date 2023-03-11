@@ -5,12 +5,12 @@ import Search from "./Search";
 
 import {
     Bars3Icon,
-    MapPinIcon,
 } from "@heroicons/react/24/outline";
 import amazonLogo from "../../public/assets/images/amazon-logo.png";
 import AccountButtons from "./AccountButtons";
 import Language from "./Language";
 import HeaderBottom from "./HeaderBottom";
+import DeliveryTo from "./DeliveryTo";
 
 const Header = () => {
     const dispatch = useAppDispatch();
@@ -21,8 +21,8 @@ const Header = () => {
 
     return (
         <header>
-            
             <div className="bg-amazon-blue_dark flex flex-col md:flex-row">
+                
                 <div className="flex flex-grow items-center p-3 md:space-x-5 md:px-4 text-white">
                 
                     {/* Menu Icon Mobile */}
@@ -32,7 +32,6 @@ const Header = () => {
                             className="md:hidden cursor-pointer mr-1">
                             <Bars3Icon className="h-8 md:h-7" />
                         </div>
-
                         {/* Logo */}
                         <Image
                             src={amazonLogo}
@@ -41,26 +40,15 @@ const Header = () => {
                         />
                     </div>
 
-                    {/* Delivery to */}
-                    <div className="hidden md:inline md:flex items-center link">
-                        <MapPinIcon className="h-5 mt-3" />
-                        <div className="ml-1">
-                            <p className="text-xs text-slate-300">Deliver to</p>
-                            <p className="flex font-bold text-sm">Germany</p>
-                        </div>
-                    </div>
+                    <DeliveryTo />
 
                     {/* Search Desktop*/}
                     <div className="hidden md:flex flex-grow">
                         <Search />
                     </div>
 
-                    {/* Language */}
                     <Language />
-
-                    {/* Account Buttons */}
                     <AccountButtons />
-
                 </div>
 
                 {/* Search Mobile*/}
@@ -70,9 +58,7 @@ const Header = () => {
                 
             </div>
 
-            {/* Bottom Header Nav */}
             <HeaderBottom handleOpenMenu={openMenuHandler}/>
-
         </header>
     );
 };

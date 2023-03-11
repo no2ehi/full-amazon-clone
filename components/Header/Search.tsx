@@ -8,7 +8,7 @@ const Search = () => {
         <div className="bg-amazon-orange relative flex flex-grow items-center rounded-md max-md:mx-4 max-md:mb-2">
             <select
                 value="All"
-                className="h-11 w-16 rounded-l text-gray-700 px-2 text-sm bg-gray-100 border-r border-gray-300 cursor-pointer outline-none"
+                className="hidden md:inline h-11 w-16 rounded-l text-gray-700 px-2 text-sm bg-gray-100 border-r border-gray-300 cursor-pointer outline-none"
             >
                 <option disabled value="All">
                     All
@@ -21,7 +21,7 @@ const Search = () => {
             <input
                 onClick={() => setShowSearch((prev) => !prev)}
                 type="text"
-                className="outline-none w-full h-11 text-black pl-3"
+                className="outline-none w-full h-11 text-black pl-3 max-md:rounded-l"
                 placeholder="Search Amazon"
             />
             <MagnifyingGlassIcon className="text-amazon-blue_dark h-8 w-8 my-1 mx-2 cursor-pointer" />

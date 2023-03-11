@@ -1,7 +1,7 @@
 import Image from "next/image";
 import GridCategory from "./GridCategory";
 
-const HomeCategoriesProducts = ({ products, categories }: any) => {
+const CategoriesProduct = ({ products, categories }: any) => {
     // id,
     // title,
     // description,
@@ -39,4 +39,4 @@ const HomeCategoriesProducts = ({ products, categories }: any) => {
     );
 };
 
-export default HomeCategoriesProducts;
+export default CategoriesProduct;

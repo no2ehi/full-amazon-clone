@@ -2,12 +2,12 @@ import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a lo
 import { Carousel } from "react-responsive-carousel";
 import Image from "next/image";
 
-import slider1 from "../public/assets/images/slider-1.jpg";
-import slider2 from "../public/assets/images/slider-2.jpg";
-import slider3 from "../public/assets/images/slider-3.jpg";
-import slider4 from "../public/assets/images/slider-4.jpg";
+import slider1 from "../../public/assets/images/slider-1.jpg";
+import slider2 from "../../public/assets/images/slider-2.jpg";
+import slider3 from "../../public/assets/images/slider-3.jpg";
+import slider4 from "../../public/assets/images/slider-4.jpg";
+import slider5 from "../../public/assets/images/slider-5.jpg";
 import { CSSProperties } from "react";
-import slider5 from "../public/assets/images/slider-5.jpg";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
 
 
