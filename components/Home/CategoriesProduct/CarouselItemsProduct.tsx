@@ -4,7 +4,7 @@ import { useState, useRef, useEffect } from 'react';
 // Data
 // import data from './data.json';
 
-const CarouselItemsProduct = ({ data }) => {
+const CarouselItemsProduct = ({ data }: any) => {
   const maxScrollWidth = useRef(0);
   const [currentIndex, setCurrentIndex] = useState(0);
   const carousel = useRef(null);
