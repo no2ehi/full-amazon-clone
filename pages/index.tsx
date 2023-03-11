@@ -5,6 +5,7 @@ import CategoriesProduct from "@/components/Home/CategoriesProduct/CategoriesPro
 import MenuSideBar from "@/components/Header/MenuSidebar";
 import TopProduct from "@/components/Home/TopProduct";
 import Head from "next/head";
+import CarouselItemsProduct from "@/components/Home/CategoriesProduct/CarouselItemsProduct";
 
 export default function Home({ products, categories }: any) {
 
