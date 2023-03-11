@@ -5,12 +5,15 @@ import enFlag from "../../public/assets/images/en-flag.png";
 
 const Language = () => {
     return ( 
-        <div className="show-account relative hidden md:flex items-center link self-end">
-            <Image
-                src={enFlag}
-                alt="flag-country"
-                className="object-contain w-5 "
-            />
+        <div className="show-account relative hidden md:flex items-center link self-end mb-1.5">
+            <div className="relative w-6 h-6">
+                <Image
+                    src={enFlag}
+                    alt="flag-country"
+                    className="object-contain"
+                    fill
+                />
+            </div>
             <p className="flex ml-2 font-bold text-sm">
                 EN <ChevronDownIcon className="h-4 self-end ml-1" />
             </p>

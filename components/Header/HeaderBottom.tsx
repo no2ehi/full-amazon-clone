@@ -15,7 +15,7 @@ const HeaderBottom = ({ handleOpenMenu }: any) => {
                 <Bars3Icon className="h-7 mr-1" />
                 <span className="font-bold text-sm">All</span>
             </div>
-            <div className="flex flex-grow overflow-x-scroll text-sm whitespace-nowrap ">
+            <div className="flex flex-grow max-md:overflow-x-scroll scrollbar-hide text-sm whitespace-nowrap ">
                 <ul className="flex space-x-4">
                     <li className=""><Link href="">Deals</Link></li>
                     <li className=""><Link href="">Customer Service</Link></li>

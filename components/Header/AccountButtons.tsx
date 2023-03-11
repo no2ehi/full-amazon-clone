@@ -11,7 +11,7 @@ const AccountButtons = () => {
     const [showAcount, setShowAccount] = useState(false);
 
     return ( 
-        <div className="flex items-center max-md:ml-auto md:space-x-6  space-x-2">
+        <div className="flex items-center max-md:ml-auto md:space-x-6 space-x-2">
 
             {/* account Icon in Mobile */}
             <div className="flex items-center md:hidden">

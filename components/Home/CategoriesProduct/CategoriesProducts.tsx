@@ -15,7 +15,7 @@ const CategoriesProduct = ({ products, categories }: any) => {
     // thumbnail
 
     return (
-        <div className="relative grid md:grid-cols-4 grid-flow-row-dense gap-4 -mt-16 md:-mt-80 z-10 p-4 bg-gradient-to-t from-gray-100 to-transparent">
+        <div className="relative grid md:grid-cols-4 grid-flow-row-dense gap-4 -mt-16 sm:-mt-32 md:-mt-48 lg:-mt-80 z-10 p-4 bg-gradient-to-t from-gray-100 to-transparent">
 
             {/* categories grid */}
             <GridCategory indexCategory={categories[0]} products={products} gridCols={2}/>
