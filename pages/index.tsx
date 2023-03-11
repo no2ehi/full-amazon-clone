@@ -1,6 +1,6 @@
 import CarouselContainer from "@/components/CarouselContainer";
 import Footer from "@/components/Footer";
-import Header from "@/components/Header";
+import Header from "@/components/Header/Header";
 import HomeCategoriesProducts from "@/components/HomeCategoriesProduct/HomeCategoriesProducts";
 import MenuSideBar from "@/components/MenuSidebar";
 import TopProduct from "@/components/TopProduct";
