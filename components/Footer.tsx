@@ -16,7 +16,7 @@ const Footer = () => {
                 </div> 
             </Link>
 
-            <div className="flex bg-amazon-blue_light justify-center py-10 md:space-x-16 border-b border-slate-600">
+            <div className="grid grid-cols-2 lg:grid-cols-4  md:px-32 gap-4 px-5 bg-amazon-blue_light justify-center py-10 md:space-x-16 border-b border-slate-600">
 
                 <div className="link-footer">
                     <h5>Get to Know Us</h5>
@@ -70,10 +70,10 @@ const Footer = () => {
 
             </div>
 
-            <div className="flex items-center bg-amazon-blue_light justify-center py-1">
-                <Image src={amazonLogo} alt="amazon-log" className="object-contain w-20 h-20 mr-20" />
+            <div className="flex max-md:flex-col items-center bg-amazon-blue_light justify-center py-1">
+                <Image src={amazonLogo} alt="amazon-log" className="object-contain w-20 h-20 md:mr-20" />
 
-                <div className="flex items-center space-x-2">
+                <div className="flex items-center space-x-2 max-md:mb-4">
                     <div className="flex space-around border rounded border-slate-400 px-2 py-2 text-xs text-slate-100 cursor-pointer">
                         <GlobeAltIcon className="h-4 mr-3" />
                         <span>English</span>
@@ -96,7 +96,7 @@ const Footer = () => {
             <div className="flex flex-col py-8 bg-[#131A22] items-center">
 
                 <div className="mb-8">
-                    <ul className="footer-link-services grid md:grid-cols-7 gap-8">
+                    <ul className="footer-link-services grid grid-cols-2 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-7 gap-8">
                         <li>
                             <Link href="">
                                 <b>Mazon Music</b>
@@ -221,7 +221,7 @@ const Footer = () => {
                 </div>
 
                 <div className="flex flex-col items-center">
-                    <ul className="flex text-xs text-slate-300 space-x-4">
+                    <ul className="flex whitespace-nowrap max-md:flex-col items-center text-xs text-slate-300 space-x-4 max-md:space-y-2">
                         <li className="hover:underline">
                             <Link href="">Conditions of Use</Link>
                         </li>
