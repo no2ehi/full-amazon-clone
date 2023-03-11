@@ -7,7 +7,7 @@ import { useState, useRef, useEffect } from 'react';
 const CarouselItemsProduct = ({ data }: any) => {
   const maxScrollWidth = useRef(0);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const carousel = useRef(null);
+  const carousel = useRef<HTMLInputElement>(null);
 
   const movePrev = () => {
     if (currentIndex > 0) {
@@ -24,7 +24,7 @@ const CarouselItemsProduct = ({ data }: any) => {
     }
   };
 
-  const isDisabled = (direction) => {
+  const isDisabled = (direction: any) => {
     if (direction === 'prev') {
       return currentIndex <= 0;
     }
