@@ -6,9 +6,10 @@ import {
     UserIcon,
 } from "@heroicons/react/24/outline";
 import { ChevronRightIcon } from "@heroicons/react/24/solid";
+import { useRouter } from "next/router";
 
 const AccountButtons = () => {
-    const [showAcount, setShowAccount] = useState(false);
+    const router = useRouter();
 
     return ( 
         <div className="flex items-center max-md:ml-auto md:space-x-6 space-x-2">
@@ -67,7 +68,7 @@ const AccountButtons = () => {
                 <p className="font-bold text-sm">& Orders</p>
             </div>
 
-            <div className="relative link flex items-center">
+            <div onClick={() => router.push('/cart')} className="relative link flex items-center">
                 <span className="flex items-center justify-center absolute top-0 right-[0.44rem] md:right-8 bg-amazon-orange text-amazon-blue_dark font-bold h-5 w-5 rounded-full">
                     3
                 </span>
