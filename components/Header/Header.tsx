@@ -11,6 +11,7 @@ import AccountButtons from "./AccountButtons";
 import Language from "./Language";
 import HeaderBottom from "./HeaderBottom";
 import DeliveryTo from "./DeliveryTo";
+import Link from "next/link";
 
 const Header = () => {
     const dispatch = useAppDispatch();
@@ -33,11 +34,13 @@ const Header = () => {
                             <Bars3Icon className="h-8 md:h-7" />
                         </div>
                         {/* Logo */}
-                        <Image
-                            src={amazonLogo}
-                            alt="amazon-logo"
-                            className="object-contain w-20 md:w-28 pt-2"
-                        />
+                        <Link href="/">
+                            <Image
+                                src={amazonLogo}
+                                alt="amazon-logo"
+                                className="object-contain w-20 md:w-28 pt-2"
+                            />
+                        </Link>
                     </div>
 
                     <DeliveryTo />

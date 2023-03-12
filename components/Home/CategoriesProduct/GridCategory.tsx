@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 const GridCategory = ({indexCategory, products, gridCols}: any) => {
     const length = gridCols * gridCols;
@@ -10,7 +11,7 @@ const GridCategory = ({indexCategory, products, gridCols}: any) => {
                 <div className={`grid grid-cols-${gridCols} gap-4 m-1`}>
                 
                 {selectedProducts.map((product: any) => (
-                    <div key={product.id}>
+                    <Link href={`/product/${product.id}/${product.title}`} key={product.id}>
                         <div className={`relative ${length > 1 ? 'h-24' : 'h-[230px]'}`}>
                             <Image
                                 src={product.thumbnail}
@@ -20,7 +21,7 @@ const GridCategory = ({indexCategory, products, gridCols}: any) => {
                             />  
                         </div>
                         {length > 1 && (<h4 className="text-xs mt-1">{product.title}</h4>)}
-                    </div>
+                    </Link>
                 ))}
 
                 {length > 1 ? (
