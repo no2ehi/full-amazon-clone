@@ -6,7 +6,13 @@ import MenuSideBar from "@/components/Header/MenuSidebar";
 import TopProduct from "@/components/Home/TopProduct";
 import Head from "next/head";
 
+
+import { useSession, signIn, signOut } from "next-auth/react"
+
 export default function Home({ products, categories }: any) {
+    const { data: session, status } = useSession();
+
+    console.log('session', session)
 
     return (
         <>
