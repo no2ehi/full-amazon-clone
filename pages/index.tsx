@@ -5,7 +5,6 @@ import CategoriesProduct from "@/components/Home/CategoriesProduct/CategoriesPro
 import MenuSideBar from "@/components/Header/MenuSidebar";
 import TopProduct from "@/components/Home/TopProduct";
 import Head from "next/head";
-import CarouselItemsProduct from "@/components/Home/CategoriesProduct/CarouselItemsProduct";
 
 export default function Home({ products, categories }: any) {
 
@@ -26,8 +25,8 @@ export default function Home({ products, categories }: any) {
                     products={products}
                     categories={categories}
                 />
-                <TopProduct products={products} categories={categories} title="Top Seller" />
-                <TopProduct products={products} categories={categories} title="Popular items in" />
+                <TopProduct products={products} categories={categories[7]} title="Top Seller" />
+                <TopProduct products={products} categories={categories[2]} title="Popular items in" />
             </main>
             <Footer />
             <MenuSideBar />
