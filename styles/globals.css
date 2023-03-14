@@ -59,4 +59,11 @@
         @apply text-[#999]
     }
 
+    .error-input input{
+        @apply bg-red-300 placeholder:text-gray-800 border-gray-500
+    }
+    .error-input label svg{
+        @apply text-red-500
+    }
+
 }

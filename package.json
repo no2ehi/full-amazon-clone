@@ -17,6 +17,7 @@
     "@types/react-dom": "18.0.11",
     "eslint": "8.35.0",
     "eslint-config-next": "13.2.3",
+    "formik": "^2.2.9",
     "mongodb": "^4.14.0",
     "mongoose": "^7.0.1",
     "next": "13.2.3",
@@ -26,7 +27,8 @@
     "react-redux": "^8.0.5",
     "react-responsive-carousel": "^3.2.23",
     "tailwind-scrollbar-hide": "^1.1.7",
-    "typescript": "4.9.5"
+    "typescript": "4.9.5",
+    "yup": "^1.0.2"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.13",

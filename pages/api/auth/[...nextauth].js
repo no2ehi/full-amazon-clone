@@ -24,9 +24,9 @@ export const authOptions = {
 //       return session // The return type will match the one returned in `useSession()`
 //     },
 //   },
-//   pages: {
-//     // signIn: "/signin"
-//   },
+  pages: {
+    signIn: "/auth/signin",
+  },
   session: {
     strategy: "jwt"
   },

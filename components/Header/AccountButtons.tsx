@@ -7,9 +7,14 @@ import {
 } from "@heroicons/react/24/outline";
 import { ChevronRightIcon } from "@heroicons/react/24/solid";
 import { useRouter } from "next/router";
+import { useSession, signIn, signOut } from "next-auth/react"
+import Link from "next/link";
+
 
 const AccountButtons = () => {
     const router = useRouter();
+    const { data: session } = useSession();
+
 
     return ( 
         <div className="flex items-center max-md:ml-auto md:space-x-6 space-x-2">
@@ -22,7 +27,9 @@ const AccountButtons = () => {
             </div>
 
             <div className="hidden md:inline link relative show-account p-1" >
-                <p className="text-xs text-slate-300">Hello, sign in</p>
+                <p className="text-xs text-slate-300">Hello, 
+                    {session ? session.user?.name : 'sign in'}
+                </p>
                 <p className="flex font-bold text-sm">
                     Account & Lists
                     <ChevronDownIcon className="h-4 self-end ml-1" />
@@ -31,11 +38,20 @@ const AccountButtons = () => {
                 {/* popOver Account */}
                 <div className="z-20 show-account-popup absolute w-96 -right-14 h-auto bg-white rounded-sm border shadow-md mt-1">
                     <div className="absolute h-3 w-3 bg-white rotate-45 -mt-1 right-[3.85rem] "></div>
-                    
+                    {session ? (
+                        <div className="flex flex-col items-center p-3 m-3 border-b pb-2">
+                            <p className="text-xl text-gray-500">
+                                Hi, {session.user?.name}
+                            </p>
+                            <button onClick={() => signOut()} className="button-orange px-16 py-[0.3rem] text-sm text-gray-900">Sign Out</button>
+                        </div>
+                    ) : (
                     <div className="flex flex-col items-center p-3 m-3 border-b pb-2">
-                        <button className="button-orange px-16 py-[0.3rem] text-sm text-gray-900">Sign in</button>
-                        <p className="text-xs text-gray-900 mt-2">New customer? <a className="text-[#05a] hover:text-amazon-orange hover:underline" href="">start here</a></p>
+                        <button onClick={() => signIn()} className="button-orange px-16 py-[0.3rem] text-sm text-gray-900">Sign in</button>
+                        <p className="text-xs text-gray-900 mt-2">New customer? <Link href="/auth/register" className="text-[#05a] hover:text-amazon-orange hover:underline">start here</Link></p>
                     </div>
+                    )}
+                    
 
                     <div className="flex m-3">
 
