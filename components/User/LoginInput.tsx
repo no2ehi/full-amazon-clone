@@ -24,7 +24,7 @@ const LoginInput = ({ icon, placeholder, type, ...props}: any) => {
                 ) : ''}
                 <input
                     type={type}
-                    name={field.name}
+                    // name={type}
                     placeholder={placeholder}
                     {...field}
                     {...props}
