@@ -1,8 +1,8 @@
 import { UserIcon } from "@heroicons/react/24/outline";
 import { LockClosedIcon, PaperAirplaneIcon } from "@heroicons/react/24/solid";
 import { ErrorMessage, useField } from "formik";
-const LoginInput = ({ icon, placeholder, ...props}: any) => {
-    const [field, meta] = useField(props);
+const LoginInput = ({ icon, placeholder, type, ...props}: any) => {
+    const [field, meta] = useField<any>(props);
     return (
         <div className={`flex mt-4 ${meta.touched && meta.error ? 'error-input' : ''}`}>
             <label className="w-full font-semibold ">
@@ -23,7 +23,7 @@ const LoginInput = ({ icon, placeholder, ...props}: any) => {
                     </div>
                 ) : ''}
                 <input
-                    type={field.type}
+                    type={type}
                     name={field.name}
                     placeholder={placeholder}
                     {...field}
