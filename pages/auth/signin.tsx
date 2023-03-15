@@ -3,15 +3,17 @@ import Header from "@/components/Header/Header";
 import MenuSideBar from "@/components/Header/MenuSidebar";
 import SignInPage from "@/components/User/SignInPage";
 
-import { getProviders } from "next-auth/react";
+import { getServerSession } from "next-auth";
+import { getProviders, getCsrfToken, getSession } from "next-auth/react";
 
-const SignIn = ({providers}: any) => {
-
+const SignIn = ({ providers, csrfToken, callbackUrl }: any) => {
+    providers = Object.values(providers);
+    
     return ( 
         <>
             <Header />
                 <main className="bg-slate-100 w-full h-auto">
-                    <SignInPage providers={providers}/>
+                    <SignInPage providers={providers} csrfToken={csrfToken} callbackUrl={callbackUrl}/>
                 </main>
             <Footer />
             <MenuSideBar />
@@ -22,11 +24,26 @@ const SignIn = ({providers}: any) => {
 export default SignIn;
 
 export const getServerSideProps = async (context: any) => {
-    const providers = Object.values(await getProviders());
+    const { req, query } = context;
+    const { callbackUrl } = query;
+
+    const session = await getSession({req});
+
+    if(session) {
+        return {
+            redirect: {
+                destination: callbackUrl
+            }
+        }
+    }
+    const csrfToken = await getCsrfToken(context);
+    const providers = await getProviders();
 
     return{
         props: {
-            providers
+            providers,
+            csrfToken,
+            callbackUrl
         }
     }
 }

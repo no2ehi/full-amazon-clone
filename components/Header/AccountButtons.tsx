@@ -27,7 +27,7 @@ const AccountButtons = () => {
             </div>
 
             <div className="hidden md:inline link relative show-account p-1" >
-                <p className="text-xs text-slate-300">Hello, 
+                <p className="text-xs text-slate-300">Hello,{" "}
                     {session ? session.user?.name : 'sign in'}
                 </p>
                 <p className="flex font-bold text-sm">

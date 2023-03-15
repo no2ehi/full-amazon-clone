@@ -1,5 +1,5 @@
 import { ChevronRightIcon } from "@heroicons/react/24/solid";
-import { Formik } from "formik";
+import { Form, Formik } from "formik";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
@@ -7,20 +7,25 @@ import amazonLogoDark from "../../public/assets/images/amazon-dark.png";
 import LoginInput from "./LoginInput";
 import * as Yup from "yup";
 import ButtonInput from "./ButtonInput";
-
+import Router from "next/router";
 import { signIn } from "next-auth/react";
+import axios from "axios";
+
+import DotLoaderSpinner from "../loaders/dotLoader/DotLoaderSpinner";
 
 const initialUser = {
-    full_name: "",
+    name: "",
     email: "",
     password: "",
     conf_password: "",
+    success: "",
+    error: ""
 };
 
 const RegisterPage = ({ providers }: any) => {
-    const [needHelp, setNeedHelp] = useState(false);
+    const [loading, setLoading] = useState(false);
     const [user, setUser] = useState(initialUser);
-    const { full_name, email, password, conf_password } = user;
+    const { name, email, password, conf_password, success, error } = user;
 
     const handleChange = (e: any) => {
         const { name, value } = e.target;
@@ -28,10 +33,11 @@ const RegisterPage = ({ providers }: any) => {
             ...user,
             [name]: value,
         });
-        console.log(user);
+        // console.log(user);
     };
+
     const registerValidation = Yup.object({
-        full_name: Yup.string().required("What's your name?").min(2,"First name must be between 2 and 16 characters.").max(16,"First name must be between 2 and 16 characters.").matches(/^[aA-zZ]/,"Numbers and Special characters are not allowed"),
+        name: Yup.string().required("What's your name?").min(2,"First name must be between 2 and 16 characters.").max(16,"First name must be between 2 and 16 characters.").matches(/^[aA-zZ]/,"Numbers and Special characters are not allowed"),
         email: Yup.string()
             .required("Email address is required.")
             .email("Please enter a valid address"),
@@ -39,8 +45,49 @@ const RegisterPage = ({ providers }: any) => {
         conf_password: Yup.string().required("Confirm our password.").oneOf([Yup.ref("password")], "Passwords must match.")
     });
 
+
+    const signUpHandler = async () => {
+        try{
+            setLoading(true);
+            const { data } = await axios.post('/api/auth/signup/',{
+                name,
+                email,
+                password
+            });
+
+            setUser({
+                ...user, error: "", success: data.message
+            })
+            setLoading(false);
+
+            setTimeout( async () => {
+                setLoading(true);
+                let options = {
+                    redirect: false,
+                    email: email,
+                    password: password
+                }
+
+                const res = await signIn("credentials", options);
+                Router.push("/")
+            }, 2000);
+
+        } catch(error: any) {
+            setLoading(false);
+            setUser({
+                ...user, success: "", error: error.response.data.message
+            })
+        }
+    }
+
     return (
-        <div className="flex flex-col mx-auto w-full px-4 sm:w-3/5 md:w-2/5  pt-8 pb-16">
+        <>
+        {
+            loading && (
+                <DotLoaderSpinner loading={loading} />
+            )
+        }
+        <div className="flex flex-col mx-auto w-full px-4 sm:w-3/5 md:w-3/5 lg:w-2/5  pt-8 pb-16">
             <div className="mx-auto my-2">
                 <Link href="/">
                     <Image
@@ -55,21 +102,22 @@ const RegisterPage = ({ providers }: any) => {
                 <Formik
                     enableReinitialize
                     initialValues={{
-                        full_name,
+                        name,
                         email,
                         password,
                         conf_password,
                     }}
                     validationSchema={registerValidation}
+                    onSubmit={ () => signUpHandler() }
                 >
                     {(form) => (
-                        <form>
+                        <Form>
                             <LoginInput
                                 id="input-name"
                                 type="text"
                                 icon="user"
-                                name="full_name"
-                                placeholder="Full Name"
+                                name="name"
+                                placeholder="your Name"
                                 onChange={handleChange}
                             />
                             <LoginInput
@@ -90,7 +138,7 @@ const RegisterPage = ({ providers }: any) => {
                                 onChange={handleChange}
                             />
                             <LoginInput
-                                id="input-passowrd"
+                                id="input-passowrd-conf"
                                 type="password"
                                 icon="password"
                                 name="conf_password"
@@ -98,41 +146,53 @@ const RegisterPage = ({ providers }: any) => {
                                 onChange={handleChange}
                             />
                             <ButtonInput type="submit" text="Sign up" />
-                        </form>
+                        </Form>
                     )}
                 </Formik>
 
+                <div className="flex">
+                    {error ? (
+                        <p className="text-red-500">{error}</p>
+                    ) : success ? (
+                        <p className="text-green-500">{success}</p>
+                    ) : ''}
+                </div>
+
                 <p className="text-xs my-2">
-                    By continuing, you agree to Amazon's Conditions of Use and
-                    Privacy Notice.
+                    {"By continuing, you agree to Amazon's Conditions of Use and Privacy Notice."}
                 </p>
 
                 
                 <span className="pt-1 relative flex justify-center text-sm 
-                before:left-1 before:top-[50%] before:absolute before:bg-slate-200 before:h-[1px] before:w-[120px]
-                after:right-1 after:top-[50%] after:absolute after:bg-slate-200 after:h-[1px] after:w-[120px]">
+                before:left-1 before:top-[50%] before:absolute before:bg-slate-200 before:h-[1px] before:w-[10%] sm:before:w-[18%] md:before:w-[22%]
+                after:right-1 after:top-[50%] after:absolute after:bg-slate-200 after:h-[1px] after:w-[10%] sm:after:w-[18%] md:after:w-[22%]">
                     sign up with another Accounts
                 </span>
                 
 
-                <div className="flex flex-col md:flex-row">
-                    {providers.map((provider: any) => (
-                        <div
-                            onClick={() => signIn(provider.id)}
-                            key={provider.name}
-                            className="flex bg-white items-center w-full p-2 rounded-xl border mt-3 md:mt-1 mx-2 cursor-pointer"
-                        >
-                            <Image
-                                src={`/../public/assets/images/${provider.id}.png`}
-                                alt={provider.name}
-                                width={28}
-                                height={28}
-                            />
-                            <div className="text-sm w-full font-semibold ml-2">
-                                Sign in with {provider.name}
+                <div className="flex flex-col lg:flex-row">
+                    {providers.map((provider: any) => {
+                        if(provider.name === "Credentials") {
+                            return;
+                        }
+                        return (
+                            <div
+                                onClick={() => signIn(provider.id)}
+                                key={provider.name}
+                                className="flex bg-white items-center w-full p-2 rounded-xl border mt-3 lg:mt-1 mx-2 cursor-pointer"
+                            >
+                                <Image
+                                    src={`/../public/assets/images/${provider.id}.png`}
+                                    alt={provider.name}
+                                    width={28}
+                                    height={28}
+                                />
+                                <div className="text-sm w-full font-semibold ml-2">
+                                    Sign in with {provider.name}
+                                </div>
                             </div>
-                        </div>
-                    ))}
+                        )
+                    })}
                 </div>
 
 
@@ -151,6 +211,7 @@ const RegisterPage = ({ providers }: any) => {
             </div>
 
         </div>
+        </>
     );
 };
 

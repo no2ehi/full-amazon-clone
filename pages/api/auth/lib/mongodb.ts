@@ -19,10 +19,12 @@ if (process.env.NODE_ENV === 'development') {
     (<any>global)._mongoClientPromise = client.connect()
   }
   clientPromise = (<any>global)._mongoClientPromise
+  console.log(process.env.MONGODB_URI)
 } else {
   // In production mode, it's best to not use a global variable.
   client = new MongoClient(uri, options)
   clientPromise = client.connect()
+  console.log(process.env.MONGODB_URI)
 }
 
 // Export a module-scoped MongoClient promise. By doing this in a
