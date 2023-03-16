@@ -3,7 +3,6 @@ import Header from "@/components/Header/Header";
 import MenuSideBar from "@/components/Header/MenuSidebar";
 import SignInPage from "@/components/User/SignInPage";
 
-import { getServerSession } from "next-auth";
 import { getProviders, getCsrfToken, getSession } from "next-auth/react";
 
 const SignIn = ({ providers, csrfToken, callbackUrl }: any) => {
@@ -23,9 +22,12 @@ const SignIn = ({ providers, csrfToken, callbackUrl }: any) => {
  
 export default SignIn;
 
+
+
 export const getServerSideProps = async (context: any) => {
     const { req, query } = context;
-    const { callbackUrl } = query;
+    const { callbackUrl = null } = query || null;
+    console.log('call:',callbackUrl, query, context)
 
     const session = await getSession({req});
 
