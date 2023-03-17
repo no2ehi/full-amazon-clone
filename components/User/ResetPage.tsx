@@ -10,17 +10,19 @@ import axios from "axios";
 
 import DotLoaderSpinner from "../loaders/dotLoader/DotLoaderSpinner";
 import { ChevronRightIcon } from "@heroicons/react/24/outline";
+import { signIn } from "next-auth/react";
 
 const initialUser = {
-    email: "",
+    password: "",
+    conf_password: "",
     success: "",
     error: ""
 };
 
-const ForgotPage = ({ providers }: any) => {
+const ResetPage = ({ userId }: any) => {
     const [loading, setLoading] = useState(false);
     const [user, setUser] = useState(initialUser);
-    const { email, success, error } = user;
+    const { password, conf_password, success, error } = user;
 
     const handleChange = (e: any) => {
         const { name, value } = e.target;
@@ -30,23 +32,30 @@ const ForgotPage = ({ providers }: any) => {
         });
     };
 
-    const emailValidation = Yup.object({
-        email: Yup.string()
-            .required("Email address is required.")
-            .email("Please enter a valid address"),
+    const passwordValidation = Yup.object({
+        password: Yup.string().required("Please enter a new password.").min(6,"Password must be atleast 6 characters.").max(36,"password can't be more than 36 characters."),
+        conf_password: Yup.string().required("Confirm your new password.").oneOf([Yup.ref("password")], "Passwords must match.")
     });
 
+    const resetHandler = async () => {
 
-    const forgotHandler = async () => {
         try{
             setLoading(true)
-
-            const { data } = await axios.post("/api/auth/forgot/",{
-                email
+            const { data } = await axios.put("/api/auth/reset/",{
+                userId,
+                password
             });
 
+            let options = {
+                redirect: false,
+                email: data.email,
+                password: password
+            }
+            await signIn("credentials", options);
+            window.location.reload();
+
             setUser({
-                ...user, email: "", success: data.message , error: ""
+                ...user, success: data.message , error: "", password: "", conf_password: ""
             })
 
             setLoading(false);
@@ -54,7 +63,7 @@ const ForgotPage = ({ providers }: any) => {
         } catch(error: any) {
             setLoading(false)
             setUser({
-                ...user, success: "", error: error.response.data.message
+                ...user, success: "", error: error.response.data.message, password: "", conf_password: ""
             })
         }
     }
@@ -77,26 +86,35 @@ const ForgotPage = ({ providers }: any) => {
                 </Link>
             </div>
             <div className="flex flex-col p-4 my-4 bg-white rounded border space-y-4">
-                <h3 className="text-xl font-bold">Forgot Password</h3>
+                <h3 className="text-xl font-bold">Reset Password</h3>
                 <Formik
                     enableReinitialize
                     initialValues={{
-                        email,
+                        password,
+                        conf_password
                     }}
-                    validationSchema={emailValidation}
-                    onSubmit={ () => forgotHandler() }
+                    validationSchema={passwordValidation}
+                    onSubmit={() => resetHandler()}
                 >
                     {(form) => (
                         <Form>
                             <LoginInput
-                                id="input-email"
-                                type="text"
-                                icon="email"
-                                name="email"
-                                placeholder="Email Address"
+                                id="input-password"
+                                type="password"
+                                icon="password"
+                                name="password"
+                                placeholder="new password"
                                 onChange={handleChange}
                             />
-                            <ButtonInput type="submit" text="Send Link" />
+                            <LoginInput
+                                id="input-conf-password"
+                                type="password"
+                                icon="password"
+                                name="conf_password"
+                                placeholder="Re-Type new password"
+                                onChange={handleChange}
+                            />
+                            <ButtonInput type="submit" text="change password" />
                         </Form>
                     )}
                 </Formik>
@@ -128,4 +146,4 @@ const ForgotPage = ({ providers }: any) => {
     );
 };
 
-export default ForgotPage;
+export default ResetPage;
