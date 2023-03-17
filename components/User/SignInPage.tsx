@@ -171,7 +171,7 @@ const SignInPage = ({ providers, csrfToken, callbackUrl }: any) => {
                         {needHelp && (
                             <div className="flex flex-col ml-4 mt-2 space-y-2">
                                 <Link
-                                    href="/forget"
+                                    href="/auth/forgot"
                                     className="text-blue-500 hover:text-amazon-orange hover:underline"
                                 >
                                     Forgot your password?
