@@ -22,6 +22,7 @@ export default function Home({ products }: any) {
                 <HomeProductSwiper products={products} category="women clothing" />
                 <HomeProductSwiper products={products} category="shoes" />
                 <HomeProductSwiper products={products} category="Beauty" />
+                <HomeProductSwiper products={products} category="Kids" />
                 
 
                 {/* <CategoriesProduct
