@@ -66,4 +66,37 @@
         @apply text-red-500
     }
 
+
+    /* Admin Dashboard Css */
+    
+    .show {
+        @apply hidden 
+    }
+
+    .opened {
+        @apply w-[280px]
+    }
+
+    .opened .show {
+        @apply flex;
+    }
+
+    .error-input-admin span{
+        @apply bg-red-400
+    }
+    .error-input-admin input{
+        @apply border-red-400
+    }
+    
+    .btn-edit-post  {
+        @apply  absolute  top-[35%] left-[15%] flex mt-2 space-x-2 
+    }
+
+    .btn-edit-post button{
+        @apply flex w-10 h-10 rounded-full cursor-pointer transition bg-white items-center justify-center shadow
+    }
+    .btn-edit-post button:hover{
+        @apply scale-110 shadow-md rotate-12  ease-in-out
+    }
+
 }

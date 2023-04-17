@@ -1,36 +1,35 @@
 import CarouselContainer from "@/components/Home/CarouselContainer";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header/Header";
-import CategoriesProduct from "@/components/Home/CategoriesProduct/CategoriesProducts";
 import MenuSideBar from "@/components/Header/MenuSidebar";
-import TopProduct from "@/components/Home/TopProduct";
-import Head from "next/head";
-import { useSession } from "next-auth/react"
+import { useSession } from "next-auth/react";
+import Product from "@/models/Product";
+import Category from "@/models/Category";
+import HomeProductSwiper from "@/components/Home/HomeProductSwiper";
 
+export default function Home({ products }: any) {
+    const { data: session } = useSession();
+    console.log("session: ", session);
 
-export default function Home({ products, categories }: any) {
-    const { data: session} = useSession();
-    console.log('session: ', session)
+    // console.log("all product: ", allProduct);
 
     return (
         <>
-            <Head>
-                <title>Full Amazon Clone React</title>
-                <meta name="description" content="full amazon clone React" />
-                <meta
-                    name="viewport"
-                    content="width=device-width, initial-scale=1"
-                />
-            </Head>
-            <Header />
+            <Header title="Full Amazon Clone React" />
             <main className="max-w-screen-2xl mx-auto bg-gray-100">
                 <CarouselContainer />
-                <CategoriesProduct
+                
+                <HomeProductSwiper products={products} category="women clothing" />
+                <HomeProductSwiper products={products} category="shoes" />
+                <HomeProductSwiper products={products} category="Beauty" />
+                
+
+                {/* <CategoriesProduct
                     products={products}
                     categories={categories}
-                />
-                <TopProduct products={products} categories={categories[7]} title="Top Seller" />
-                <TopProduct products={products} categories={categories[2]} title="Popular items in" />
+                /> */}
+                {/* {/* <TopProduct allProduct={allProduct} products={products} categories={categories[7]} title="Top Seller" /> */}
+                {/* <TopProduct products={products} categories={categories[2]} title="Popular items in" />  */}
             </main>
             <Footer />
             <MenuSideBar />
@@ -39,18 +38,21 @@ export default function Home({ products, categories }: any) {
 }
 
 export const getServerSideProps = async (context: any) => {
-    const products = await fetch("https://dummyjson.com/products?limit=100").then((res) =>
-        res.json()
-    );
+    // const products = await fetch("https://dummyjson.com/products?limit=100").then((res) =>
+    //     res.json()
+    // );
+    // const categories = await fetch(
+    //     "https://dummyjson.com/products/categories"
+    // ).then((res) => res.json());
 
-    const categories = await fetch(
-        "https://dummyjson.com/products/categories"
-    ).then((res) => res.json());
+    const products = await Product.find()
+        .populate({ path: "category", model: Category })
+        .sort({ updatedAt: -1 })
+        .lean();
 
     return {
         props: {
-            products: products.products,
-            categories: categories,
+            products: JSON.parse(JSON.stringify(products)),
         },
     };
 };

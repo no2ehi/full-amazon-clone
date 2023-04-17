@@ -3,7 +3,7 @@ import { ChevronDownIcon, StarIcon } from "@heroicons/react/24/solid";
 import Image from "next/image";
 import Link from "next/link";
 
-const Product = ({ product }: any) => {
+const ProductPage = ({ product }: any) => {
     const {
         id,
         title,
@@ -154,4 +154,4 @@ const Product = ({ product }: any) => {
     );
 };
 
-export default Product;
+export default ProductPage;

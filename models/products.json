@@ -1,0 +1,116 @@
+[{
+    "_id": {
+        "$oid": "klfj34fjlfjojf23r23rsf23"
+    },
+    "name": "laptop aspire acer ef-573g",
+    "desctiption": "good laptop for developers",
+    "brand": "acer",
+    "slug": "good-laptop-for-developers",
+    "category": {
+        "$oid": ""
+    },
+    "subCategories": [
+        {
+            "$oid": ""
+        }
+    ],
+    "details": [
+        {
+            "name": "Style",
+            "value": "boho",
+            "_id": {
+                "$oid": ""
+            }
+        },
+        {
+            "name": "Pattern Type",
+            "value": "Plants, All Over Print",
+            "_id": {
+                "$oid": ""
+            }
+        },
+        {
+            "name": "Details",
+            "value": "knot",
+            "_id": {
+                "$oid": ""
+            }
+        },
+        {
+            "name": "Type",
+            "value": "A Line",
+            "_id": {
+                "$oid": ""
+            }
+        },
+        {
+            "name": "Necline",
+            "value": "Square Neck",
+            "_id": {
+                "$oid": ""
+            }
+        },
+        {
+            "name": "Sleev Length",
+            "value": "Short Sleeve",
+            "_id": {
+                "$oid": ""
+            }
+        },
+        {
+            "name": "Sleev Type",
+            "value": "Puff Sleeve",
+            "_id": {
+                "$oid": ""
+            }
+        },
+        {
+            "name": "Length",
+            "value": "Long",
+            "_id": {
+                "$oid": ""
+            }
+        },
+        {
+            "name": "Fit Type",
+            "value": "Regular Fit",
+            "_id": {
+                "$oid": ""
+            }
+        }
+    ],
+    "questions": [],
+    "subProducts": [
+        {
+            "sku":"",
+            "discount": 0,
+            "images": [
+                {
+                    "url": "",
+                    "public_url": ""
+                }
+            ],
+            "desctiption_images": [],
+            "color": {
+                "color": "#ecd297",
+                "image": ""
+            },
+            "sizes": [
+                {
+                    "size": "S",
+                    "qty": 15,
+                    "price": 17,
+                    "_id": {
+                        "$oid": ""
+                    }
+                }
+            ],
+            "_id": {
+                "$oid": ""
+            }
+        }
+    ],
+    "createdAt": {
+        "$date": ""
+    }
+}]

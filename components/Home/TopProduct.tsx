@@ -10,7 +10,7 @@ const TopProduct = ({ products, categories, title }: any) => {
         <div className="flex flex-col rounded bg-white h-[340px] mx-4 mb-4 p-4 border">
             <h4 className="font-bold text-xl mb-4">{title} {categories}</h4>
             <div className="">
-                <CarouselItemsProduct data={selectedProduct} />
+                {/* <CarouselItemsProduct data={selectedProduct} /> */}
             </div>
         </div>
      );

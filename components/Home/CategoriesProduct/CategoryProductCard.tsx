@@ -4,7 +4,7 @@ import { useState, useRef, useEffect } from 'react';
 // Data
 // import data from './data.json';
 
-const CarouselItemsProduct = ({ data }: any) => {
+const CategoryProductCard = ({ data }: any) => {
   const maxScrollWidth = useRef(0);
   const [currentIndex, setCurrentIndex] = useState(0);
   const carousel = useRef<HTMLInputElement>(null);
@@ -110,12 +110,12 @@ const CarouselItemsProduct = ({ data }: any) => {
                 <a
                   href={resource.id}
                   className="h-full w-full aspect-square block bg-origin-padding bg-left-top bg-cover bg-no-repeat z-0"
-                  style={{ backgroundImage: `url(${resource.subProducts[0].images[0] || ''})` }}
+                  style={{ backgroundImage: `url(${resource.thumbnail || ''})` }}
                 >
                   <div className="relative">
                     <Image
-                      src={resource.subProducts[0].images[0] || ''}
-                      alt={resource.name}
+                      src={resource.thumbnail || ''}
+                      alt={resource.title}
                       className="aspect-square hidden"
                       fill 
                     />
@@ -138,4 +138,4 @@ const CarouselItemsProduct = ({ data }: any) => {
   );
 };
 
-export default CarouselItemsProduct;
+export default CategoryProductCard;

@@ -1,10 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { useDispatch } from 'react-redux/es/exports';
 import menuReducer from './slices/MenuSlice';
+import dialogReducer from './slices/DialogSlice';
 
 const store = configureStore({
     reducer: {
-        menu: menuReducer
+        menu: menuReducer,
+        dialog: dialogReducer,
     }
 });
 

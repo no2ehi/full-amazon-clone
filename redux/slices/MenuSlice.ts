@@ -2,11 +2,13 @@ import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 
 export interface menuState {
-    menuOpened: boolean
+    menuOpened: boolean,
+    menuDashboardSidebar: Boolean
 }
 
 const initialState: menuState = {
-    menuOpened: false
+    menuOpened: false,
+    menuDashboardSidebar: false
 };
 
 export const menuSlice = createSlice({
@@ -18,14 +20,18 @@ export const menuSlice = createSlice({
         },
         closeMenu: (state) => {
             state.menuOpened = false;
+        },
+        toggleSidebar: (state) => {
+            state.menuDashboardSidebar = !state.menuDashboardSidebar;
         }
     }
 
 })
 
-export const { openMenu, closeMenu } = menuSlice.actions;
+export const { openMenu, closeMenu, toggleSidebar } = menuSlice.actions;
 
 export const selectMenu = (state: RootState) => state.menu.menuOpened;
+export const selectMenuSidebarDashboard = (state: RootState) => state.menu.menuDashboardSidebar;
 
 export default menuSlice.reducer;
 
