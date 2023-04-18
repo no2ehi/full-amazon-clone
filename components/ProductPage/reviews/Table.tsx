@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { usePagination } from "./Pagination";
 import Image from "next/image";
+import ReviewCard from "./ReviewCard";
+import { Pagination } from "@mui/material";
 
 const Table = ({ reviews }: any) => {
     console.log("table review: ", reviews);
@@ -15,35 +17,21 @@ const Table = ({ reviews }: any) => {
     };
 
     return (
-        <div>
+        <div className="mt-4 flex flex-col">
             <div>header</div>
             <div className="my-2">
                 {_DATA.currentData().map((review: any, i: any) => (
-                    <div className="flex flex-col" key={i}>
-                        <div className="flex space-x-4">
-                            <span className="font-semibold">{review.reviewBy.name}</span>
-                            <span>size: {review.size}</span>
-                            <span>fit: {review.fit}</span>
-                        </div>
-                        <div className="flex">
-                            <span>{review.review}</span>
-                            <span className="flex space-x-2">
-                                {review.images &&
-                                    review.images.map((img: any, i: any) => (
-                                        <Image
-                                            key={i}
-                                            src={img.url}
-                                            width={50}
-                                            height={50}
-                                            alt={img.url}
-                                        />
-                                    ))}
-                            </span>
-                        </div>
-                    </div>
+                    <ReviewCard review={review} key={i} />
                 ))}
             </div>
-            <div className="">pagiantion</div>
+            <div className="mt-2 ml-auto">
+                <Pagination
+                    count={count}
+                    page={page}
+                    shape="rounded"
+                    onChange={handleChange}
+                />
+            </div>
         </div>
     );
 };
