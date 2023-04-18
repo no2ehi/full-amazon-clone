@@ -5,7 +5,6 @@ import { uploadImages } from "@/request/upload";
 import dataURItoBlob from "@/utils/dataURItoBlob";
 import { Rating } from "@mui/material";
 import axios from "axios";
-import { TEMPORARY_REDIRECT_STATUS } from "next/dist/shared/lib/constants";
 import { useState } from "react";
 import ImagesReview from "./Images";
 import Select from "./Select";
@@ -42,7 +41,7 @@ const AddReview = ({ product, setReviews }: any) => {
                 type: "error",
             });
         }
-        if (!rating) {
+        if (rating == 0) {
             msgs.push({
                 msg: "Please select a rating!",
                 type: "error",
