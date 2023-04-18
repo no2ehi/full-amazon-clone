@@ -177,9 +177,9 @@ const Infos = ({ product, setActiveImg }: any) => {
                 </button>
             </div>
 
-            <div className="mt-4">
+            {/* <div className="mt-4">
                 <Share />
-            </div>
+            </div> */}
 
             <div className="mt-4">
                 <AccoridanProduct details={product.details} questions={product.questions} />

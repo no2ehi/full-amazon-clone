@@ -5,6 +5,7 @@ import BreadCrumb from "./BreadCrumb";
 import Infos from "./Infos";
 import InfosShipping from "./InfosShipping";
 import MainSwiper from "./MainSwiper";
+import Reviews from "./reviews/Reviews";
 import SimilarSwiper from "./SimilarSwiper";
 
 const ProductPage = ({ product }: any) => {
@@ -26,6 +27,7 @@ const ProductPage = ({ product }: any) => {
             <div className="mt-2 mx-auto w-full md:w-[700px] p-2 border rounded-lg">
                 <SimilarSwiper />
             </div>
+            <Reviews product={product} />
         </div>
     );
 };

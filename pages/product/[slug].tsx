@@ -6,6 +6,8 @@ import db from "@/utils/db";
 import Product from "@/models/Product";
 import Category from "@/models/Category";
 import SubCategory from "@/models/SubCategory";
+import User from "@/models/User";
+
 
 const SingleProduct = ({ product }: any) => {
     console.log(product);
@@ -32,6 +34,7 @@ export const getServerSideProps = async (context: any) => {
     let product = await Product.findOne({ slug })
         .populate({ path: "category", model: Category })
         .populate({ path: "subCategories", model: SubCategory })
+        .populate({ path: "reviews.reviewBy", model: User })
         .lean();
     let subProduct = product.subProducts[style];
     let prices = subProduct.sizes
@@ -63,9 +66,33 @@ export const getServerSideProps = async (context: any) => {
                 : subProduct.sizes[size].price,
         priceBefore: subProduct.sizes[size].price,
         quantity: subProduct.sizes[size].qty,
+        ratings: [
+            {
+                percentage: 76,
+            },
+            {
+                percentage: 14,
+            },
+            {
+                percentage: 6,
+            },
+            {
+                percentage: 4,
+            },
+            {
+                percentage: 0,
+            },
+        ],
+        allSizes: product.subProducts
+            .map((p: any) => p.sizes)
+            .flat()
+            .sort((a: any, b: any) => (a.size - b.size))
+            .filter(
+                (element: any, index: any, array: any) =>
+                    (array.findIndex((el2: any) => el2.size === element.size) === index)
+            ),
     };
     db.disconnectDb();
-    // console.log('s product: ', newProduct)
 
     return {
         props: {

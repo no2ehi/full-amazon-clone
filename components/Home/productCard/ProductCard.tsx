@@ -14,7 +14,7 @@ const ProductCard = ({ product }: any) => {
     const [styles, setStyles] = useState(
         product.subProducts.map((p: any) => p.color)
     );
-    console.log("styles", styles);
+    // console.log("styles", styles);
 
     useEffect(() => {
         setImages(product.subProducts[active]?.images);

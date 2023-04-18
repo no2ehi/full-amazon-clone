@@ -44,6 +44,7 @@ export const authOptions = {
       let user = await User.findById(token.sub);
       session.user.id = user.token || user.id.toString();
       session.user.role = user.role || "user";
+      token.role = user.role || "user";
       return session; 
     },
   },

@@ -12,6 +12,10 @@ const reviewSchema = new mongoose.Schema({
         required: true,
         default: 0,
     },
+    review: {
+        type: String,
+        required: true
+    },
     size: {
         type: String,
     },
