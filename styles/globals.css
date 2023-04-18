@@ -99,4 +99,11 @@
         @apply scale-110 shadow-md rotate-12  ease-in-out
     }
 
+    .products-swiper .swiper-button-next, .products-swiper .swiper-button-prev{
+        @apply bg-white w-9 h-9 rounded-full text-slate-800 shadow-md
+    }
+    .products-swiper .swiper-button-next::after, .swiper-button-prev::after{
+        @apply scale-50
+    }
+
 }

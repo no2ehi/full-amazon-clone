@@ -5,7 +5,7 @@ const MainSwiper = ({ images, activeImg }: any) => {
     const [active, setActive] = useState(0);
 
     return (
-        <div className="flex flex-col col-span-3 md:flex-row-reverse px-2">
+        <div className="flex flex-col md:col-span-3 md:flex-row-reverse px-2">
             <div className="flex-grow relative">
                 <Image
                     src={activeImg || images[active].url}

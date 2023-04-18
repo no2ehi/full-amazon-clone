@@ -5,10 +5,11 @@ import BreadCrumb from "./BreadCrumb";
 import Infos from "./Infos";
 import InfosShipping from "./InfosShipping";
 import MainSwiper from "./MainSwiper";
+import SimilarSwiper from "./SimilarSwiper";
 
 const ProductPage = ({ product }: any) => {
     const [activeImg, setActiveImg] = useState("");
-    console.log("active: ", activeImg);
+    // console.log("active: ", activeImg);
 
     return (
         <div className="w-full bg-white h-auto px-3 mb-6 md:px-2">
@@ -22,8 +23,8 @@ const ProductPage = ({ product }: any) => {
                 <InfosShipping product={product} />
             </div>
 
-            <div className="">
-                
+            <div className="mt-2 mx-auto w-full md:w-[700px] p-2 border rounded-lg">
+                <SimilarSwiper />
             </div>
         </div>
     );
