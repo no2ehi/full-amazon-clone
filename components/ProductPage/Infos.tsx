@@ -161,7 +161,7 @@ const Infos = ({ product, setActiveImg }: any) => {
                 </button>
             </div>
 
-            <div className="mt-2  flex space-x-3">
+            <div className="mt-2 flex flex-col md:flex-row md:space-x-3">
                 <button
                     className={`flex flex-grow items-center justify-center bg-gradient-to-r from-amazon-orange to-yellow-300 text-amazon-blue_dark  p-2 rounded-full space-x-2 hover:text-slate-100 hover:from-amazon-blue_light hover:to-slate-500 hover:shadow-md  ${
                         product.quantity < 1 ? "cursor-not-allowed" : ""
@@ -171,7 +171,7 @@ const Infos = ({ product, setActiveImg }: any) => {
                     <ShoppingBagIcon className="w-8 h-8" />
                     <span className="font-semibold text-xl">ADD TO CART</span>
                 </button>
-                <button className="flex items-center bg-slate-200 text-amazon-blue_light p-2 rounded space-x-2 hover:bg-amazon-blue_light hover:text-slate-100 transition duration-500 ease-in-out">
+                <button className="flex items-center bg-slate-200 text-amazon-blue_light p-2 rounded space-x-2 hover:bg-amazon-blue_light hover:text-slate-100 transition duration-500 ease-in-out max-md:mt-3">
                     <HeartIcon className="w-8 h-8" />
                     <span>WishList</span>
                 </button>

@@ -47,7 +47,7 @@ const ImagesReview = ({ images, setImages }: any) => {
     };
 
     return (
-        <div className="mt-5 grid grid-cols-4">
+        <div className="mt-5 grid md:grid-cols-4 ">
             <div className="flex flex-col justify-center">
                 <input
                     type="file"
@@ -58,14 +58,14 @@ const ImagesReview = ({ images, setImages }: any) => {
                     accept="image/png,image/jpeg,image/webp"
                 />
                 <button
-                    className="bg-amazon-blue_light w-52 p-2 text-white rounded-md hover:scale-95 transition"
+                    className="bg-amazon-blue_light md:w-52 p-2 text-white rounded-md hover:scale-95 transition"
                     onClick={() => inputRef.current?.click()}
                 >
                     Add Images
                 </button>
                 <span className="text-red-500 text-sm mt-2">{error}</span>
             </div>
-            <div className="flex col-span-3">
+            <div className="flex max-md:mt-4 md:col-span-3">
                 {images.length > 0 &&
                     images.map((img: any, i: any) => (
                         <span className="relative mx-2" key={i}>

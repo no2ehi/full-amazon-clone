@@ -47,6 +47,7 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
 }));
 
 export default function AccoridanProduct({ details, questions }: any) {
+    console.log('question',questions)
     const [expanded, setExpanded] = React.useState<string | false>();
 
     const handleChange =
@@ -72,7 +73,7 @@ export default function AccoridanProduct({ details, questions }: any) {
                     <Typography>
                         <div className="grid grid-cols-2 gap-y-3" >
                             {details
-                                .slice(1, details.length)
+                                .slice(0, details.length)
                                 .map((info: any, i: any) => (
                                     <>
                                         <span>{info.name}</span>
@@ -98,11 +99,11 @@ export default function AccoridanProduct({ details, questions }: any) {
                     <Typography>
                         <div className="grid grid-cols-2 gap-y-3" >
                             {questions
-                                .slice(1, questions.length)
+                                .slice(0, questions.length)
                                 .map((info: any, i: any) => (
                                     <>
-                                        <span>{info.name}</span>
-                                        <span>{info.value}</span>
+                                        <span>{info.question}</span>
+                                        <span>{info.answer}</span>
                                     </>
                                 ))}
                         </div>

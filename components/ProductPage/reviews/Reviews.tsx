@@ -13,10 +13,10 @@ const Reviews = ({ product }: any) => {
             <h3 className="mb-2 font-bold text-2xl">
                 Customer Reviews ({product.reviews.length})
             </h3>
-            <div className="grid grid-cols-2">
-                <div className="flex flex-col justify-center">
-                    <span className="text-sm">Average Rating</span>
-                    <div className="mt-2 flex items-center text-m font-semibold">
+            <div className="grid md:grid-cols-2">
+                <div className="flex max-md:items-center md:flex-col md:justify-center">
+                    <span className="text-sm font-semibold">Average Rating</span>
+                    <div className="mt-2 max-md:ml-auto flex items-center text-m font-semibold">
                         <Rating
                             name="half-rating-react"
                             defaultValue={product.rating}
@@ -28,14 +28,14 @@ const Reviews = ({ product }: any) => {
                         <span className="ml-2">
                             {product.rating === 0
                                 ? "No review yet."
-                                : product.rating}
+                                : product.rating.toFixed(2)}
                         </span>
                     </div>
                 </div>
-                <div>
+                <div className="flex flex-col mt-4">
                     {product.ratings.map((rating: any, i: any) => (
                         <div
-                            className="flex items-center space-x-4 mb-3"
+                            className="flex items-center space-x-4 max-md:mb-3"
                             key={i}
                         >
                             <Rating
@@ -44,7 +44,7 @@ const Reviews = ({ product }: any) => {
                                 readOnly
                                 style={{ color: "#FACF19 " }}
                             />
-                            <div className="flex items-center bg-slate-300 w-56 h-1.5 rounded-full">
+                            <div className="flex items-center bg-slate-300 w-full md:w-56 h-1.5 rounded-full">
                                 <div
                                     className="bg-red-500 h-1.5 rounded-full"
                                     style={{
@@ -69,7 +69,7 @@ const Reviews = ({ product }: any) => {
                     Login to add review
                 </button>
             )}
-            <Table reviews={reviews} />
+            <Table reviews={reviews} allSizes={product.allSizes} colors={product.colors} />
         </div>
     );
 };

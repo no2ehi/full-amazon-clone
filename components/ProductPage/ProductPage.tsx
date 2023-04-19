@@ -24,7 +24,7 @@ const ProductPage = ({ product }: any) => {
                 <InfosShipping product={product} />
             </div>
 
-            <div className="mt-2 mx-auto w-full md:w-[700px] p-2 border rounded-lg">
+            <div className="mt-2 mx-auto w-full md:w-4/5 p-2 border rounded-lg">
                 <SimilarSwiper />
             </div>
             <Reviews product={product} />

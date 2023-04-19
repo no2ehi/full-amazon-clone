@@ -97,7 +97,7 @@ const AddReview = ({ product, setReviews }: any) => {
     return (
         <div className="flex flex-col">
             <DialogModal />
-            <div className="flex mt-2">
+            <div className="flex flex-wrap max-md:space-y-4 mt-2">
                 <Select
                     property={size}
                     text="size"
@@ -127,7 +127,7 @@ const AddReview = ({ product, setReviews }: any) => {
                 onChange={(e) => setReview(e.target.value)}
                 placeholder="Write you review here..."
             ></textarea>
-            <div className="flex items-center space-x-10">
+            <div className="flex flex-col md:flex-row items-center md:space-x-10">
                 <Rating
                     className="mt-4"
                     name="half-rating-read"

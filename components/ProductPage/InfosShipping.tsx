@@ -3,7 +3,7 @@ import { ChevronDownIcon, StarIcon } from "@heroicons/react/24/solid";
 
 const InfosShipping = ({ product }: any) => {
     return (
-        <div className="rounded-lg border border-gray-300 p-3 flex flex-col row-span-2 md:col-span-2">
+        <div className="max-h-96 rounded-lg border border-gray-300 p-3 flex flex-col row-span-2 md:col-span-2">
             <div className="mb-3 font-semibold">${product.price}</div>
 
             <div className="text-slate-600 text-sm">
@@ -41,18 +41,18 @@ const InfosShipping = ({ product }: any) => {
                 </p>
             </div>
 
-            <button className="py-2 px-4 bg-amazon-orange text-black rounded-full shadow">
+            {/* <button className="py-2 px-4 bg-amazon-orange text-black rounded-full shadow">
                 Add to Cart
-            </button>
+            </button> */}
 
-            <div className="flex items-center mt-4 cursor-pointer">
+            <div className="flex items-center mt-2 cursor-pointer">
                 <LockClosedIcon className="h-4 mr-1" />
                 <p className="text-blue-600 hover:text-amazon-orange">
                     Secure transaction
                 </p>
             </div>
 
-            <table className="my-4 text-sm whitespace-nowrap grid">
+            <table className="my-3 text-sm whitespace-nowrap grid">
                 <tbody>
                     <tr className="grid grid-cols-3">
                         <td className="text-slate-500">Ships from</td>
@@ -72,9 +72,9 @@ const InfosShipping = ({ product }: any) => {
                 </tbody>
             </table>
 
-            <div className="flex w-full bg-slate-200 h-0.5" />
+            {/* <div className="flex w-full bg-slate-200 h-0.5" />
 
-            <div>add to list</div>
+            <div>add to list</div> */}
         </div>
     );
 };

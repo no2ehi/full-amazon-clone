@@ -3,8 +3,9 @@ import { usePagination } from "./Pagination";
 import Image from "next/image";
 import ReviewCard from "./ReviewCard";
 import { Pagination } from "@mui/material";
+import TableHeader from "./TableHeader";
 
-const Table = ({ reviews }: any) => {
+const Table = ({ reviews, allSizes, colors }: any) => {
     console.log("table review: ", reviews);
     const [page, setPage] = useState(1);
     const PER_PAGE = 3;
@@ -18,7 +19,11 @@ const Table = ({ reviews }: any) => {
 
     return (
         <div className="mt-4 flex flex-col">
-            <div>header</div>
+            <TableHeader
+                reviews={reviews}
+                allSizes={[{ size: "All" }, ...allSizes]}
+                colors={[{ color: "All", image: "" }, ...colors]}
+            />
             <div className="my-2">
                 {_DATA.currentData().map((review: any, i: any) => (
                     <ReviewCard review={review} key={i} />
