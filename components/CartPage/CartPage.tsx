@@ -1,12 +1,15 @@
-const CartPage = () => {
+import { useAppSelector } from "@/redux/hooks";
+import Product from "./Product";
+
+const CartPage = ({cart}: any) => {
     return ( 
         <div className="grid grid-row-7 md:grid-cols-7 gap-4 px-2 md:px-4 py-4">
             <div className="col-span-5 bg-white rounded py-2 px-4 border">
                 <h2 className="font-bold text-3xl my-2">Shopping Cart</h2>
-
-                <div className="w-full bg-slate-200 h-0.5" />
-
-
+                <div className="w-full bg-slate-200 h-[1px]" />
+                {cart.cartItems.map((product: any, i: any) => (
+                    <Product product={product} key={i} />
+                ))}
             </div>
 
             <div className="col-span-2 bg-white rounded py-2 px-4 border">

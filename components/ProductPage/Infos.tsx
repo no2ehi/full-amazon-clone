@@ -5,21 +5,24 @@ import Link from "next/link";
 import Image from "next/image";
 import {
     HeartIcon,
-    MinusCircleIcon,
     MinusIcon,
-    PlusCircleIcon,
     PlusIcon,
     ShoppingBagIcon,
 } from "@heroicons/react/24/outline";
 import Share from "./Share";
 import AccoridanProduct from "./AccoridanProduct";
 import axios from "axios";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { addToCart, updateCart } from "../../redux/slices/CartSlice";
 
 const Infos = ({ product, setActiveImg }: any) => {
+    const dispatch = useAppDispatch();
     const router = useRouter();
     const [size, setSize] = useState(router.query.size);
     const [qty, setQty] = useState(1);
-
+    const [error, setError] = useState("");
+    const { cartItems: cart } = useAppSelector((state: any) => state.cart);
+    console.log("cart: ", cart);
     useEffect(() => {
         setSize("");
         setQty(1);
@@ -32,9 +35,39 @@ const Infos = ({ product, setActiveImg }: any) => {
     }, [router.query.size]);
 
     const addToCartHandler = async () => {
-        const { data } = await axios.get(`/api/product/${product._id}?style=${product.style}&size=${router.query.size}`);
-        console.log('data: ',data)
-    }
+        if (!router.query.size) {
+            setError("Please Select a size");
+            return;
+        }
+        const { data } = await axios.get(
+            `/api/product/${product._id}?style=${product.style}&size=${router.query.size}`
+        );
+
+        if (qty > data.quantity) {
+            setError(
+                "the Quantity you have choosed is more than in stock. Try lower the Qty"
+            );
+        } else if (data.quantity < 1) {
+            setError("this Product is out of stock!");
+            return;
+        } else {
+            let _uid = `${product._id}_${product.style}_${router.query.size}`;
+            let exist = cart.find((p: any) => p._uid === _uid);
+            if (exist) {
+                let newCart = cart.map((p: any) => {
+                    if(p._uid == exist._uid) {
+                        return {...p, qty: qty}
+                    }
+                    return p;
+                });
+                dispatch(updateCart(newCart));
+                setError("");
+            } else {
+                dispatch(addToCart({ ...data, qty, size: data.size, _uid }));
+                setError("");
+            }
+        }
+    };
 
     return (
         <div className="flex flex-col row-span-3 md:col-span-3 max-md:px-2 mb-4">
@@ -178,6 +211,11 @@ const Infos = ({ product, setActiveImg }: any) => {
                     <ShoppingBagIcon className="w-8 h-8" />
                     <span className="font-semibold text-xl">ADD TO CART</span>
                 </button>
+                {error && (
+                    <span className="mt-2 text-red-500 font-semibold">
+                        {error}
+                    </span>
+                )}
                 <button className="flex items-center bg-slate-200 text-amazon-blue_light p-2 rounded space-x-2 hover:bg-amazon-blue_light hover:text-slate-100 transition duration-500 ease-in-out max-md:mt-3">
                     <HeartIcon className="w-8 h-8" />
                     <span>WishList</span>
@@ -189,9 +227,11 @@ const Infos = ({ product, setActiveImg }: any) => {
             </div> */}
 
             <div className="mt-4">
-                <AccoridanProduct details={product.details} questions={product.questions} />
+                <AccoridanProduct
+                    details={product.details}
+                    questions={product.questions}
+                />
             </div>
-
         </div>
     );
 };
