@@ -1,17 +1,25 @@
 import Header from "@/components/Header/Header";
 import MenuSideBar from "@/components/Header/MenuSidebar";
 import CartPage from "@/components/CartPage/CartPage";
+import Empty from "@/components/CartPage/Empty";
 
 const Cart = () => {
-    return ( 
+    const cart = [];
+    return (
         <>
             <Header />
-            <main className="bg-slate-100 w-full h-screen">
-                <CartPage />
+            <main className="w-full h-screen">
+                {cart.length > 0 ? (
+                    <>
+                        <CartPage />
+                        <MenuSideBar />
+                    </>
+                ) : (
+                    <Empty />
+                )}
             </main>
-            <MenuSideBar />
         </>
-     );
-}
- 
+    );
+};
+
 export default Cart;
