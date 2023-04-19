@@ -7,19 +7,32 @@ const handler = nc();
 handler.get(async (req, res) => {
     try {
         const id = req.query.id ;
+        const style = req.query.style;
+        const size = req.query.size;
+
         db.connectDb();
-        
         const product = await Product.findById(id).lean();
+        console.log(product,'style: ',style, 'size: ', size)
+        let discount = product.subProducts[style].discount;
+        let priceBefore = product.subProducts[style].sizes[size].price;
+        let price = discount ? priceBefore - priceBefore / discount : priceBefore;
+
         db.disconnectDb();
 
         return res.json({
             _id: product._id,
+            style: Number(style),
             name: product.name,
             description: product.description,
             slug: product.slug,
-            // sku: product.sku,
+            sku: product.subProducts[style].sku,
             brand: product.brand,
             shipping: product.shipping,
+            images: product.subProducts[style].images,
+            color: product.subProducts[style].color,
+            price,
+            priceBefore,
+            quantity: product.subProducts[style].sizes[size].qty,
             category: product.category,
             subCategories: product.subCategories,
             questions: product.questions,

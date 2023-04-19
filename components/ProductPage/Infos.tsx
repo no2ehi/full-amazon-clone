@@ -13,6 +13,7 @@ import {
 } from "@heroicons/react/24/outline";
 import Share from "./Share";
 import AccoridanProduct from "./AccoridanProduct";
+import axios from "axios";
 
 const Infos = ({ product, setActiveImg }: any) => {
     const router = useRouter();
@@ -29,6 +30,11 @@ const Infos = ({ product, setActiveImg }: any) => {
             setQty(product.quantity);
         }
     }, [router.query.size]);
+
+    const addToCartHandler = async () => {
+        const { data } = await axios.get(`/api/product/${product._id}?style=${product.style}&size=${router.query.size}`);
+        console.log('data: ',data)
+    }
 
     return (
         <div className="flex flex-col row-span-3 md:col-span-3 max-md:px-2 mb-4">
@@ -167,6 +173,7 @@ const Infos = ({ product, setActiveImg }: any) => {
                         product.quantity < 1 ? "cursor-not-allowed" : ""
                     }`}
                     disabled={product.quantity < 1}
+                    onClick={() => addToCartHandler()}
                 >
                     <ShoppingBagIcon className="w-8 h-8" />
                     <span className="font-semibold text-xl">ADD TO CART</span>

@@ -10,7 +10,7 @@ import User from "@/models/User";
 
 
 const SingleProduct = ({ product }: any) => {
-    console.log(product);
+    // console.log(product);
     return (
         <>
             <Header title={product.name} />
@@ -43,6 +43,7 @@ export const getServerSideProps = async (context: any) => {
 
     let newProduct = {
         ...product,
+        style,
         images: subProduct.images,
         sizes: subProduct.sizes,
         discount: subProduct.discount,
