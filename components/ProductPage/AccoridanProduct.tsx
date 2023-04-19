@@ -47,7 +47,7 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
 }));
 
 export default function AccoridanProduct({ details, questions }: any) {
-    console.log('question',questions)
+    // console.log('question',questions)
     const [expanded, setExpanded] = React.useState<string | false>();
 
     const handleChange =

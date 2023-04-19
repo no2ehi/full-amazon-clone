@@ -6,7 +6,7 @@ import { Pagination } from "@mui/material";
 import TableHeader from "./TableHeader";
 
 const Table = ({ reviews, allSizes, colors }: any) => {
-    console.log("table review: ", reviews);
+    // console.log("table review: ", reviews);
     const [page, setPage] = useState(1);
     const PER_PAGE = 3;
     const count = Math.ceil(reviews.length / PER_PAGE);
