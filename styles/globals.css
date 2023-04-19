@@ -8,102 +8,110 @@
     }
 
     .show-account-popup {
-        @apply invisible opacity-0 transition duration-500 cursor-default
+        @apply invisible opacity-0 transition duration-500 cursor-default;
     }
 
     .show-account:hover .show-account-popup {
-        @apply visible opacity-100 
+        @apply visible opacity-100;
     }
 
     .show-language-popup {
-        @apply invisible opacity-0 transition duration-500 cursor-default
+        @apply invisible opacity-0 transition duration-500 cursor-default;
     }
 
     .show-language:hover .show-language-popup {
-        @apply visible opacity-100 
+        @apply visible opacity-100;
     }
 
     .button-orange {
-        @apply bg-gradient-to-b from-[#f8e3ad] to-[#EEBA37] border border-[#b0820f] rounded
+        @apply bg-gradient-to-b from-[#f8e3ad] to-[#EEBA37] border border-[#b0820f] rounded;
     }
 
     .menu-sidebar h3 {
-        @apply font-bold text-sm md:text-base px-8 py-3
+        @apply font-bold text-sm md:text-base px-8 py-3;
     }
 
     .menu-sidebar ul > li {
-        @apply text-sm md:text-base flex items-center px-8 py-2.5 md:py-3 hover:bg-gray-200 cursor-pointer
+        @apply text-sm md:text-base flex items-center px-8 py-2.5 md:py-3 hover:bg-gray-200 cursor-pointer;
     }
 
     .menu-sidebar ul > li svg {
-        @apply h-5 ml-auto text-gray-500 stroke-[3] 
+        @apply h-5 ml-auto text-gray-500 stroke-[3];
     }
 
     .link-footer ul {
-        @apply text-slate-200 text-xs space-y-2
+        @apply text-slate-200 text-xs space-y-2;
     }
 
     .link-footer h5 {
-        @apply font-semibold text-white mb-3
+        @apply font-semibold text-white mb-3;
     }
 
-    .link-footer  ul > li {
-        @apply hover:underline 
+    .link-footer ul > li {
+        @apply hover:underline;
     }
 
     .footer-link-services li {
-        @apply w-24 hover:underline text-slate-300 text-xs 
+        @apply w-24 hover:underline text-slate-300 text-xs;
     }
 
-    .footer-link-services li p{
-        @apply text-[#999]
+    .footer-link-services li p {
+        @apply text-[#999];
     }
 
-    .error-input input{
-        @apply bg-red-300 placeholder:text-gray-800 border-gray-500
+    .error-input input {
+        @apply bg-red-300 placeholder:text-gray-800 border-gray-500;
     }
-    .error-input label svg{
-        @apply text-red-500
+    .error-input label svg {
+        @apply text-red-500;
     }
-
 
     /* Admin Dashboard Css */
-    
+
     .show {
-        @apply hidden 
+        @apply hidden;
     }
 
     .opened {
-        @apply w-[280px]
+        @apply w-[280px];
     }
 
     .opened .show {
         @apply flex;
     }
 
-    .error-input-admin span{
-        @apply bg-red-400
+    .error-input-admin span {
+        @apply bg-red-400;
     }
-    .error-input-admin input{
-        @apply border-red-400
-    }
-    
-    .btn-edit-post  {
-        @apply  absolute  top-[35%] left-[15%] flex mt-2 space-x-2 
+    .error-input-admin input {
+        @apply border-red-400;
     }
 
-    .btn-edit-post button{
-        @apply flex w-10 h-10 rounded-full cursor-pointer transition bg-white items-center justify-center shadow
-    }
-    .btn-edit-post button:hover{
-        @apply scale-110 shadow-md rotate-12  ease-in-out
+    .btn-edit-post {
+        @apply absolute  top-[35%] left-[15%] flex mt-2 space-x-2;
     }
 
-    .products-swiper .swiper-button-next, .products-swiper .swiper-button-prev{
-        @apply bg-white w-9 h-9 rounded-full text-slate-800 shadow-md
+    .btn-edit-post button {
+        @apply flex w-10 h-10 rounded-full cursor-pointer transition bg-white items-center justify-center shadow;
     }
-    .products-swiper .swiper-button-next::after, .swiper-button-prev::after{
-        @apply scale-50
+    .btn-edit-post button:hover {
+        @apply scale-110 shadow-md rotate-12  ease-in-out;
     }
 
+    .products-swiper .swiper-button-next,
+    .products-swiper .swiper-button-prev {
+        @apply bg-white w-9 h-9 rounded-full text-slate-800 shadow-md;
+    }
+    .products-swiper .swiper-button-next::after,
+    .swiper-button-prev::after {
+        @apply scale-50;
+    }
+}
+
+.product-cart-mobile {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
 }
