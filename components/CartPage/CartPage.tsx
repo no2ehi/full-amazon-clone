@@ -1,27 +1,60 @@
-import { useAppSelector } from "@/redux/hooks";
+
+import { useSession, signIn } from "next-auth/react";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import CartHeader from "./CartHeader";
+import Checkout from "./Checkout";
+import PaymentMethods from "./PaymentMethods";
 import Product from "./Product";
+import { saveCart } from "../../request/user";
+import axios from "axios";
 
 const CartPage = ({ cart }: any) => {
-    let totalPrice = Number(cart.cartItems.reduce((total: any, product: any) =>  total + (product.price * product.qty) ,0)).toFixed(2);
-    return (
-        <div className="grid grid-row-7 md:grid-cols-7 gap-4 px-2 md:px-4 py-4">
-            <div className="md:col-span-5 bg-white rounded py-2 px-4 border">
-                <h2 className="font-bold text-3xl my-2">Shopping Cart</h2>
-                <div className="w-full bg-slate-200 h-[1px]" />
-                {cart.cartItems.map((product: any, i: any) => (
-                    <Product product={product} key={i} />
-                ))}
-            </div>
+    const { data: session } = useSession();
+    const router = useRouter();
+    const [selected, setSelected] = useState([]);
+    const [shippingFee, setShippingFee] = useState(0);
+    const [subTotal, setSubTotal] = useState(0);
+    const [total, setTotal] = useState(0);
 
-            <div className="md:col-span-2 bg-white rounded py-2 px-4 border">
-                <h3 className="text-xl my-2 font-semibold">
-                    Subtotal ({cart.cartItems.length} item): {totalPrice}$
-                </h3>
-                <div>
-                    <button className="w-full my-4 py-2 px-4 bg-amazon-orange text-black rounded-full shadow">
-                        Add to Cart
-                    </button>
+    useEffect(()=> {
+        setShippingFee(selected.reduce((total: any, product: any) => total + Number(product.shipping), 0).toFixed(2));
+        setSubTotal(selected.reduce((total: any, product: any) => total + product.price * product.qty, 0).toFixed(2));
+        setTotal((selected.reduce((total: any, product: any) => total + product.price * product.qty, 0) + Number(shippingFee)).toFixed(2))
+
+    },[selected]);
+
+    const saveCartToDbHandler = async () => {
+        if(session) {
+            const res = saveCart(cart.cartItems, session.user?.id)
+
+            // router.push("/checkout");
+        } else {
+            signIn();
+        }
+    }
+
+    return (
+        <div className="flex flex-col md:flex-row px-2 py-8 md:px-8 gap-4">
+            <div className="md:w-3/4">
+                <CartHeader cartItems={cart.cartItems} selected={selected} setSelected={setSelected}/>
+                <div className=" bg-white rounded py-2 px-4 border">
+                    <h2 className="font-bold text-3xl my-2">Shopping Cart</h2>
+                    <div className="w-full bg-slate-200 h-[1px]" />
+                    {cart.cartItems.map((product: any, i: any) => (
+                        <Product product={product} key={i} selected={selected} setSelected={setSelected} />
+                    ))}
                 </div>
+            </div>
+            <div className="md:w-1/4"> 
+                <Checkout
+                    subtotal={subTotal}
+                    shippingFee={shippingFee}
+                    total={total}
+                    selected={selected}
+                    saveCartToDbHandler={saveCartToDbHandler}
+                />
+                <PaymentMethods />
             </div>
         </div>
     );

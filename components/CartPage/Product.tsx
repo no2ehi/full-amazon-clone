@@ -7,11 +7,19 @@ import {
 } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import { updateCart } from "../../redux/slices/CartSlice";
 
-const Product = ({ product }: any) => {
+const Product = ({ product, selected, setSelected }: any) => {
     const dispatch = useAppDispatch();
     const cart = useAppSelector((state: any) => state.cart.cartItems);
+    const [active, setActive] = useState();
+
+    useEffect(() => {
+        const check = selected.find((p:any) => p._uid == product._uid);
+        setActive(check);
+    },[selected])
+
 
     const updateQty = (type: any) => {
         let newCart = cart.map((p: any) => {
@@ -31,6 +39,15 @@ const Product = ({ product }: any) => {
         dispatch(updateCart(newCart));
     };
 
+    const handleSelect = () => {
+        const check = selected.find((p:any) => p._uid == product._uid);
+        if(check) {
+            setSelected(selected.filter((p:any) => p._uid !== product._uid))
+        } else {
+            setSelected([...selected, product])
+        }
+    }
+
     return (
         <div className="mt-2 grid grid-cols-3  max-md:grid-rows-1 md:grid-cols-6  border-b p-2 pb-4 last:border-none ">
             <div className="flex flex-col-reverse md:flex-row md:items-center">
@@ -38,6 +55,8 @@ const Product = ({ product }: any) => {
                     type="checkbox"
                     name="product"
                     className="w-5 h-5 cursor-pointer hidden md:block"
+                    onChange={() => handleSelect()}
+                    checked={active}
                 />
                 <Image
                     src={product.images[0].url}
@@ -47,11 +66,11 @@ const Product = ({ product }: any) => {
                     alt={product.name}
                 />
             </div>
-            <div className="col-span-2  md:col-span-4 md:ml-2">
+            <div className="col-span-2  md:col-span-4 ml-4 md:ml-2">
                 <Link href="" target="_blank" className="text-sm font-semibold">
                     {product.name}
                 </Link>
-                <div className="my-2 w-48 flex items-center space-x-3 px-3 py-2 bg-slate-100 rounded-full">
+                <div className="my-2 w-fit  flex items-center space-x-3 px-3 py-2 bg-slate-100 rounded-full">
                     <div className="relative w-10 h-10">
                         <Image
                             src={product.color.image}
@@ -63,8 +82,8 @@ const Product = ({ product }: any) => {
                     <span>{product.size}</span>
                     <span>{product.price.toFixed(2)}</span>
                 </div>
-                <div className="flex items-center">
-                    <span className="font-bold text-xl">
+                <div className="flex flex-col md:flex-row md:items-center">
+                    <span className="font-bold md:text-xl">
                         USD{(product.price * product.qty).toFixed(2)} $
                     </span>
                     <span className="ml-2 text-sm line-through text-slate-400">
@@ -82,7 +101,9 @@ const Product = ({ product }: any) => {
                     <input
                         type="checkbox"
                         name="product"
-                        className="w-5 h-5 cursor-pointer  md:hidden"
+                        className="w-5 h-5 cursor-pointer md:hidden"
+                        onChange={() => handleSelect()}
+                        checked={active}
                     />
                     <HeartIcon className="w-6 h-6 cursor-pointer" />
                     <TrashIcon
