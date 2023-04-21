@@ -3,7 +3,6 @@ import db from "../../../utils/db";
 import Product from "../../../models/Product"
 import User from "../../../models/User"
 import Cart from "../../../models/Cart"
-import { Result } from "postcss";
 
 const handler = nc();
 

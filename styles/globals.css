@@ -106,6 +106,9 @@
     .swiper-button-prev::after {
         @apply scale-50;
     }
+    .move {
+        @apply transition-all duration-150  text-xs -translate-y-2 ;
+    }
 }
 
 .product-cart-mobile {
