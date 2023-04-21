@@ -14,14 +14,32 @@ const Product = ({ product, selected, setSelected }: any) => {
     const dispatch = useAppDispatch();
     const cart = useAppSelector((state: any) => state.cart.cartItems);
     const [active, setActive] = useState();
+    
 
     useEffect(() => {
-        const check = selected.find((p:any) => p._uid == product._uid);
+        console.log("product selected:. ", selected);
+        const check = selected.find((p: any) => p._uid == product._uid);
         setActive(check);
-    },[selected])
-
+    }, [selected]);
 
     const updateQty = (type: any) => {
+        let check = selected.find((p: any) => p._uid == product._uid);
+        if (check) {
+            let newSelected = selected.map((p: any) => {
+                if (p._uid == product._uid) {
+                    return {
+                        ...p,
+                        qty: type == "plus" ? product.qty + 1 : product.qty - 1,
+                    };
+                } else {
+                    {
+                        return p;
+                    }
+                }
+            });
+            setSelected(newSelected);
+        }
+
         let newCart = cart.map((p: any) => {
             if (p._uid == product._uid) {
                 return {
@@ -37,16 +55,17 @@ const Product = ({ product, selected, setSelected }: any) => {
     const removeItemCart = (id: any) => {
         let newCart = cart.filter((p: any) => p._uid != id);
         dispatch(updateCart(newCart));
+        setSelected(selected.filter((p: any) => p._uid !== product._uid));
     };
 
     const handleSelect = () => {
-        const check = selected.find((p:any) => p._uid == product._uid);
-        if(check) {
-            setSelected(selected.filter((p:any) => p._uid !== product._uid))
+        const check = selected.find((p: any) => p._uid == product._uid);
+        if (check) {
+            setSelected(selected.filter((p: any) => p._uid !== product._uid));
         } else {
-            setSelected([...selected, product])
+            setSelected([...selected, product]);
         }
-    }
+    };
 
     return (
         <div className="mt-2 grid grid-cols-3  max-md:grid-rows-1 md:grid-cols-6  border-b p-2 pb-4 last:border-none ">

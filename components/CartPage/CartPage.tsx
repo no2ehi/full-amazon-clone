@@ -17,6 +17,7 @@ const CartPage = ({ cart }: any) => {
     const [subTotal, setSubTotal] = useState(0);
     const [total, setTotal] = useState(0);
 
+
     useEffect(()=> {
         setShippingFee(selected.reduce((total: any, product: any) => total + Number(product.shipping), 0).toFixed(2));
         setSubTotal(selected.reduce((total: any, product: any) => total + product.price * product.qty, 0).toFixed(2));
@@ -26,11 +27,10 @@ const CartPage = ({ cart }: any) => {
 
     const saveCartToDbHandler = async () => {
         if(session) {
-            const res = saveCart(cart.cartItems, session.user?.id)
-
-            // router.push("/checkout");
+            const res = saveCart(selected, session.user?.id)
+            router.push("/checkout");
         } else {
-            signIn();
+            router.push("/auth/singin");
         }
     }
 

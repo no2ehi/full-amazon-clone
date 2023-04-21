@@ -2,11 +2,11 @@ import { useEffect, useState } from "react";
 import { compareArrays } from "../../utils/array_utils";
 
 const CartHeader = ({ cartItems, selected, setSelected }: any) => {
-    const [active, setActive] = useState(false);
+    const [allActive, setAllActive] = useState(false);
 
     useEffect(() => {
         const check = compareArrays(cartItems, selected);
-        setActive(check);
+        setAllActive(check);
     },[selected]);
 
     const handleSelect = () => {
@@ -28,7 +28,7 @@ const CartHeader = ({ cartItems, selected, setSelected }: any) => {
                     type="checkbox"
                     name="product"
                     className="w-5 h-5 cursor-pointer"
-                    checked={active}
+                    checked={allActive}
                     onChange={() => handleSelect()}
                 />
                 <span>Select items</span>

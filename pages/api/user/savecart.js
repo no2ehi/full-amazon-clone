@@ -3,6 +3,7 @@ import db from "../../../utils/db";
 import Product from "../../../models/Product"
 import User from "../../../models/User"
 import Cart from "../../../models/Cart"
+import { Result } from "postcss";
 
 const handler = nc();
 
@@ -15,10 +16,11 @@ handler.post( async (req, res) => {
 
         let exisiting_cart = await Cart.findOne({ user: user._id });
         if(exisiting_cart) {
-            await exisiting_cart.deleteOne();
+            const res = await exisiting_cart.deleteOne().then((resr) => console.log('res: ', resr));
+            console.log('result> ', res)
         }
         
-        for (let i=0 ; i < cart.length ;i++) {
+        for (let i=0 ; i < cart.length ;i++) {``
             let dbProduct = await Product.findById(cart[i]._id).lean();
             let subProduct = dbProduct.subProducts[cart[i].style];
             let tempProduct = {}
