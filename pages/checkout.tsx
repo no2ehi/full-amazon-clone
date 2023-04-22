@@ -11,7 +11,7 @@ import ShippingPage from "@/components/checkoutPage/ShippingPage";
 
 
 const checkout = ({ cart, user }: any) => {
-    const [selectedAddress, setSelectedAddress] = useState("")
+    const [selectedAddress, setSelectedAddress] = useState(user?.address[1])
     return (
         <>
             <Header />

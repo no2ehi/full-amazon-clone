@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import userImageDefault from "../public/assets/images/user-image-default.jpg";
 
 const userSchema = new mongoose.Schema(
     {
@@ -22,7 +23,7 @@ const userSchema = new mongoose.Schema(
         },
         image: {
             type: String,
-            default: "https://i.stack.imgur.com/34AD2.jpg",
+            default: userImageDefault,
         },
         emailVerified: {
             type: Boolean,
