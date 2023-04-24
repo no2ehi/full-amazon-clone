@@ -18,29 +18,28 @@ const ShippingPage = ({ user, addresses, setAddresses }: any) => {
     const [shipping, setShipping] = useState(initialValue);
     const [visible, setVisible] = useState(user?.address.length ? false : true);
 
-
-
     return (
-        <div className="flex flex-col md:flex-row px-2 py-8 md:px-8 gap-4">
-            <div className="md:w-1/2">
-                <ListShipping
-                    visible={visible}
-                    setVisible={setVisible}
+        <>
+            <div className="text-xl font-semibold pb-2 mb-4 border-b border-b-2 ">
+                Shipping Information
+            </div>
+            <ListShipping
+                visible={visible}
+                setVisible={setVisible}
+                addresses={addresses}
+                setAddresses={setAddresses}
+                userImage={user?.image}
+            />
+            {visible && (
+                <AddShipping
+                    shipping={shipping}
+                    setShipping={setShipping}
                     addresses={addresses}
                     setAddresses={setAddresses}
-                    userImage={user?.image}
+                    initialValue={initialValue}
                 />
-                {visible && (
-                    <AddShipping
-                        shipping={shipping}
-                        setShipping={setShipping}
-                        addresses={addresses}
-                        setAddresses={setAddresses}
-                        initialValue={initialValue}
-                    />
-                )}
-            </div>
-        </div>
+            )}
+        </>
     );
 };
 

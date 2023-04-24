@@ -8,27 +8,39 @@ import { useEffect, useState } from "react";
 import Header from "@/components/Header/Header";
 import MenuSideBar from "@/components/Header/MenuSidebar";
 import ShippingPage from "@/components/checkoutPage/ShippingPage";
+import Product from "@/components/checkoutPage/product/Product";
+import Payment from "@/components/checkoutPage/payment/Payment";
 
 const checkout = ({ cart, user }: any) => {
     const [addresses, setAddresses] = useState(user?.address || []);
+    const [paymentMethod, setPaymentMethod] = useState("paypal");
+    // useEffect(() => {
+    //     let check = addresses.find((address: any) => address.active == true);
+    //     if(check) {
 
-    useEffect(() => {
-        let check = addresses.find((address: any) => address.active == true);
-        if(check) {
-
-            setAddresses(addresses)
-        }
-    },[addresses])
+    //         setAddresses(addresses)
+    //     }
+    // },[addresses])
 
     return (
         <>
             <Header />
-            <main className="w-full h-screen">
-                <ShippingPage
-                    user={user}
-                    addresses={addresses}
-                    setAddresses={setAddresses}
-                />
+            <main className="grid grid-cols-3 md:px-10 py-4 gap-8 ">
+                <section className="col-span-2">
+                    <ShippingPage
+                        user={user}
+                        addresses={addresses}
+                        setAddresses={setAddresses}
+                    />
+                    <Product cart={cart} />
+                </section>
+
+                <section className="col-span-1">
+                    <Payment
+                        paymentMethod={paymentMethod}
+                        setPaymentMethod={setPaymentMethod}
+                    />
+                </section>
             </main>
             <MenuSideBar />
         </>
