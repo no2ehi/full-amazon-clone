@@ -3,122 +3,127 @@ import { string } from "yup";
 
 const { ObjectId } = mongoose.Schema;
 
-const OrderSchema = new mongoose.Schema({
-    user: {
-        user: ObjectId,
-        ref: "User",
-        required: true,
-    },
-    products: [
-        product: {
-            type: ObjectId,
-            ref: "Product"
+const OrderSchema = new mongoose.Schema(
+    {
+        user: {
+            user: ObjectId,
+            ref: "User",
+            required: true,
         },
-        name: {
-            type: String,
+        products: [
+            {
+                product: {
+                    type: ObjectId,
+                    ref: "Product",
+                },
+                name: {
+                    type: String,
+                },
+                image: {
+                    type: String,
+                },
+                size: {
+                    type: String,
+                },
+                qty: {
+                    type: Number,
+                },
+                color: {
+                    color: String,
+                    image: String,
+                },
+                price: {
+                    type: Number,
+                },
+                price: {
+                    type: Number,
+                },
+                price: {
+                    type: Number,
+                },
+            },
+        ],
+        shippingAddress: {
+            firstName: {
+                type: String,
+            },
+            LastName: {
+                type: String,
+            },
+            phoneNumber: {
+                type: String,
+            },
+            address1: {
+                type: String,
+            },
+            address2: {
+                type: String,
+            },
+            city: {
+                type: String,
+            },
+            state: {
+                type: String,
+            },
+            zipCode: {
+                type: String,
+            },
+            country: {
+                type: String,
+            },
         },
-        image: {
-            type: String,
+        paymentMethod: {
+            stype: string,
         },
-        size: {
-            type: String,
+        paymentResult: {
+            id: String,
+            status: String,
+            email: String,
         },
-        qty: {
+        total: {
             type: Number,
+            required: true,
         },
-        color: {
-            color: String,
-            image: String,
-        },
-        price: {
+        shippingPrice: {
             type: Number,
+            required: true,
+            default: 0,
         },
-        price: {
+        total: {
+            type: String,
+            required: true,
+        },
+        taxPrice: {
             type: Number,
+            default: 0,
         },
-        price: {
-            type: Number,
-        }
-    ],
-    shippingAddress: [
-        firstName: {
+        isPaid: {
+            type: Boolean,
+            required: true,
+            default: false,
+        },
+        status: {
             type: String,
+            default: "Not Processed",
+            enum: [
+                "Not Processed",
+                "Processing",
+                "Dispatched",
+                "Cancelled",
+                "Completed",
+            ],
         },
-        LastName: {
-            type: String,
+        paidAt: {
+            type: Date,
         },
-        phoneNumber: {
-            type: String,
+        deliveredAt: {
+            type: Date,
         },
-        address1: {
-            type: String,
-        },
-        address2: {
-            type: String,
-        },
-        city: {
-            type: String,
-        },
-        state: {
-            type: String,
-        },
-        zipCode: {
-            type: String,
-        },
-        country: {
-            type: String,
-        },
-    ],
-    paymentMethod: {
-        stype: string,
     },
-    paymentResult: {
-        id: String,
-        status: String,
-        email: String,
-    },
-    total: {
-        type: Number,
-        required: true,
-    },
-    shippingPrice: {
-        type: Number,
-        required: true,
-        default: 0
-    },
-    total: {
-        type: String,
-        required: true,
-    },
-    taxPrice: {
-        type: Number,
-        default: 0
-    },
-    isPaid: {
-        type: Boolean,
-        required: true,
-        default: false,
-    },
-    status: {
-        type: String,
-        default: 'Not Processed',
-        enum: [
-            "Not Processed",
-            "Processing",
-            "Dispatched",
-            "Cancelled",
-            "Completed",
-        ]
-    },
-    paidAt: {
-        type: Date,
-    },
-    deliveredAt: {
-        type: Date,
-    },
-}, {
-    timestamps: true
-});
+    {
+        timestamps: true,
+    }
+);
 
 const Order = mongoose.models.Order || mongoose.model("Order", OrderSchema);
 
