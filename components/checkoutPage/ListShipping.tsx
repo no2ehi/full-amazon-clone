@@ -7,18 +7,36 @@ import {
     PlusSmallIcon,
     UserIcon,
 } from "@heroicons/react/24/outline";
+import { changeActiveAddress } from "@/request/user";
 
-const ListShipping = ({ visible, setVisible, addresses, userImage }: any) => {
+const ListShipping = ({
+    visible,
+    setVisible,
+    addresses,
+    setAddresses,
+    userImage,
+    selectedAddress,
+}: any) => {
+
+    const changeActiveHandler = async (id: any) => {
+        const res = await changeActiveAddress(id);
+        setAddresses(res.addresses);
+    };
+
     return (
         <>
             {addresses.map((address: any) => (
                 <div
-                    className={`p-4 mb-4 border border-slate-100 rounded-xl shadow-md hover:shadow-xl hover:border-white hover:scale-[101%] transition duration-300 ${
-                        !address.active &&
-                        "border-l-4 border-l-amazon-blue_light hover:border-l-amazon-blue_light"
-                    }`}
+                    className={`cursor-pointer p-4 mb-4 border border-slate-100 rounded-xl shadow-md hover:shadow-xl hover:border-white hover:scale-[101%] transition duration-300 ${
+                        !selectedAddress
+                            ? address.active &&
+                              "border-l-4 border-l-amazon-blue_light hover:border-l-amazon-blue_light"
+                            : "border-l-4 border-l-amazon-blue_light hover:border-l-amazon-blue_light"
+                    } `}
                     key={address._id}
+                    onClick={() => changeActiveHandler(address._id)}
                 >
+                    
                     <div className="grid grid-cols-2 justify-center">
                         <div className="mb-4">
                             <Image
@@ -47,8 +65,7 @@ const ListShipping = ({ visible, setVisible, addresses, userImage }: any) => {
                                 <MapPinIcon className="w-5 h-5 mr-1" />
                                 {address.address1}
                             </span>
-                            {address.address2 &&
-                            (
+                            {address.address2 && (
                                 <span className="flex items-center">
                                     <MapPinIcon className="w-5 h-5 mr-1" />
                                     {address.address2}
@@ -62,7 +79,7 @@ const ListShipping = ({ visible, setVisible, addresses, userImage }: any) => {
                             <span>{address.zipCode}</span>
                             <span
                                 className={`flex items-center text-amazon-blue_light font-semibold ${
-                                    !address.active && ""
+                                     !address.active && "hidden"
                                 }`}
                             >
                                 <CheckIcon className="w-5 h-5 " /> Active

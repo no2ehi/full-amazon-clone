@@ -1,8 +1,9 @@
 import nc from "next-connect";
 import db from "../../../utils/db";
 import User from "../../../models/User"
+import auth from "../../../middleware/auth";
 
-const handler = nc();
+const handler = nc().user(auth);
 
 handler.post( async (req, res) => {     
     try {
@@ -13,7 +14,7 @@ handler.post( async (req, res) => {
             $push: {
                 address: address,
             }
-        })
+        }, {new: true})
         db.disconnectDb();
         res.json(address);
     } catch (error) {

@@ -3,20 +3,24 @@ import { getSession } from "next-auth/react";
 import User from "@/models/User";
 import Cart from "@/models/Cart";
 import db from "@/utils/db";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import Header from "@/components/Header/Header";
 import MenuSideBar from "@/components/Header/MenuSidebar";
 import ShippingPage from "@/components/checkoutPage/ShippingPage";
 
-
 const checkout = ({ cart, user }: any) => {
-    const [selectedAddress, setSelectedAddress] = useState(user?.address[1])
+    const [addresses, setAddresses] = useState(user?.address || []);
+
     return (
         <>
             <Header />
             <main className="w-full h-screen">
-                <ShippingPage user={user} selectedAddress={selectedAddress} setSelectedAddress={setSelectedAddress} />
+                <ShippingPage
+                    user={user}
+                    addresses={addresses}
+                    setAddresses={setAddresses}
+                />
             </main>
             <MenuSideBar />
         </>
@@ -31,7 +35,7 @@ export async function getServerSideProps(context: any) {
     const user = await User.findById(session?.user?.id);
     const cart = await Cart.findOne({ user: user?._id });
     db.disconnectDb();
-    console.log("session > ", session, "user > ", user, "cart > ", cart);
+    // console.log("session > ", session, "user > ", user, "cart > ", cart);
     if (!cart) {
         return {
             redirect: {

@@ -15,8 +15,8 @@ handler.post( async (req, res) => {
 
         let exisiting_cart = await Cart.findOne({ user: user._id });
         if(exisiting_cart) {
-            const res = await exisiting_cart.deleteOne().then((resr) => console.log('res: ', resr));
-            console.log('result> ', res)
+            const res = await exisiting_cart.deleteOne();
+            // console.log('result> ', res)
         }
         
         for (let i=0 ; i < cart.length ;i++) {``

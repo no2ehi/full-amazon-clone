@@ -17,7 +17,7 @@ const Product = ({ product, selected, setSelected }: any) => {
     
 
     useEffect(() => {
-        console.log("product selected:. ", selected);
+        // console.log("product selected:. ", selected);
         const check = selected.find((p: any) => p._uid == product._uid);
         setActive(check);
     }, [selected]);

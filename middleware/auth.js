@@ -12,10 +12,9 @@ const auth = async (req, res, next) => {
         req.user = token.sub;
         next();
     } else {
-        res.satus(401).json({ message: "Not signed in: "});
+        res.status(401).json({ message: "Not signed in: "});
     }
-
-    res.end;
+    // res.end();
 };
 
 export default auth;
