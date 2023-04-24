@@ -6,6 +6,7 @@ import { useSession } from "next-auth/react";
 import Product from "@/models/Product";
 import Category from "@/models/Category";
 import HomeProductSwiper from "@/components/Home/HomeProductSwiper";
+import CategoriesProduct from "@/components/Home/CategoriesProduct/CategoriesProducts";
 
 export default function Home({ products }: any) {
     const { data: session } = useSession();
@@ -18,17 +19,20 @@ export default function Home({ products }: any) {
             <Header title="Full Amazon Clone React" />
             <main className="max-w-screen-2xl mx-auto bg-gray-100">
                 <CarouselContainer />
-                
-                <HomeProductSwiper products={products} category="women clothing" />
-                <HomeProductSwiper products={products} category="shoes" />
-                <HomeProductSwiper products={products} category="Beauty" />
-                <HomeProductSwiper products={products} category="Kids" />
-                
-
                 {/* <CategoriesProduct
                     products={products}
                     categories={categories}
                 /> */}
+                <div className="z-50 md:-mt-72 relative">
+                    <HomeProductSwiper
+                        products={products}
+                        category="women clothing"
+                    />
+                    <HomeProductSwiper products={products} category="shoes" />
+                    <HomeProductSwiper products={products} category="Beauty" />
+                    <HomeProductSwiper products={products} category="Kids" />
+                </div>
+
                 {/* {/* <TopProduct allProduct={allProduct} products={products} categories={categories[7]} title="Top Seller" /> */}
                 {/* <TopProduct products={products} categories={categories[2]} title="Popular items in" />  */}
             </main>
@@ -39,9 +43,9 @@ export default function Home({ products }: any) {
 }
 
 export const getServerSideProps = async (context: any) => {
-    // const products = await fetch("https://dummyjson.com/products?limit=100").then((res) =>
-    //     res.json()
-    // );
+    // const products2 = await fetch(
+    //     "https://dummyjson.com/products?limit=100"
+    // ).then((res) => res.json());
     // const categories = await fetch(
     //     "https://dummyjson.com/products/categories"
     // ).then((res) => res.json());
@@ -54,6 +58,8 @@ export const getServerSideProps = async (context: any) => {
     return {
         props: {
             products: JSON.parse(JSON.stringify(products)),
+            // products2: products2,
+            // categories: categories,
         },
     };
 };
