@@ -18,7 +18,7 @@ const Product = ({ cart }: any) => {
                 
                 {cart.products.map((product: any) => (
                     <div key={product._id} className="p-1.5 flex md:flex-col outline outline-1 outline-offset-1 outline-slate-300 rounded-md">
-                        <div className="relative w-[140px] h-[200px]">
+                        <div className="relative w-[200px] h-[220px]">
                             <Image
                                 src={product.image}
                                 alt={product.name}
@@ -28,7 +28,7 @@ const Product = ({ cart }: any) => {
                                 className="rounded-md object-contained"
                             />
                         </div>
-                        <div className=" my-2 text-sm flex items-center justify-between  bg-slate-100 rounded-full">
+                        <div className=" w-fit  text-sm flex items-center  space-x-3 pr-5 my-2  bg-slate-100 rounded-full">
                             <Image
                                 src={product.color.image}
                                 alt={product.name}
@@ -37,9 +37,9 @@ const Product = ({ cart }: any) => {
                                 className="rounded-full"
                             />
                             <span>{product.size}</span>
-                            <span>{product.qty}</span>
+                            <span><b className="text-xs mr-1">X</b>{product.qty}</span>
                         </div>
-                        <div className="mb-2 text-xs">
+                        <div className="mb-2 text-xs font-semibold">
                             {product.name.length > 18
                                 ? `${product.name.substring(0, 18)}...`
                                 : product.name}

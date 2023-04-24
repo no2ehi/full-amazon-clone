@@ -202,7 +202,7 @@ const Infos = ({ product, setActiveImg }: any) => {
 
             <div className="mt-2 flex flex-col md:flex-row md:space-x-3">
                 <button
-                    className={`flex flex-grow items-center justify-center bg-gradient-to-r from-amazon-orange to-yellow-300 text-amazon-blue_dark  p-2 rounded-full space-x-2 hover:text-slate-100 hover:from-amazon-blue_light hover:to-slate-500 hover:shadow-md  ${
+                    className={`flex flex-grow items-center justify-center bg-gradient-to-r from-amazon-orange to-yellow-300 text-amazon-blue_dark  p-2 rounded-full space-x-2 hover:text-slate-100 hover:from-amazon-blue_light hover:to-slate-500 hover:shadow-md transition duration-300 ${
                         product.quantity < 1 ? "cursor-not-allowed" : ""
                     }`}
                     disabled={product.quantity < 1}

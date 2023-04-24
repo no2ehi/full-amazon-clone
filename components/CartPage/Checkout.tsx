@@ -19,7 +19,7 @@ const Checkout = ({ subtotal, shippingFee, total, selected, saveCartToDbHandler 
                 <span>USD{total}$</span>
             </div>
 
-            <button onClick={() => saveCartToDbHandler()} disabled={selected.length == 0} className={`${selected.length == 0 ? "bg-slate-300 text-slate-500 cursor-not-allowed" : "cursor-pointer bg-amazon-orange text-amazon-blue_dark font-semibold bg-gradient-to-r from-amazon-orange to-yellow-300 text-amazon-blue_dark  hover:text-slate-100 hover:from-amazon-blue_light hover:to-slate-200"} w-full my-6 py-2 px-4  p-2 rounded-full space-x-2`}>
+            <button onClick={() => saveCartToDbHandler()} disabled={selected.length == 0} className={`${selected.length == 0 ? "bg-slate-300 text-slate-500 cursor-not-allowed" : "cursor-pointer text-amazon-blue_dark font-semibold bg-gradient-to-r from-amazon-orange to-yellow-300 text-amazon-blue_dark  hover:text-slate-100 hover:from-amazon-blue_light hover:to-slate-300"} w-full my-6 py-2 px-4  p-2 rounded-full space-x-2 transition duration-300`}>
                 Continue
             </button>
         </div>

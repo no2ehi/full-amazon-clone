@@ -22,12 +22,12 @@ const CartPage = ({ cart }: any) => {
         setShippingFee(selected.reduce((total: any, product: any) => total + Number(product.shipping), 0).toFixed(2));
         setSubTotal(selected.reduce((total: any, product: any) => total + product.price * product.qty, 0).toFixed(2));
         setTotal((selected.reduce((total: any, product: any) => total + product.price * product.qty, 0) + Number(shippingFee)).toFixed(2))
-
     },[selected]);
 
     const saveCartToDbHandler = async () => {
         if(session) {
-            const res = saveCart(selected, session.user?.id)
+            const res = await saveCart(selected);
+            console.log('cart page > ',res)
             router.push("/checkout");
         } else {
             router.push("/auth/singin");
