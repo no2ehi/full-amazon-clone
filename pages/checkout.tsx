@@ -12,6 +12,14 @@ import ShippingPage from "@/components/checkoutPage/ShippingPage";
 const checkout = ({ cart, user }: any) => {
     const [addresses, setAddresses] = useState(user?.address || []);
 
+    useEffect(() => {
+        let check = addresses.find((address: any) => address.active == true);
+        if(check) {
+
+            setAddresses(addresses)
+        }
+    },[addresses])
+
     return (
         <>
             <Header />

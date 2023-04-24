@@ -3,11 +3,12 @@ import {
     CheckIcon,
     ChevronUpIcon,
     MapPinIcon,
+    MinusCircleIcon,
     PhoneIcon,
     PlusSmallIcon,
     UserIcon,
 } from "@heroicons/react/24/outline";
-import { changeActiveAddress } from "@/request/user";
+import { changeActiveAddress, deleteAddress } from "@/request/user";
 
 const ListShipping = ({
     visible,
@@ -15,11 +16,14 @@ const ListShipping = ({
     addresses,
     setAddresses,
     userImage,
-    selectedAddress,
 }: any) => {
-
     const changeActiveHandler = async (id: any) => {
         const res = await changeActiveAddress(id);
+        setAddresses(res.addresses);
+    };
+    const deleteHandler = async (id: any, e: any) => {
+        e.stopPropagation();
+        const res = await deleteAddress(id);
         setAddresses(res.addresses);
     };
 
@@ -27,16 +31,23 @@ const ListShipping = ({
         <>
             {addresses.map((address: any) => (
                 <div
-                    className={`cursor-pointer p-4 mb-4 border border-slate-100 rounded-xl shadow-md hover:shadow-xl hover:border-white hover:scale-[101%] transition duration-300 ${
-                        !selectedAddress
-                            ? address.active &&
-                              "border-l-4 border-l-amazon-blue_light hover:border-l-amazon-blue_light"
-                            : "border-l-4 border-l-amazon-blue_light hover:border-l-amazon-blue_light"
+                    className={`relative cursor-pointer p-4 mb-4 border border-slate-100 rounded-xl shadow-md hover:shadow-xl hover:border-white hover:scale-[101%] transition duration-300 ${
+                        address.active &&
+                        "border-l-4 border-l-amazon-blue_light hover:border-l-amazon-blue_light"
                     } `}
                     key={address._id}
                     onClick={() => changeActiveHandler(address._id)}
                 >
-                    
+                    {addresses.length > 1 ? (
+                        <div
+                            className="z-10 absolute top-2 right-2 text-slate-600 hover:text-red-500 hover:scale-110 transition"
+                            onClick={(e) => deleteHandler(address._id, e)}
+                        >
+                            <MinusCircleIcon className="w-6 h-6" />
+                        </div>
+                    ) : (
+                        ""
+                    )}
                     <div className="grid grid-cols-2 justify-center">
                         <div className="mb-4">
                             <Image
@@ -79,7 +90,7 @@ const ListShipping = ({
                             <span>{address.zipCode}</span>
                             <span
                                 className={`flex items-center text-amazon-blue_light font-semibold ${
-                                     !address.active && "hidden"
+                                    !address.active && "hidden"
                                 }`}
                             >
                                 <CheckIcon className="w-5 h-5 " /> Active

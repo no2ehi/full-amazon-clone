@@ -14,10 +14,11 @@ const initialValue = {
     country: "",
 };
 
-const ShippingPage = ({ user, addresses,setAddresses }: any) => {
+const ShippingPage = ({ user, addresses, setAddresses }: any) => {
     const [shipping, setShipping] = useState(initialValue);
     const [visible, setVisible] = useState(user?.address.length ? false : true);
-    // console.log("address > ", addresses, "user > ", user);
+
+
 
     return (
         <div className="flex flex-col md:flex-row px-2 py-8 md:px-8 gap-4">
@@ -35,7 +36,7 @@ const ShippingPage = ({ user, addresses,setAddresses }: any) => {
                         setShipping={setShipping}
                         addresses={addresses}
                         setAddresses={setAddresses}
-                        userId={user._id}
+                        initialValue={initialValue}
                     />
                 )}
             </div>

@@ -12,10 +12,8 @@ import { saveAddress } from "../../request/user";
 const AddShipping = ({
     shipping,
     setShipping,
-    addresses,
     setAddresses,
-    setSelectedAddress,
-    userId
+    initialValue,
 }: any) => {
     const {
         firstName,
@@ -74,9 +72,9 @@ const AddShipping = ({
     };
 
     const submitHandler = async () => {
-        const res = await saveAddress(shipping, userId);
-        setAddresses([...addresses, res]);
-        setSelectedAddress(res);
+        const res = await saveAddress(shipping);
+        setAddresses(res.address);
+        setShipping(initialValue);
     };
 
     return (
