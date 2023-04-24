@@ -25,7 +25,7 @@ const checkout = ({ cart, user }: any) => {
     return (
         <>
             <Header />
-            <main className="grid grid-cols-3 md:px-10 py-4 gap-8 ">
+            <main className="grid grid-cols-3 md:px-10 mb-10 py-4 gap-8 ">
                 <section className="col-span-2">
                     <ShippingPage
                         user={user}

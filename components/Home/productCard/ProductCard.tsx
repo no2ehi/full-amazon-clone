@@ -27,7 +27,7 @@ const ProductCard = ({ product }: any) => {
     // console.log('procut: ', product)
     return (
         <div className="flex flex-col relative">
-            <Link href={`/product/${product.slug}?style=${active}`}>
+            <Link href={`/product/${product.slug}?style=${active}${`${product.subProducts[active].sizes.length > 1 ? '&size='+ active : ''}`}`}>
                 <ProductSwiper images={images} />
             </Link>
             {product.subProducts[active].discount > 0 && (

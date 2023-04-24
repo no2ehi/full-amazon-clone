@@ -133,9 +133,9 @@ const Infos = ({ product, setActiveImg }: any) => {
                         >
                             <div
                                 onClick={() => setSize(size.size)}
-                                className={`flex items-center justify-center w-11 h-11 rounded-full bg-slate-200 text-slate-700 hover:outline hover:outline-1 hover:outline-slate-400 hover:outline-offset-2 ${
+                                className={`flex items-center justify-center w-11 h-11 rounded-full bg-slate-200 text-slate-700 hover:outline hover:outline-1 hover:outline-slate-400 hover:outline-offset-[3px] transition-all transition  ${
                                     i == router.query.size &&
-                                    "font-semibold outline outline-1 outline-slate-400 outline-offset-2 bg-gradient-to-r from-amazon-orange to-slate-100"
+                                    "font-semibold outline outline-1 outline-slate-400 outline-offset-[3px] bg-gradient-to-r from-amazon-orange to-slate-100"
                                 }`}
                             >
                                 {size.size}
@@ -154,9 +154,9 @@ const Infos = ({ product, setActiveImg }: any) => {
                         product.colors.map((color: any, i: any) => (
                             <span
                                 key={i}
-                                className={`rounded-full w-11 h-11 hover:outline outline-1 hover:outline-offset-2 hover:outline-slate-400 ${
+                                className={`rounded-full w-11 h-11 hover:outline outline-1 hover:outline-offset-[3px] hover:outline-slate-400  transition-all transition ${
                                     i == router.query.style
-                                        ? "outline outline-1 outline-offset-2 outline-slate-400"
+                                        ? "outline outline-1 outline-offset-[3px] outline-slate-400"
                                         : ""
                                 }`}
                                 onMouseOver={() =>

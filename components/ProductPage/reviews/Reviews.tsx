@@ -69,7 +69,11 @@ const Reviews = ({ product }: any) => {
                     Login to add review
                 </button>
             )}
-            <Table reviews={reviews} allSizes={product.allSizes} colors={product.colors} />
+            {
+                reviews.length > 0 && (
+                    <Table reviews={reviews} allSizes={product.allSizes} colors={product.colors} />
+                )
+            }
         </div>
     );
 };
