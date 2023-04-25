@@ -17,7 +17,7 @@ const OrderInfo = ({ order }: any) => {
 
             <div className="mt-3 flex items-center">
                 <span className="font-semibold mr-2">Payment Status: </span>
-                {order.isPaid == "Completed" ? (
+                {order.isPaid == true ? (
                     <CheckBadgeIcon className="w-8 h-8 fill-green-500" />
                 ) :  (
                     <XCircleIcon className="w-8 h-8 fill-red-500" />

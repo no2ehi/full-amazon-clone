@@ -1,3 +1,4 @@
+import Payment from "@/components/order/Payment";
 import Header from "@/components/Header/Header";
 import OrderInfo from "@/components/order/OrderInfo";
 import Product from "@/components/order/Product";
@@ -22,6 +23,7 @@ const OrderPage = ({ order }: any) => {
                 </section>
                 <section className="md:col-span-1 h-fit bg-white p-2 md:p-5 rounded-xl border">
                     <UserInfo order={order} />
+                    <Payment order={order} />
                 </section>
             </main>
         </>
