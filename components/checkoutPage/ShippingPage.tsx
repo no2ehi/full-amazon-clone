@@ -14,7 +14,7 @@ const initialValue = {
     country: "",
 };
 
-const ShippingPage = ({ user, addresses, setAddresses }: any) => {
+const ShippingPage = ({ user, addresses, setAddresses,setSelectedAddress }: any) => {
     const [shipping, setShipping] = useState(initialValue);
     const [visible, setVisible] = useState(user?.address.length ? false : true);
 
@@ -37,6 +37,7 @@ const ShippingPage = ({ user, addresses, setAddresses }: any) => {
                     addresses={addresses}
                     setAddresses={setAddresses}
                     initialValue={initialValue}
+                    setSelectedAddress={setSelectedAddress}
                 />
             )}
         </>

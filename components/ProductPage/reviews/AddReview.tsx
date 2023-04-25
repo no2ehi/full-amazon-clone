@@ -52,6 +52,7 @@ const AddReview = ({ product, setReviews }: any) => {
                 msg: "Please add a review!",
                 type: "error",
             });
+            return;
         }
         if (msgs.length > 0) {
             dispatch(

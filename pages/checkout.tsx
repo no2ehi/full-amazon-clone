@@ -38,6 +38,7 @@ const checkout = ({ cart, user }: any) => {
                         user={user}
                         addresses={addresses}
                         setAddresses={setAddresses}
+                        setSelectedAddress={setSelectedAddress}
                     />
                     <Product cart={cart} />
                 </section>

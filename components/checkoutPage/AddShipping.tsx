@@ -14,6 +14,7 @@ const AddShipping = ({
     setShipping,
     setAddresses,
     initialValue,
+    setSelectedAddress
 }: any) => {
     const {
         firstName,
@@ -74,6 +75,7 @@ const AddShipping = ({
     const submitHandler = async () => {
         const res = await saveAddress(shipping);
         setAddresses(res.address);
+        setSelectedAddress(initialValue);
         setShipping(initialValue);
     };
 
