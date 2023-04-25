@@ -45,7 +45,7 @@ const Summary = ({
             if(paymentMethod == ""){
                 setOrder_Error("please choose a payment method.");
                 return;
-            } else if(selectedAddress == "") {
+            } else if(!selectedAddress) {
                 setOrder_Error("please choose a shipping address.");
                 return;
             }
@@ -54,6 +54,8 @@ const Summary = ({
                 shippingAddress: selectedAddress,
                 paymentMethod,
                 total: totalAfterDiscount !== "" ? totalAfterDiscount : cart.cartTotal,
+                totalBeforeDiscount: cart.cartTotal,
+                couponApplied: coupon,
             });
             Router.push(`/order/${data.order_id}`);
         } catch (error:any) {

@@ -46,7 +46,7 @@ const OrderSchema = new mongoose.Schema(
             firstName: {
                 type: String,
             },
-            LastName: {
+            lastName: {
                 type: String,
             },
             phoneNumber: {
@@ -89,8 +89,14 @@ const OrderSchema = new mongoose.Schema(
             default: 0,
         },
         total: {
-            type: String,
+            type: Number,
             required: true,
+        },
+        totalBeforeDiscount:{
+            type: Number,
+        },
+        couponApplied:{
+            type: String,
         },
         taxPrice: {
             type: Number,

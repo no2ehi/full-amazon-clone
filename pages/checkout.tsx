@@ -21,10 +21,12 @@ const checkout = ({ cart, user }: any) => {
         let check = addresses.find((address: any) => address.active == true);
         if(check) {
 
-            setSelectedAddress(addresses)
+            setSelectedAddress(check)
         } else {
             setSelectedAddress("")
         }
+        console.log('selectedAddress >', selectedAddress, 'check > ', check)
+        console.log( 'check > ', check)
     },[addresses])
 
     return (
