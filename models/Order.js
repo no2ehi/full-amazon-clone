@@ -1,12 +1,11 @@
 import mongoose from "mongoose";
-import { string } from "yup";
 
 const { ObjectId } = mongoose.Schema;
 
 const OrderSchema = new mongoose.Schema(
     {
         user: {
-            user: ObjectId,
+            type: ObjectId,
             ref: "User",
             required: true,
         },
@@ -73,7 +72,7 @@ const OrderSchema = new mongoose.Schema(
             },
         },
         paymentMethod: {
-            stype: string,
+            type: String,
         },
         paymentResult: {
             id: String,

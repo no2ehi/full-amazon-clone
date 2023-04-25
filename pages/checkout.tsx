@@ -10,17 +10,22 @@ import MenuSideBar from "@/components/Header/MenuSidebar";
 import ShippingPage from "@/components/checkoutPage/ShippingPage";
 import Product from "@/components/checkoutPage/product/Product";
 import Payment from "@/components/checkoutPage/payment/Payment";
+import Summary from "@/components/checkoutPage/Summary/Summary";
 
 const checkout = ({ cart, user }: any) => {
     const [addresses, setAddresses] = useState(user?.address || []);
     const [paymentMethod, setPaymentMethod] = useState("paypal");
-    // useEffect(() => {
-    //     let check = addresses.find((address: any) => address.active == true);
-    //     if(check) {
+    const [totalAfterDiscount, setTotalAfterDiscount] = useState("");
+    const [selectedAddress, setSelectedAddress] = useState("");
+    useEffect(() => {
+        let check = addresses.find((address: any) => address.active == true);
+        if(check) {
 
-    //         setAddresses(addresses)
-    //     }
-    // },[addresses])
+            setSelectedAddress(addresses)
+        } else {
+            setSelectedAddress("")
+        }
+    },[addresses])
 
     return (
         <>
@@ -40,6 +45,7 @@ const checkout = ({ cart, user }: any) => {
                         paymentMethod={paymentMethod}
                         setPaymentMethod={setPaymentMethod}
                     />
+                    <Summary selectedAddress={selectedAddress}  user={user} cart={cart} paymentMethod={paymentMethod} totalAfterDiscount={totalAfterDiscount} setTotalAfterDiscount={setTotalAfterDiscount} />
                 </section>
             </main>
             <MenuSideBar />
