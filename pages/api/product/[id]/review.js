@@ -62,7 +62,7 @@ handler.put(async (req, res) => {
                 product.numberReviews = product.reviews.length;
                 product.rating = product.reviews.reduce((a, r) => r.rating + a, 0) / product.reviews.length;
                 await product.save();
-                await product.populate("revews.revewBy");
+                await product.populate("reviews.reviewBy");
                 await db.disconnectDb();
                 
                 return res.status(200).json({ reviews: product.reviews.reverse() })

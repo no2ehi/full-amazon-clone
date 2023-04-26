@@ -10,29 +10,16 @@ interface DialogState {
     show: boolean,
     header: string,
     msgs: msgState[],
-    link: {
-        link: string,
-        link_text: string
-    }
+    // link: {
+    //     link: string,
+    //     link_text: string
+    // }
 }
 
 const initialState: DialogState = {
     show: false,
-    header: "error creating product",
-    msgs: [
-        {
-            msg: "choose atleast 2 images",
-            type: "error"
-        },
-        {
-            msg: "choose atleast 2 images",
-            type: "success"
-        },
-    ],
-    link: {
-        link: "",
-        link_text: "",
-    }
+    header: "",
+    msgs: []
 };
 
 export const DialogSlice = createSlice({
@@ -43,15 +30,11 @@ export const DialogSlice = createSlice({
             state.show = true;
             state.header = action.payload.header;
             state.msgs = action.payload.msgs;
-            state.link = action.payload.link;
         },
         hideDialog(state) {
             state.show = false;
             state.header = "";
             state.msgs = [];
-            state.link = {};
-            // state.link.link = "";
-            // state.link.link_text = "";
         },
     }
 });

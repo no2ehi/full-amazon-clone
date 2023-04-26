@@ -13,6 +13,7 @@ let fits = ["Small", "True to size", "Large"];
 
 const AddReview = ({ product, setReviews }: any) => {
     const dispatch = useAppDispatch();
+    const [loading, setLoading] = useState(false);
     const [size, setSize] = useState("");
     const [style, setStyle] = useState("");
     const [fit, setFit] = useState("");
@@ -22,6 +23,7 @@ const AddReview = ({ product, setReviews }: any) => {
     let uploaded_images: any = [];
 
     const handleSubmit = async () => {
+        setLoading(true);
         let msgs = [];
         if (!size) {
             msgs.push({
@@ -41,7 +43,7 @@ const AddReview = ({ product, setReviews }: any) => {
                 type: "error",
             });
         }
-        if (rating == 0) {
+        if (rating < 0.4) {
             msgs.push({
                 msg: "Please select a rating!",
                 type: "error",
@@ -52,7 +54,6 @@ const AddReview = ({ product, setReviews }: any) => {
                 msg: "Please add a review!",
                 type: "error",
             });
-            return;
         }
         if (msgs.length > 0) {
             dispatch(
@@ -61,8 +62,10 @@ const AddReview = ({ product, setReviews }: any) => {
                     msgs,
                 })
             );
+            setLoading(false);
             return;
-        } if (images.length > 0) {
+        }
+        if (images.length > 0) {
             let temp: any = [];
             if (images.length > 0) {
                 temp = images.map((img: any) => dataURItoBlob(img));
@@ -75,23 +78,35 @@ const AddReview = ({ product, setReviews }: any) => {
             });
             uploaded_images = await uploadImages(formData);
             console.log(uploaded_images);
-        }
-        else {
-            const { data } = await axios.put(`/api/product/${product._id}/review`, {
-                size,
-                style,
-                fit,
-                rating,
-                review,
-                images: uploaded_images,
-            });
+        } else {
+            const { data } = await axios.put(
+                `/api/product/${product._id}/review`,
+                {
+                    size,
+                    style,
+                    fit,
+                    rating,
+                    review,
+                    images: uploaded_images,
+                }
+            );
             setReviews(data.reviews);
+            dispatch(
+                showDialog({
+                    header: "Adding review Successfully!",
+                    msgs: [{
+                        msg: "Adding review Successfully.",
+                        type: "success",
+                    }],
+                })
+            );
             setSize("");
             setStyle("");
             setFit("");
             setRating(0);
             setImages([]);
-            setReview("")
+            setReview("");
+            setLoading(false);
         }
     };
 
@@ -139,10 +154,11 @@ const AddReview = ({ product, setReviews }: any) => {
                     style={{ color: "#FACF19", fontSize: "3rem" }}
                 />
                 <button
+                    disabled={loading}
                     onClick={() => handleSubmit()}
-                    className="w-full mt-4 bg-gradient-to-r from-amazon-orange to-yellow-300 p-3 text-amazon-blue_dark font-semibold rounded-md hover:scale-95 transition"
+                    className={`w-full mt-4  p-3  font-semibold rounded-md transition-all ${loading ? 'bg-gradient-to-r from-amazon-blue_light to-slate-400 text-white cursor-not-allowed' : 'bg-gradient-to-r from-amazon-orange to-yellow-300 text-amazon-blue_dark hover:scale-95'}`}
                 >
-                    Submit Review
+                     {loading ? 'loading ...' : 'Submit Review'}
                 </button>
             </div>
         </div>

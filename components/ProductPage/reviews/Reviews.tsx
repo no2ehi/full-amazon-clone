@@ -19,7 +19,6 @@ const Reviews = ({ product }: any) => {
                     <div className="mt-2 max-md:ml-auto flex items-center text-m font-semibold">
                         <Rating
                             name="half-rating-react"
-                            defaultValue={product.rating}
                             value={product.rating}
                             precision={0.5}
                             readOnly

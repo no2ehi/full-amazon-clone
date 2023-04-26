@@ -10,7 +10,7 @@ import CategoriesProduct from "@/components/Home/CategoriesProduct/CategoriesPro
 
 export default function Home({ products }: any) {
     const { data: session } = useSession();
-    console.log("session: ", session);
+    // console.log("session: ", session);
 
     // console.log("all product: ", allProduct);
 

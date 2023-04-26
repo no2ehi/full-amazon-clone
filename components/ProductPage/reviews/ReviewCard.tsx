@@ -34,6 +34,7 @@ const ReviewCard = ({ review }: any) => {
                             name="half-rating-read"
                             readOnly
                             defaultValue={review.rating}
+                            precision={0.5}
                         />
                         <div className="flex items-center ">
                             <HandThumbUpIcon className="h-6 w-6 mr-1 cursor-pointer" />
@@ -57,9 +58,9 @@ const ReviewCard = ({ review }: any) => {
                         </div>
                     </div>
                     <div className="flex flex-col md:flex-row">
-                        <p className="flex flex-grow mt-2 text-slate-800 tracking-wide	">
+                        <div className="flex flex-grow mt-2 text-slate-800 tracking-wide	">
                             {review.review}
-                        </p>
+                        </div>
                         <span className="m-4 flex justify-end space-x-5 w-52">
                             {review.images &&
                                 review.images.map((img: any, i: any) => (

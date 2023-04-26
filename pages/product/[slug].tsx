@@ -8,7 +8,6 @@ import Category from "@/models/Category";
 import SubCategory from "@/models/SubCategory";
 import User from "@/models/User";
 
-
 const SingleProduct = ({ product }: any) => {
     // console.log(product);
     return (
@@ -69,30 +68,46 @@ export const getServerSideProps = async (context: any) => {
         quantity: subProduct.sizes[size].qty,
         ratings: [
             {
-                percentage: 76,
+                percentage: calculatePercentage("5"),
             },
             {
-                percentage: 14,
+                percentage: calculatePercentage("4"),
             },
             {
-                percentage: 6,
+                percentage: calculatePercentage("3"),
             },
             {
-                percentage: 4,
+                percentage: calculatePercentage("2"),
             },
             {
-                percentage: 0,
+                percentage: calculatePercentage("1"),
             },
         ],
         allSizes: product.subProducts
             .map((p: any) => p.sizes)
             .flat()
-            .sort((a: any, b: any) => (a.size - b.size))
+            .sort((a: any, b: any) => a.size - b.size)
             .filter(
                 (element: any, index: any, array: any) =>
-                    (array.findIndex((el2: any) => el2.size === element.size) === index)
+                    array.findIndex((el2: any) => el2.size === element.size) ===
+                    index
             ),
     };
+    
+    function calculatePercentage(num: any) {
+        return (
+            (product.reviews.reduce((total: any, review: any) => {
+                return (
+                    total +
+                    (review.rating == Number(num) ||
+                        review.rating == Number(num) + 0.5)
+                );
+            }, 0) *
+                100) /
+            product.reviews.length
+        ).toFixed(1);
+    }
+
     db.disconnectDb();
 
     return {

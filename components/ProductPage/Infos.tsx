@@ -22,7 +22,7 @@ const Infos = ({ product, setActiveImg }: any) => {
     const [qty, setQty] = useState(1);
     const [error, setError] = useState("");
     const { cartItems: cart } = useAppSelector((state: any) => state.cart);
-    console.log("cart: ", cart);
+    // console.log("cart: ", cart);
     useEffect(() => {
         setSize("");
         setQty(1);
