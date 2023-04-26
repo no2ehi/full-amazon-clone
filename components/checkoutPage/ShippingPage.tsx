@@ -14,21 +14,30 @@ const initialValue = {
     country: "",
 };
 
-const ShippingPage = ({ user, addresses, setAddresses,setSelectedAddress }: any) => {
+const ShippingPage = ({
+    user,
+    addresses,
+    setAddresses,
+    setSelectedAddress,
+    profile,
+}: any) => {
     const [shipping, setShipping] = useState(initialValue);
     const [visible, setVisible] = useState(user?.address.length ? false : true);
 
     return (
         <>
-            <div className="text-xl font-semibold pb-2 mb-4 border-b border-b-2 ">
-                Shipping Information
-            </div>
+            {!profile && (
+                <div className="text-xl font-semibold pb-2 mb-4 border-b border-b-2 ">
+                    Shipping Information
+                </div>
+            )}
             <ListShipping
                 visible={visible}
                 setVisible={setVisible}
                 addresses={addresses}
                 setAddresses={setAddresses}
-                userImage={user?.image}
+                user={user}
+                profile
             />
             {visible && (
                 <AddShipping

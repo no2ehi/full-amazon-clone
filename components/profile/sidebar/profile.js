@@ -1,6 +1,6 @@
-export const profileSidebar =[
+export const profile =[
     {
-        haeding: "My Account",
+        heading: "My Account",
         links: [
             {
                 name: "My Profile",
@@ -21,44 +21,52 @@ export const profileSidebar =[
         ],
     },
     {
-        haeding: "My Orders",
+        heading: "My Orders",
         links: [
             {
                 name: "All Orders",
-                link: "/profile/orders?tab=2",
+                link: "/profile/orders",
+                filter: "",
             },
             {
                 name: "Paid Orders",
-                link: "/profile/orders?filter=paid&tab=2",
+                link: "/profile/orders",
+                filter: "paid",
             },
             {
                 name: "Unpaid Orders",
-                link: "/profile/orders?filter=unpaid&tab=2",
+                link: "/profile/orders",
+                filter: "unpaid",
             },
             {
                 name: "Processing Orders",
-                link: "/profile/orders?filter=processing&tab=2",
+                link: "/profile/orders",
+                filter: "processing",
             },
             {
                 name: "Unprocessed Orders",
-                link: "/profile/orders?filter=unprocessed&tab=2",
+                link: "/profile/orders",
+                filter: "unprocessed",
             },
             {
                 name: "Dispatched Orders",
-                link: "/profile/orders?filter=dispatched&tab=2",
+                link: "/profile/orders",
+                filter: "dispatched",
             },
             {
                 name: "Delivered Orders",
-                link: "/profile/orders?filter=delivered&tab=2",
+                link: "/profile/orders",
+                filter: "Completed",
             },
             {
                 name: "Cancelled Orders",
-                link: "/profile/orders?filter=cancelled&tab=2",
+                link: "/profile/orders",
+                filter: "cancelled",
             },
         ],
     },
     {
-        haeding: "My Lists",
+        heading: "My Lists",
         links: [
             {
                 name: "Whishlist",
@@ -71,7 +79,7 @@ export const profileSidebar =[
         ],
     },
     {
-        haeding: "Customer Service",
+        heading: "Customer Service",
         links: [
             {
                 name: "My Message",
@@ -84,7 +92,7 @@ export const profileSidebar =[
         ],
     },
     {
-        haeding: "Policy",
+        heading: "Policy",
         links: [
             {
                 name: "My Message",
@@ -97,6 +105,8 @@ export const profileSidebar =[
         ],
     },
     {
-        haeding: "Sign Out",
+        heading: "Sign Out",
+        link: []
     },
-]
+];
+

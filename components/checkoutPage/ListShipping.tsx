@@ -15,7 +15,8 @@ const ListShipping = ({
     setVisible,
     addresses,
     setAddresses,
-    userImage,
+    user,
+    profile
 }: any) => {
     const changeActiveHandler = async (id: any) => {
         const res = await changeActiveAddress(id);
@@ -51,7 +52,7 @@ const ListShipping = ({
                     <div className="grid grid-cols-2 justify-center">
                         <div className="mb-4">
                             <Image
-                                src={userImage}
+                                src={profile ? user.user.image : user.image}
                                 alt={address._id}
                                 width={60}
                                 height={60}

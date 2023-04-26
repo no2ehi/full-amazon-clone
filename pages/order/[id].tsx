@@ -23,7 +23,7 @@ const OrderPage = ({ order }: any) => {
                 </section>
                 <section className="md:col-span-1 h-fit bg-white p-2 md:p-5 rounded-xl border">
                     <UserInfo order={order} />
-                    <Payment order={order} />
+                    {order.isPaid == false && (<Payment order={order} />)}
                 </section>
             </main>
         </>

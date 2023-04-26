@@ -109,6 +109,19 @@
     .move {
         @apply transition-all duration-150  text-xs -translate-y-2 ;
     }
+    .table_order {
+        @apply w-full mt-4 border border-slate-300 
+    }
+    .table_order > thead {
+        @apply border border-slate-300
+    }
+    .table_order > thead > tr > td{
+        @apply p-2 bg-slate-300 border border-slate-300 
+    }
+    .table_order > tbody > tr > td{
+        @apply p-2 bg-slate-100 border border-slate-300 text-center
+    }
+   
 }
 
 .product-cart-mobile {

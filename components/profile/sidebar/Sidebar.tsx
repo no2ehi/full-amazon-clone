@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Item from "./Item";
-import { profileSidebar } from "./profileSidebar";
+import { profile } from "./profile";
 
 const Sidebar = ({ data }: any) => {
     return (
@@ -13,17 +13,18 @@ const Sidebar = ({ data }: any) => {
                     height={100}
                     className="rounded-full outline outline-2 outline-offset-[3px] outline-slate-300"
                 />
-                <div className="mt-2 flex flex-col items-center ml-3">
+                <div className="mt-2 flex flex-col items-center">
                     <span className="font-bold text-xl">{data.name}</span>
                     <span className="text-sm text-slate-600">{data.email}</span>
                 </div>
             </div>
             <ul className="mt-4">
-                {profileSidebar.map((item: any, i: any) => (
+                {profile.map((item: any, i: any) => (
                     <Item
                         key={i}
                         item={item}
                         visible={data.tab == i.toString()}
+                        index={i.toString()}
                     />
                 ))}
             </ul>
