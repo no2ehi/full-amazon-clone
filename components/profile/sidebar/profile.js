@@ -16,7 +16,7 @@ export const profile =[
             },
             {
                 name: "Account Security",
-                link: "",
+                link: "/profile/security",
             },
         ],
     },

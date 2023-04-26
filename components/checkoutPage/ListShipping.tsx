@@ -52,7 +52,7 @@ const ListShipping = ({
                     <div className="grid grid-cols-2 justify-center">
                         <div className="mb-4">
                             <Image
-                                src={profile ? user.user.image : user.image}
+                                src={profile ? user.user?.image : user.image}
                                 alt={address._id}
                                 width={60}
                                 height={60}

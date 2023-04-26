@@ -14,7 +14,7 @@ const LoginInput = ({ icon, placeholder, type, ...props}: any) => {
                 ) : icon === "password" ? (
                     <div className="flex items-center mb-1">
                         <LockClosedIcon className="h-4 mr-1" />
-                        {field.name === "conf_password" ? "Confirm Password" : "Password"}
+                        {field.name === "conf_password" ? "Confirm Password" : field.name === "current_password" ? "Current Password" : field.name === "new_password" ? "New Password" : "Passoword"}
                     </div>
                 ) : icon === "user" ? (
                     <div className="flex items-center mb-1">
