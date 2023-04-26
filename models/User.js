@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 // import userImageDefault from "../public/assets/images/user-image-default.jpg";
+const { ObjectId } = mongoose.Schema;
 
 const userSchema = new mongoose.Schema(
     {
@@ -65,6 +66,17 @@ const userSchema = new mongoose.Schema(
                 active: {
                     type: Boolean,
                     default: false,
+                },
+            },
+        ],
+        whishlist: [
+            {
+                product: {
+                    type: ObjectId,
+                    ref: "Product",
+                },
+                style: {
+                    type: String,
                 },
             },
         ],

@@ -14,10 +14,15 @@ import AccoridanProduct from "./AccoridanProduct";
 import axios from "axios";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { addToCart, updateCart } from "../../redux/slices/CartSlice";
+import { useSession, signIn } from "next-auth/react";
+import { showDialog } from "@/redux/slices/DialogSlice";
+import { ArrowPathIcon } from "@heroicons/react/24/solid";
 
 const Infos = ({ product, setActiveImg }: any) => {
+    const { data: session } = useSession();
     const dispatch = useAppDispatch();
     const router = useRouter();
+    const [loading, setLoading] = useState(false);
     const [size, setSize] = useState(router.query.size);
     const [qty, setQty] = useState(1);
     const [error, setError] = useState("");
@@ -35,8 +40,10 @@ const Infos = ({ product, setActiveImg }: any) => {
     }, [router.query.size]);
 
     const addToCartHandler = async () => {
+        setLoading(true);
         if (!router.query.size) {
             setError("Please Select a size");
+            setLoading(false);
             return;
         }
         const { data } = await axios.get(
@@ -47,25 +54,64 @@ const Infos = ({ product, setActiveImg }: any) => {
             setError(
                 "the Quantity you have choosed is more than in stock. Try lower the Qty"
             );
+            setLoading(false);
         } else if (data.quantity < 1) {
             setError("this Product is out of stock!");
+            setLoading(false);
             return;
         } else {
             let _uid = `${product._id}_${product.style}_${router.query.size}`;
             let exist = cart.find((p: any) => p._uid === _uid);
             if (exist) {
                 let newCart = cart.map((p: any) => {
-                    if(p._uid == exist._uid) {
-                        return {...p, qty: qty}
+                    if (p._uid == exist._uid) {
+                        return { ...p, qty: qty };
                     }
                     return p;
                 });
                 dispatch(updateCart(newCart));
                 setError("");
+                setLoading(false);
             } else {
                 dispatch(addToCart({ ...data, qty, size: data.size, _uid }));
                 setError("");
+                setLoading(false);
             }
+        }
+    };
+
+    const handleWishlist = async () => {
+        try {
+            if (!session) {
+                return signIn();
+            }
+            const { data } = await axios.put("/api/user/wishlist", {
+                product_id: product._id,
+                style: product.style,
+            });
+            dispatch(
+                showDialog({
+                    header: "Product added to whishlist successfully.",
+                    msgs: [
+                        {
+                            msg: data.message,
+                            type: "success",
+                        },
+                    ],
+                })
+            );
+        } catch (error: any) {
+            dispatch(
+                showDialog({
+                    header: "whislist Error",
+                    msgs: [
+                        {
+                            msg: error.response.data.message,
+                            type: "error",
+                        },
+                    ],
+                })
+            );
         }
     };
 
@@ -208,18 +254,37 @@ const Infos = ({ product, setActiveImg }: any) => {
                     disabled={product.quantity < 1}
                     onClick={() => addToCartHandler()}
                 >
-                    <ShoppingBagIcon className="w-8 h-8" />
-                    <span className="font-semibold text-xl">ADD TO CART</span>
+                    {loading ? (
+                        <>
+                            <ArrowPathIcon className="w-8 h-8" />
+                            <span className="font-semibold text-xl">
+                                Loading...
+                            </span>
+                        </>
+                    ) : (
+                        <>
+                            <ShoppingBagIcon className="w-8 h-8" />
+                            <span className="font-semibold text-xl">
+                                ADD TO CART
+                            </span>
+                        </>
+                    )}
                 </button>
+
+                <button
+                    onClick={() => handleWishlist()}
+                    className="flex items-center bg-slate-200 text-amazon-blue_light p-2 rounded space-x-2 hover:bg-amazon-blue_light hover:text-slate-100 transition duration-500 ease-in-out max-md:mt-3"
+                >
+                    <HeartIcon className="w-8 h-8" />
+                    <span>WishList</span>
+                </button>
+            </div>
+            <div className="m-2">
                 {error && (
                     <span className="mt-2 text-red-500 font-semibold">
                         {error}
                     </span>
                 )}
-                <button className="flex items-center bg-slate-200 text-amazon-blue_light p-2 rounded space-x-2 hover:bg-amazon-blue_light hover:text-slate-100 transition duration-500 ease-in-out max-md:mt-3">
-                    <HeartIcon className="w-8 h-8" />
-                    <span>WishList</span>
-                </button>
             </div>
 
             {/* <div className="mt-4">
