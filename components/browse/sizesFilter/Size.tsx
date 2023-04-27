@@ -1,7 +1,4 @@
-import { ChevronRightIcon, EllipsisHorizontalIcon, MinusIcon, PlusIcon } from "@heroicons/react/24/solid";
-import { useState } from "react";
-
-const ParentCategory = ({size}: any) => {
+const Size = ({size}: any) => {
     return ( 
         <div className="flex items-center cursor-pointer">
             <input className="cursor-pointer  mr-2 w-4 h-4" type="checkbox" name="size" id={size} />
@@ -12,4 +9,4 @@ const ParentCategory = ({size}: any) => {
      );
 }
  
-export default ParentCategory;
+export default Size;

@@ -1,7 +1,8 @@
 import { MinusIcon, PlusIcon } from "@heroicons/react/24/solid";
 import { useState } from "react";
+import Image from "next/image";
 
-const ColorsFilter = ({ colors }: any) => {
+const BrandsFilter = ({ brands }: any) => {
     const [show, setShow] = useState(true);
     return (
         <div className="w-full">
@@ -9,7 +10,7 @@ const ColorsFilter = ({ colors }: any) => {
                 onClick={() => setShow((prev: any) => !prev)}
                 className={`cursor-pointer my-4 flex items-center justify-between font-semibold `}
             >
-                Colors
+                Brands
                 <span>
                     {show ? (
                         <MinusIcon className="w-5 h-5" />
@@ -19,15 +20,11 @@ const ColorsFilter = ({ colors }: any) => {
                 </span>
             </h3>
             {show && (
-                <div className="flex flex-wrap gap-3">
-                    {colors.map((color: any, i: any) => (
-                        <button
-                            key={i}
-                            className="shadow w-6 h-6 rounded-full hover:outline 
-                            hover:outline-2 hover:outline-offset-4 hover:outline-slate-500
-                            focus:outline focus:outline-2 focus:outline-offset-4 focus:outline-slate-500"
-                            style={{ background: `${color}` }}
-                        ></button>
+                <div className="grid grid-cols-2 gap-3">
+                    {brands.map((brand: any, i: any) => (
+                        <button className="flex justify-center rounded border bg-white py-1 hover:border-slate-500 focus:border-slate-500">
+                            <Image src={`/../public/assets/images/${brand.toLowerCase()}.png`} width={50} height={50} alt={brand.toLowerCase()} />
+                        </button>
                     ))}
                 </div>
             )}
@@ -35,4 +32,4 @@ const ColorsFilter = ({ colors }: any) => {
     );
 };
 
-export default ColorsFilter;
+export default BrandsFilter;

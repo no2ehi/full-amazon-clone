@@ -10,13 +10,26 @@ import { ChevronRightIcon } from "@heroicons/react/24/solid";
 import CategoriesFilter from "@/components/browse/categoriesFilter/CategoriesFilter";
 import SizesFilter from "@/components/browse/sizesFilter/SizesFilter";
 import ColorsFilter from "@/components/browse/colorsFilter/ColorsFilter";
+import BrandsFilter from "@/components/browse/brandsFilter/BrandsFilter";
+import StylesFilter from "@/components/browse/stylesFilter/StylesFilter";
+import MaterialsFilter from "@/components/browse/materialsFilter/MaterialsFilter";
+import GenderFilter from "@/components/browse/genderFilter/GenderFilter";
+import HeadingFilter from "@/components/browse/headingFilter/HeadingFilter";
 
-const browse = ({ categories,subCategories, products,sizes,colors }: any) => {
+const browse = ({
+    categories,
+    subCategories,
+    products,
+    sizes,
+    colors,
+    brands,
+    styles,
+    materials,
+}: any) => {
     return (
         <>
             <Header title={"Browse Products"} />
             <div className="max-w-screen-2xl mx-auto bg-slate-100 p-1 md:p-6 gap-2">
-
                 <div className="flex items-center text-sm">
                     <span className="text-slate-700">Home</span>
                     <ChevronRightIcon className="w-4 h-4 mx-1 fill-slate-600 " />
@@ -35,18 +48,27 @@ const browse = ({ categories,subCategories, products,sizes,colors }: any) => {
                     ))}
                 </div>
 
-                <div className="mt-4 grid grid-cols-5 gap-1 md:gap-5">
-
-                    <div className="flex flex-col md:items-center">
-
-                        <button className={`flex items-center justify-center w-56 h-10 rounded transition-all duration-300 bg-amazon-blue_light text-white hover:scale-95 border-amazon-blue_dark`}>Clear All(3)</button>
-                        <CategoriesFilter categories={categories} subCategories={subCategories} />
+                <div className=" mt-4 grid grid-cols-5 gap-1 md:gap-5">
+                    <div className=" h-[800px] md:col-span-1 flex flex-col md:items-center  overflow-y-auto overflow-x-hidden">
+                        <button
+                            className={`flex items-center justify-center w-56 md:w-full py-2 rounded transition-all duration-300 bg-amazon-blue_light text-white hover:scale-95 border-amazon-blue_dark`}
+                        >
+                            Clear All(3)
+                        </button>
+                        <CategoriesFilter
+                            categories={categories}
+                            subCategories={subCategories}
+                        />
                         <SizesFilter sizes={sizes} />
                         <ColorsFilter colors={colors} />
+                        <BrandsFilter brands={brands} />
+                        <StylesFilter styles={styles} />
+                        <MaterialsFilter materials={materials} />
+                        <GenderFilter />
                     </div>
-                    
+
                     <div className="md:col-span-4 flex flex-wrap gap-3">
-                        <div>other filter</div>
+                        <HeadingFilter />
                         <div className="flex flex-wrap gap-4">
                             {products.map((product: any) => (
                                 <ProductCard
@@ -56,7 +78,6 @@ const browse = ({ categories,subCategories, products,sizes,colors }: any) => {
                             ))}
                         </div>
                     </div>
-
                 </div>
             </div>
         </>
@@ -83,11 +104,9 @@ export async function getServerSideProps(context: any) {
     let styles = removeDublicates(stylesDb);
     let patters = removeDublicates(patternsDb);
     let materials = removeDublicates(materialsDb);
+    let brands = removeDublicates(brandsDb);
 
-    // console.log('materialsDb db > ', materialsDb);
-    // console.log('style db > ', stylesDb);
-    // console.log('sizes > ', sizes);
-    // console.log('sizes randomize > ', randomize(styles));
+    console.log('styles2 > ', styles)
 
     return {
         props: {
@@ -95,7 +114,10 @@ export async function getServerSideProps(context: any) {
             products: JSON.parse(JSON.stringify(products)),
             subCategories: JSON.parse(JSON.stringify(subCategories)),
             sizes,
-            colors
+            colors,
+            brands,
+            styles,
+            materials
         },
     };
 }
