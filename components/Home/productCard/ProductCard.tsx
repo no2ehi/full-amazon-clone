@@ -14,7 +14,6 @@ const ProductCard = ({ product }: any) => {
     const [styles, setStyles] = useState(
         product.subProducts.map((p: any) => p.color)
     );
-    // console.log("styles", styles);
 
     useEffect(() => {
         setImages(product.subProducts[active]?.images);
@@ -24,9 +23,9 @@ const ProductCard = ({ product }: any) => {
                 .sort((a: any, b: any) => a - b)
         );
     }, [active]);
-    // console.log('procut: ', product)
+
     return (
-        <div className="flex flex-col relative">
+        <div className="flex flex-col relative w-[215px] rounded ">
             <Link href={`/product/${product.slug}?style=${active}${`${product.subProducts[active].sizes.length > 1 ? '&size='+ active : ''}`}`}>
                 <ProductSwiper images={images} />
             </Link>
