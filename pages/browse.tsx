@@ -7,17 +7,22 @@ import Header from "@/components/Header/Header";
 import Link from "next/link";
 import ProductCard from "@/components/Home/productCard/ProductCard";
 import { ChevronRightIcon } from "@heroicons/react/24/solid";
+import CategoriesFilter from "@/components/browse/categoriesFilter/CategoriesFilter";
+import SizesFilter from "@/components/browse/sizesFilter/SizesFilter";
+import ColorsFilter from "@/components/browse/colorsFilter/ColorsFilter";
 
-const browse = ({ categories, products }: any) => {
+const browse = ({ categories,subCategories, products,sizes,colors }: any) => {
     return (
         <>
             <Header title={"Browse Products"} />
-            <div className="max-w-screen-2xl mx-auto bg-gray-100 p-1 md:p-6">
-                <div className="flex items-center">
+            <div className="max-w-screen-2xl mx-auto bg-slate-100 p-1 md:p-6 gap-2">
+
+                <div className="flex items-center text-sm">
                     <span className="text-slate-700">Home</span>
                     <ChevronRightIcon className="w-4 h-4 mx-1 fill-slate-600 " />
                     <span className="text-slate-700">Browse</span>
                 </div>
+
                 <div className="mt-2 flex gap-3 flex-wrap">
                     {categories.map((c: any) => (
                         <Link
@@ -29,11 +34,17 @@ const browse = ({ categories, products }: any) => {
                         </Link>
                     ))}
                 </div>
-                <div className="mt-4 grid grid-cols-5">
-                    <div className="">
+
+                <div className="mt-4 grid grid-cols-5 gap-1 md:gap-5">
+
+                    <div className="flex flex-col md:items-center">
+
                         <button className={`flex items-center justify-center w-56 h-10 rounded transition-all duration-300 bg-amazon-blue_light text-white hover:scale-95 border-amazon-blue_dark`}>Clear All(3)</button>
-                        <div>categories</div>
+                        <CategoriesFilter categories={categories} subCategories={subCategories} />
+                        <SizesFilter sizes={sizes} />
+                        <ColorsFilter colors={colors} />
                     </div>
+                    
                     <div className="md:col-span-4 flex flex-wrap gap-3">
                         <div>other filter</div>
                         <div className="flex flex-wrap gap-4">
@@ -45,6 +56,7 @@ const browse = ({ categories, products }: any) => {
                             ))}
                         </div>
                     </div>
+
                 </div>
             </div>
         </>
@@ -81,6 +93,9 @@ export async function getServerSideProps(context: any) {
         props: {
             categories: JSON.parse(JSON.stringify(categories)),
             products: JSON.parse(JSON.stringify(products)),
+            subCategories: JSON.parse(JSON.stringify(subCategories)),
+            sizes,
+            colors
         },
     };
 }
