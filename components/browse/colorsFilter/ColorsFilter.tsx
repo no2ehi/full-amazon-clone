@@ -1,8 +1,12 @@
 import { MinusIcon, PlusIcon } from "@heroicons/react/24/solid";
+import { useRouter } from "next/dist/client/router";
 import { useState } from "react";
 
-const ColorsFilter = ({ colors }: any) => {
+const ColorsFilter = ({ colors, colorHandler }: any) => {
     const [show, setShow] = useState(true);
+    const router = useRouter();
+    const existedColors = router.query.color || "";
+
     return (
         <div className="w-full">
             <h3
@@ -21,7 +25,7 @@ const ColorsFilter = ({ colors }: any) => {
             {show && (
                 <div className="flex flex-wrap gap-3">
                     {colors.map((color: any, i: any) => (
-                        <button
+                        <button onClick={() => colorHandler(`${existedColors ? `${existedColors}_${color}` : color}`)}
                             key={i}
                             className="shadow w-6 h-6 rounded-full hover:outline 
                             hover:outline-2 hover:outline-offset-4 hover:outline-slate-500

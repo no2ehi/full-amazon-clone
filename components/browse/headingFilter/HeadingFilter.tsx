@@ -1,9 +1,11 @@
 import { ChevronDownIcon } from "@heroicons/react/24/solid";
 import { Rating, Tooltip } from "@mui/material";
+import { useRouter } from "next/dist/client/router";
 import Link from "next/link";
 import { useState } from "react";
 
-const HeadingFilter = () => {
+const HeadingFilter = ({ priceHandler, multiPriceHandler }: any) => {
+    const router = useRouter();
     const [show, setShow] = useState(false);
     return (
         <div className="w-full flex items-center gap-x-6">
@@ -14,20 +16,25 @@ const HeadingFilter = () => {
                     type="number"
                     placeholder="min"
                     min="0"
+                    onChange={(e) => priceHandler(e.target.value, "min")}
+                    value={router.query.price?.split("_")[0] || ""}
                 />
                 <input
                     className="mx-1 w-20 rounded border py-1.5 px-2 outline-none"
                     type="number"
                     placeholder="max"
                     max="0"
+                    onChange={(e) => priceHandler(e.target.value, "max")}
+                    value={router.query.price?.split("_")[1] || ""}
                 />
             </div>
 
             <div>
                 <Tooltip
                     title={<h2>Check out products under 10$</h2>}
-                    placeholder="top"
+                    placement="top"
                     arrow
+                    onClick={() => multiPriceHandler(0,10)}
                 >
                     <button className="tooltip_btn">
                         <span style={{ height: "15%" }}></span>
@@ -35,8 +42,9 @@ const HeadingFilter = () => {
                 </Tooltip>
                 <Tooltip
                     title={<h2>Check out products between 10$ and 50$</h2>}
-                    placeholder="top"
+                    placement="top"
                     arrow
+                    onClick={() => multiPriceHandler(10,50)}
                 >
                     <button className="tooltip_btn">
                         <span style={{ height: "30%" }}></span>
@@ -44,8 +52,9 @@ const HeadingFilter = () => {
                 </Tooltip>
                 <Tooltip
                     title={<h2>Check out products between 50$ and 100$</h2>}
-                    placeholder="top"
+                    placement="top"
                     arrow
+                    onClick={() => multiPriceHandler(50,100)}
                 >
                     <button className="tooltip_btn">
                         <span style={{ height: "50%" }}></span>
@@ -53,8 +62,9 @@ const HeadingFilter = () => {
                 </Tooltip>
                 <Tooltip
                     title={<h2>Check out products between 100$ and 500$</h2>}
-                    placeholder="top"
+                    placement="top"
                     arrow
+                    onClick={() => multiPriceHandler(100,500)}
                 >
                     <button className="tooltip_btn">
                         <span style={{ height: "75%" }}></span>
@@ -62,8 +72,9 @@ const HeadingFilter = () => {
                 </Tooltip>
                 <Tooltip
                     title={<h2>Check out products for more than 500$</h2>}
-                    placeholder="top"
+                    placement="top"
                     arrow
+                    onClick={() => multiPriceHandler(500,"")}
                 >
                     <button className="tooltip_btn">
                         <span style={{ height: "100%" }}></span>

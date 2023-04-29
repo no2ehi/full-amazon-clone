@@ -1,8 +1,8 @@
 import { MinusIcon, PlusIcon } from "@heroicons/react/24/solid";
 import { useState } from "react";
 
-const MaterialsFilter = () => {
-    const genders = ["Men", "Women","Unisex"]
+const GenderFilter = ({genderHandler}:any) => {
+    const genders = ["Men", "Women", "Unisex"];
     const [show, setShow] = useState(true);
     return (
         <div className="w-full">
@@ -22,7 +22,7 @@ const MaterialsFilter = () => {
             {show && (
                 <div className="grid grid-cols-2 gap-1">
                     {genders.map((gender: any, i: any) => (
-                        <div key={i} className="flex items-center cursor-pointer">
+                        <div onClick={() => genderHandler(gender)} key={i} className="flex items-center cursor-pointer">
                             <input
                                 className="cursor-pointer  mr-2 w-4 h-4"
                                 type="checkbox"
@@ -43,4 +43,4 @@ const MaterialsFilter = () => {
     );
 };
 
-export default MaterialsFilter;
+export default GenderFilter;

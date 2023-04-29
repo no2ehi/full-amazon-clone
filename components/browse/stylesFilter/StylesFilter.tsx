@@ -2,7 +2,7 @@ import { MinusIcon, PlusIcon } from "@heroicons/react/24/solid";
 import { useState } from "react";
 import Style from "./Style";
 
-const MaterialsFilter = ({styles}: any) => {
+const MaterialsFilter = ({styles, styleHandler}: any) => {
     const [show, setShow] = useState(true);
     return ( 
         <div className="w-full">
@@ -13,7 +13,7 @@ const MaterialsFilter = ({styles}: any) => {
                 show && (
                     <div className="grid grid-cols-2 gap-1">
                         {styles.map((style: any, i:any) => (
-                         <Style key={i} style={style}  />
+                         <Style key={i} style={style} styleHandler={styleHandler} />
                         ))}
                     </div>
                 )

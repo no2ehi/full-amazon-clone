@@ -2,7 +2,7 @@ import { MinusIcon, PlusIcon } from "@heroicons/react/24/solid";
 import { useState } from "react";
 import Size from "./Size";
 
-const sizesFilter = ({sizes}: any) => {
+const sizesFilter = ({sizes, sizeHandler}: any) => {
     const [show, setShow] = useState(true);
     return ( 
         <div className="w-full">
@@ -13,7 +13,7 @@ const sizesFilter = ({sizes}: any) => {
                 show && (
                     <div className="grid grid-cols-2 gap-1">
                         {sizes.map((size: any,i:any) => (
-                         <Size key={i} size={size}  />
+                         <Size key={i} size={size}  sizeHandler={sizeHandler}/>
                         ))}
                     </div>
                 )

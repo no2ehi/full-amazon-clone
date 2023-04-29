@@ -1,30 +1,76 @@
-import { ChevronRightIcon, EllipsisHorizontalIcon, MinusIcon, PlusIcon } from "@heroicons/react/24/solid";
+import {
+    ChevronRightIcon,
+    EllipsisHorizontalIcon,
+    MinusIcon,
+    PlusIcon,
+} from "@heroicons/react/24/solid";
 import { useState } from "react";
 
-const ParentCategory = ({category,subCategories}: any) => {
+const ParentCategory = ({ category, subCategories, categoryHandler, checkChecked }: any) => {
     const [show, setShow] = useState(false);
+    const [activeCat, setActiveCat] = useState(false);
 
-    return ( 
+    const selectSubCategory = subCategories.filter(
+        (c: any) => c.parent?._id == category._id
+    );
+
+    const showSub = (e: any) => {
+        e.stopPropagation();
+        setShow((prev: any) => !prev);
+        setActiveCat((prev: any) => !prev);
+    };
+
+    return (
         <div>
-            <h4 onClick={() => setShow((prev: any) => !prev)} className={`${show && 'text-amazon-blue_light'} cursor-pointer my-2 flex items-center justify-between font-semibold`}>
+            <h4
+                onClick={() => {
+                    categoryHandler(category._id);
+                    setActiveCat((prev: any) => !prev);
+                    setShow((prev: any) => !prev)
+                }}
+                className={`${
+                    activeCat && "text-red-500"
+                } cursor-pointer my-2 flex items-center justify-between font-semibold`}
+            >
                 <span className="flex items-center">
-                    {show ?  <ChevronRightIcon className="w-4 h-4 mr-2" /> :  <EllipsisHorizontalIcon className="w-4 h-4 mr-2" />}{category.name}
+                    {activeCat ? (
+                        <ChevronRightIcon className="w-4 h-4 mr-2" />
+                    ) : (
+                        <EllipsisHorizontalIcon className="w-4 h-4 mr-2" />
+                    )}
+                    {category.name}
                 </span>
-                 <span>{show ? <MinusIcon className="w-4 h-4" /> : <PlusIcon className="w-4 h-4" />}</span>
+                {selectSubCategory.length > 0 && (
+                    <span>
+                        {show ? (
+                            <MinusIcon
+                                className="w-4 h-4"
+                                onClick={(e) => showSub(e)}
+                            />
+                        ) : (
+                            <PlusIcon
+                                className="w-4 h-4"
+                                onClick={(e) => showSub(e)}
+                            />
+                        )}
+                    </span>
+                )}
             </h4>
-            {
-                show && (
-                    <div className="my-1 ml-5">
-                        {subCategories.filter((c: any) => c.parent?._id == category._id).map((sc: any) => (
-                        <h5 onClick={() => setShow((prev: any) => !prev)} className="cursor-pointer flex items-center  hover:font-semibold hover:text-yellow-500">
-                            <EllipsisHorizontalIcon className="w-4 h-4 mr-2" /><span>{sc.name}</span>
+            {show && subCategories.length > 0 && (
+                <div className="my-1 ml-5">
+                    {selectSubCategory.map((sc: any) => (
+                        <h5
+                            // onClick={() => setShow((prev: any) => !prev)}
+                            className="cursor-pointer flex items-center  hover:font-semibold hover:text-yellow-500"
+                        >
+                            <EllipsisHorizontalIcon className="w-4 h-4 mr-2" />
+                            <span>{sc.name}</span>
                         </h5>
-                        ))}
-                    </div>
-                )
-            }
+                    ))}
+                </div>
+            )}
         </div>
-     );
-}
- 
+    );
+};
+
 export default ParentCategory;
