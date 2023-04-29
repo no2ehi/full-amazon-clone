@@ -24,71 +24,65 @@ const HeadingFilter = () => {
             </div>
 
             <div>
-            <Tooltip
-                title={<h2>Check out products under 10$</h2>}
-                placeholder="top"
-                arrow  
-            >
-                <button className="tooltip_btn">
-                    <span style={{ height: "15%" }}></span>
-                </button>
-            </Tooltip>
-            <Tooltip
-                title={<h2>Check out products between 10$ and 50$</h2>}
-                placeholder="top"
-                arrow
-            >
-                <button className="tooltip_btn">
-                    <span
-                        style={{ height: "30%" }}
-                    ></span>
-                </button>
-            </Tooltip>
-            <Tooltip
-                title={<h2>Check out products between 50$ and 100$</h2>}
-                placeholder="top"
-                arrow
-            >
-                <button className="tooltip_btn">
-                    <span
-                        style={{ height: "50%" }}
-                    ></span>
-                </button>
-            </Tooltip>
-            <Tooltip
-                title={<h2>Check out products between 100$ and 500$</h2>}
-                placeholder="top"
-                arrow
-            >
-                <button className="tooltip_btn">
-                    <span
-                        style={{ height: "75%" }}
-                    ></span>
-                </button>
-            </Tooltip>
-            <Tooltip
-                title={<h2>Check out products for more than 500$</h2>}
-                placeholder="top"
-                arrow
-            >
-                <button className="tooltip_btn">
-                    <span
-                        style={{ height: "100%" }}
-                    ></span>
-                </button>
-            </Tooltip>
+                <Tooltip
+                    title={<h2>Check out products under 10$</h2>}
+                    placeholder="top"
+                    arrow
+                >
+                    <button className="tooltip_btn">
+                        <span style={{ height: "15%" }}></span>
+                    </button>
+                </Tooltip>
+                <Tooltip
+                    title={<h2>Check out products between 10$ and 50$</h2>}
+                    placeholder="top"
+                    arrow
+                >
+                    <button className="tooltip_btn">
+                        <span style={{ height: "30%" }}></span>
+                    </button>
+                </Tooltip>
+                <Tooltip
+                    title={<h2>Check out products between 50$ and 100$</h2>}
+                    placeholder="top"
+                    arrow
+                >
+                    <button className="tooltip_btn">
+                        <span style={{ height: "50%" }}></span>
+                    </button>
+                </Tooltip>
+                <Tooltip
+                    title={<h2>Check out products between 100$ and 500$</h2>}
+                    placeholder="top"
+                    arrow
+                >
+                    <button className="tooltip_btn">
+                        <span style={{ height: "75%" }}></span>
+                    </button>
+                </Tooltip>
+                <Tooltip
+                    title={<h2>Check out products for more than 500$</h2>}
+                    placeholder="top"
+                    arrow
+                >
+                    <button className="tooltip_btn">
+                        <span style={{ height: "100%" }}></span>
+                    </button>
+                </Tooltip>
             </div>
 
             <div>
                 <input type="checkbox" name="shipping" id="shipping" />
-                <label htmlFor="shipping" className="ml-1">Free Shipping</label>
+                <label htmlFor="shipping" className="ml-1">
+                    Free Shipping
+                </label>
             </div>
 
             <div className="flex items-center">
                 <input type="checkbox" name="rating" id="rating" />
                 <label htmlFor="rating" className="flex items-center">
                     <Rating
-                        name="half-rating-react" 
+                        name="half-rating-react"
                         defaultValue={5}
                         readOnly
                         style={{ color: "#FACF19 " }}

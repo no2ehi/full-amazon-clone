@@ -15,6 +15,7 @@ import StylesFilter from "@/components/browse/stylesFilter/StylesFilter";
 import MaterialsFilter from "@/components/browse/materialsFilter/MaterialsFilter";
 import GenderFilter from "@/components/browse/genderFilter/GenderFilter";
 import HeadingFilter from "@/components/browse/headingFilter/HeadingFilter";
+import { useRouter } from "next/router";
 
 const browse = ({
     categories,
@@ -26,9 +27,34 @@ const browse = ({
     styles,
     materials,
 }: any) => {
+    const router = useRouter();
+
+    const filter = ({search, category, brand, style}: any) => {
+        const path = router.pathname;
+        const { query } = router;
+        if(search) query.search = search;
+        if(category) query.category = category;
+        if(brand) query.brand = brand;
+        if(style) query.style = style;
+        router.push({
+            pathname: path,
+            query: query
+        })
+
+    }
+
+    const searchHandler = (search: any) => {
+        console.log('search > ', search)
+        if(search == "") {
+            filter({search: {} })
+        } else {
+            filter({search})
+        }
+    }
+
     return (
         <>
-            <Header title={"Browse Products"} />
+            <Header title={"Browse Products"} searchHandler={searchHandler} />
             <div className="max-w-screen-2xl mx-auto bg-slate-100 p-1 md:p-6 gap-2">
                 <div className="flex items-center text-sm">
                     <span className="text-slate-700">Home</span>
@@ -67,9 +93,9 @@ const browse = ({
                         <GenderFilter />
                     </div>
 
-                    <div className="md:col-span-4 flex flex-wrap gap-3">
+                    <div className="md:col-span-4 flex flex-wrap content-start">
                         <HeadingFilter />
-                        <div className="mt-2 flex flex-wrap gap-4">
+                        <div className="mt-6 flex flex-wrap items-start gap-4">
                             {products.map((product: any) => (
                                 <ProductCard
                                     product={product}
@@ -87,8 +113,20 @@ const browse = ({
 export default browse;
 
 export async function getServerSideProps(context: any) {
+    const { query } = context;
+    const searchQuery = query.search || "";
+
+    const search = searchQuery && searchQuery !=="" ? {
+        name: {
+            $regex: searchQuery,
+            $options: "i"
+        }
+    } : {};
+
+
+    // --------------------------------------------------
     db.connectDb();
-    let productsDb = await Product.find().sort({ createdAt: -1 }).lean();
+    let productsDb = await Product.find({...search}).sort({ createdAt: -1 }).lean();
     let products = randomize(productsDb);
     let categories = await Category.find().lean();
     let subCategories = await SubCategory.find()
