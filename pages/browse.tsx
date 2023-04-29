@@ -69,7 +69,7 @@ const browse = ({
 
                     <div className="md:col-span-4 flex flex-wrap gap-3">
                         <HeadingFilter />
-                        <div className="flex flex-wrap gap-4">
+                        <div className="mt-2 flex flex-wrap gap-4">
                             {products.map((product: any) => (
                                 <ProductCard
                                     product={product}

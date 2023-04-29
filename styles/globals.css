@@ -121,6 +121,25 @@
     .table_order > tbody > tr > td{
         @apply p-2 bg-slate-100 border border-slate-300 text-center
     }
+
+    .dropdown_sortby{
+        @apply relative flex items-center
+    }
+    .dropdown_sortby > ul{
+        @apply z-20 absolute top-10 left-0 px-4 bg-white rounded border shadow w-52 h-[250px] transition-all duration-500 overflow-y-auto
+    }
+    .dropdown_sortby > ul > li{
+        @apply py-2 hover:font-semibold
+    }
+    .dropdown_sortby > button {
+        @apply py-2 px-3 rounded border border-slate-300 
+    }
+    .tooltip_btn{
+        @apply relative  w-[30px] h-[30px] cursor-pointer  
+    }
+    .tooltip_btn > span{
+        @apply absolute left-[2px] bottom-0 bg-red-400 w-[27px] hover:bg-red-600
+    }
    
 }
 
@@ -131,3 +150,4 @@
     grid-column-gap: 0px;
     grid-row-gap: 0px;
 }
+
