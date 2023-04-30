@@ -40,7 +40,8 @@ const browse = ({
         gender,
         price,
         shipping,
-        rating
+        rating,
+        sort,
     }: any) => {
         const path = router.pathname;
         const { query } = router;
@@ -55,6 +56,7 @@ const browse = ({
         if (price) query.price = price;
         if (shipping) query.shipping = shipping;
         if (rating) query.rating = rating;
+        if (sort) query.sort = sort;
         router.push({
             pathname: path,
             query: query,
@@ -117,6 +119,13 @@ const browse = ({
     };
     const ratingHandler = (rating: any) => {
         filter({ rating });
+    };
+    const sortHandler = (sort: any) => {
+        if( sort == "") {
+            filter({ sort: {} });
+        } else {
+            filter({ sort });
+        }
     };
 
     const replaceQuery = (queryName: any, value: any) => {
@@ -227,6 +236,7 @@ const browse = ({
                             multiPriceHandler={multiPriceHandler}
                             shippingHandler={shippingHandler}
                             ratingHandler={ratingHandler}
+                            sortHandler={sortHandler}
                             replaceQuery={replaceQuery}
                         />
                         <div className="mt-6 flex flex-wrap items-start gap-4">
@@ -253,6 +263,7 @@ export async function getServerSideProps(context: any) {
     const priceQuery = query.price?.split("_") || "";
     const shippingQuery = query.shipping || 0;
     const ratingQuery = query.rating || "";
+    const sortQuery = query.sort || "";
     // --------------------------------------------------
     const brandQuery = query.brand?.split("_") || "";
     const brandRegex = `^${brandQuery[0]}`;
@@ -375,6 +386,23 @@ export async function getServerSideProps(context: any) {
                   },
               }
             : {};
+
+    const sort =
+        sortQuery == ""
+            ? {}
+            : sortQuery == "popular"
+            ? {  rating: -1, "subProducts.sold": -1 }
+            : sortQuery == "newest"
+            ? { createdAt: -1 }
+            : sortQuery == "topSelling"
+            ? { "subProducts.sold": -1 }
+            : sortQuery == "topReviewed"
+            ? { rating: -1 }
+            : sortQuery == "priceHighToLow"
+            ? { "subProducts.sizes.price": -1 }
+            : sortQuery == "priceLowToHight"
+            ? { "subProducts.sizes.price": 1 }
+            : {};
     // --------------------------------------------------
     function createRegex(data: any, styleRegex: any) {
         if (data.length > 1) {
@@ -399,9 +427,9 @@ export async function getServerSideProps(context: any) {
         ...shipping,
         ...rating,
     })
-        .sort({ createdAt: -1 })
+        .sort(sort)
         .lean();
-    let products = randomize(productsDb);
+    let products = sortQuery && sortQuery !== "" ? productsDb : randomize(productsDb);
     let categories = await Category.find().lean();
     let subCategories = await SubCategory.find()
         .populate({ path: "parent", model: Category })

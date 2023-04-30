@@ -1,4 +1,8 @@
-import { ChevronDownIcon, StarIcon } from "@heroicons/react/24/solid";
+import {
+    CheckIcon,
+    ChevronDownIcon,
+    StarIcon,
+} from "@heroicons/react/24/solid";
 import { Rating, Tooltip } from "@mui/material";
 import { useRouter } from "next/dist/client/router";
 import Link from "next/link";
@@ -10,6 +14,7 @@ const HeadingFilter = ({
     shippingHandler,
     replaceQuery,
     ratingHandler,
+    sortHandler,
 }: any) => {
     const router = useRouter();
     const [show, setShow] = useState(false);
@@ -18,7 +23,7 @@ const HeadingFilter = ({
         router.query.shipping == "0" ? false : "0"
     );
     const checkRating = replaceQuery("rating", "4");
-
+    const sortQuery = router.query.sort || "Recomended";
     return (
         <div className="w-full flex items-end gap-x-6">
             <div>
@@ -139,28 +144,30 @@ const HeadingFilter = ({
             >
                 <span>Sort by:</span>
                 <button className="flex items-center ml-1">
-                    Recommend <ChevronDownIcon className="w-4 h-4 ml-2" />
+                    {sortingOptions.find((x: any) => x.value == sortQuery)
+                        ?.name || "Recommend"}{" "}
+                    <ChevronDownIcon className="w-4 h-4 ml-2" />
                 </button>
                 {show && (
                     <ul>
-                        <li>
-                            <Link href="">Recommend</Link>
-                        </li>
-                        <li>
-                            <Link href="">Most Popular</Link>
-                        </li>
-                        <li>
-                            <Link href="">New Arrivals</Link>
-                        </li>
-                        <li>
-                            <Link href="">Top Reviewed</Link>
-                        </li>
-                        <li>
-                            <Link href="">Price (Low to High)</Link>
-                        </li>
-                        <li>
-                            <Link href="">Price (High to Low)</Link>
-                        </li>
+                        {sortingOptions.map((option: any, i: any) => (
+                            <li
+                                key={i}
+                                onClick={() => sortHandler(option.value)}
+                                className={`flex justify-between ${
+                                    sortQuery == option.value
+                                        ? "font-semibold"
+                                        : ""
+                                }`}
+                            >
+                                <a>{option.name}</a>
+                                {sortQuery == option.value ? (
+                                    <CheckIcon className="w-5 h-5" />
+                                ) : (
+                                    ""
+                                )}
+                            </li>
+                        ))}
                     </ul>
                 )}
             </div>
@@ -169,3 +176,34 @@ const HeadingFilter = ({
 };
 
 export default HeadingFilter;
+
+const sortingOptions = [
+    {
+        name: "Recommend",
+        value: "",
+    },
+    {
+        name: "Most Popular",
+        value: "popular",
+    },
+    {
+        name: "New Arrivals",
+        value: "newest",
+    },
+    {
+        name: "Top Selling",
+        value: "topSelling",
+    },
+    {
+        name: "Top Reviewed",
+        value: "topReviewed",
+    },
+    {
+        name: "Price (Low to High)",
+        value: "priceLowToHight",
+    },
+    {
+        name: "Price (High to Low)",
+        value: "priceHighToLow",
+    },
+];
