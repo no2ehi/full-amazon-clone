@@ -19,7 +19,7 @@ const Search = ({searchHandler}: any) => {
             searchHandler(query);
         }
     };
-    console.log('router > ', router)
+    // console.log('router > ', router)
 
     return (
         <div className="flex-grow relative">

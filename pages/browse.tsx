@@ -18,6 +18,7 @@ import HeadingFilter from "@/components/browse/headingFilter/HeadingFilter";
 import { useRouter } from "next/router";
 import { Pagination } from "@mui/material";
 import { useEffect, useRef, useState } from "react";
+// import DotLoaderSpinner from "@/components/loaders/dotLoader/DotLoaderSpinner";
 
 const browse = ({
     categories,
@@ -31,6 +32,7 @@ const browse = ({
     paginationCount,
 }: any) => {
     const router = useRouter();
+    // const [loading, setloading] = useState(false);
 
     const filter = ({
         search,
@@ -176,52 +178,74 @@ const browse = ({
     const [height, setHeight] = useState(0);
     const headerRef = useRef(null);
     const el = useRef(null);
-
     useEffect(() => {
         const handleScroll = () => {
             setScrollY(window.scrollY);
         };
         handleScroll();
         window.addEventListener("scroll", handleScroll);
-        setHeight(headerRef.current?.offsetHeight + el.current?.offsetHeight + 50);
-
+        setHeight(
+            headerRef.current?.offsetHeight + el.current?.offsetHeight + 50
+        );
+        
         return () => {
             {
                 window.removeEventListener("scroll", handleScroll);
             }
         };
     }, []);
-    console.log(scrollY, height);
 
     return (
         <>
+            {/* {loading && <DotLoaderSpinner loading={loading} />} */}
             <Header title={"Browse Products"} searchHandler={searchHandler} />
             <div className="max-w-screen-2xl mx-auto bg-slate-100 p-1 md:p-6 gap-2">
                 <div ref={headerRef}>
-                    <div  className="flex items-center text-sm">
+                    <div className="flex items-center text-sm">
                         <span className="text-slate-700">Home</span>
                         <ChevronRightIcon className="w-4 h-4 mx-1 fill-slate-600 " />
                         <span className="text-slate-700">Browse</span>
+                        {router.query?.category !== "" && (
+                            <>
+                                <ChevronRightIcon className="w-4 h-4 mx-1 fill-slate-600 " />
+                                <span className="text-slate-700">
+                                    {
+                                        categories.find(
+                                            (x: any) =>
+                                                x._id == router.query.category
+                                        )?.name
+                                    }
+                                </span>
+                            </>
+                        )}
                     </div>
 
-                    <div ref={el} className="mt-2 flex gap-3 flex-wrap">
+                    <div
+                        ref={el}
+                        className="mt-2 flex flex-wrap gap-3 flex-wrap"
+                    >
                         {categories.map((c: any) => (
-                            <Link
-                                className="flex items-center justify-center w-56 h-10 border bg-white rounded  transition-all duration-300 hover:bg-amazon-blue_light hover:text-white hover:scale-95 hover:border-amazon-blue_dark"
-                                href={c.name}
+                            <span
+                                onClick={() => categoryHandler(c._id)}
+                                className={`cursor-pointer flex items-center justify-center w-40 md:w-56 h-10 border bg-white rounded  transition-all duration-300 hover:bg-amazon-blue_light hover:text-white hover:scale-95 hover:border-amazon-blue_dark`}
                                 key={c._id}
                             >
                                 {c.name}
-                            </Link>
+                            </span>
                         ))}
                     </div>
                 </div>
 
                 <div className="relative mt-4 grid grid-cols-5 gap-1 md:gap-5">
-
-                    <div className={`h-[680px] md:col-span-1 flex flex-col md:items-center  overflow-y-auto overflow-x-hidden ${scrollY >= height ? 'fixed w-[274px] top-2 ' : ''}` }>
+                    <div
+                        className={`h-[680px] col-span-5 md:col-span-1 flex flex-col md:items-center  overflow-y-auto overflow-x-hidden ${
+                            scrollY >= height
+                                ? "md:fixed md:w-[274px] md:top-2"
+                                : ""
+                        }`}
+                    >
                         <button
-                            onClick={() => router.push('/browse')}
+                            onClick={() => router.push("/browse")}
                             className={`flex items-center justify-center w-56 md:w-full py-2 rounded transition-all duration-300 bg-amazon-blue_light text-white hover:scale-95 border-amazon-blue_dark`}
                         >
                             Clear All ({Object.keys(router.query).length})
@@ -262,9 +286,14 @@ const browse = ({
                             replaceQuery={replaceQuery}
                         />
                     </div>
-                    <div className={`${scrollY >= height ? 'md:block' : 'hidden'} max-md:hidden md:col-span-1`}></div>
 
-                    <div className="md:col-span-4 flex flex-col content-start">
+                    <div
+                        className={`${
+                            scrollY >= height ? "md:block" : "hidden"
+                        } max-md:hidden md:col-span-1`}
+                    ></div>
+
+                    <div className="col-span-5 md:col-span-4 flex flex-col content-start">
                         <HeadingFilter
                             priceHandler={priceHandler}
                             multiPriceHandler={multiPriceHandler}
@@ -291,7 +320,6 @@ const browse = ({
                             />
                         </div>
                     </div>
-
                 </div>
             </div>
         </>

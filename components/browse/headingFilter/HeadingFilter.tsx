@@ -25,7 +25,7 @@ const HeadingFilter = ({
     const checkRating = replaceQuery("rating", "4");
     const sortQuery = router.query.sort || "Recomended";
     return (
-        <div className="w-full flex items-end gap-x-6">
+        <div className="w-full flex flex-col md:flex-row md:items-end gap-x-6">
             <div>
                 <span className="mr-2">Price:</span>
                 <input
