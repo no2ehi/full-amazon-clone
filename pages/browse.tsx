@@ -16,6 +16,7 @@ import MaterialsFilter from "@/components/browse/materialsFilter/MaterialsFilter
 import GenderFilter from "@/components/browse/genderFilter/GenderFilter";
 import HeadingFilter from "@/components/browse/headingFilter/HeadingFilter";
 import { useRouter } from "next/router";
+import { Pagination } from "@mui/material";
 
 const browse = ({
     categories,
@@ -26,6 +27,7 @@ const browse = ({
     brands,
     styles,
     materials,
+    paginationCount,
 }: any) => {
     const router = useRouter();
 
@@ -42,6 +44,7 @@ const browse = ({
         shipping,
         rating,
         sort,
+        page,
     }: any) => {
         const path = router.pathname;
         const { query } = router;
@@ -57,6 +60,7 @@ const browse = ({
         if (shipping) query.shipping = shipping;
         if (rating) query.rating = rating;
         if (sort) query.sort = sort;
+        if (page) query.page = page;
         router.push({
             pathname: path,
             query: query,
@@ -121,11 +125,14 @@ const browse = ({
         filter({ rating });
     };
     const sortHandler = (sort: any) => {
-        if( sort == "") {
+        if (sort == "") {
             filter({ sort: {} });
         } else {
             filter({ sort });
         }
+    };
+    const pageHandler = (e: any, page: any) => {
+        filter({ page });
     };
 
     const replaceQuery = (queryName: any, value: any) => {
@@ -230,7 +237,7 @@ const browse = ({
                         />
                     </div>
 
-                    <div className="md:col-span-4 flex flex-wrap content-start">
+                    <div className="md:col-span-4 flex flex-col content-start">
                         <HeadingFilter
                             priceHandler={priceHandler}
                             multiPriceHandler={multiPriceHandler}
@@ -246,6 +253,14 @@ const browse = ({
                                     key={product._id}
                                 />
                             ))}
+                        </div>
+                        <div className="w-full my-4 flex items-end justify-end">
+                            <Pagination
+                                count={paginationCount}
+                                variant="outlined"
+                                defaultPage={Number(router.query.page) || 1}
+                                onChange={pageHandler}
+                            />
                         </div>
                     </div>
                 </div>
@@ -264,6 +279,8 @@ export async function getServerSideProps(context: any) {
     const shippingQuery = query.shipping || 0;
     const ratingQuery = query.rating || "";
     const sortQuery = query.sort || "";
+    const pageSize = 10;
+    const page = query.page || 1;
     // --------------------------------------------------
     const brandQuery = query.brand?.split("_") || "";
     const brandRegex = `^${brandQuery[0]}`;
@@ -382,7 +399,7 @@ export async function getServerSideProps(context: any) {
         ratingQuery && ratingQuery !== ""
             ? {
                   rating: {
-                      $gte: ratingQuery,
+                      $gte: Number(ratingQuery),
                   },
               }
             : {};
@@ -391,7 +408,7 @@ export async function getServerSideProps(context: any) {
         sortQuery == ""
             ? {}
             : sortQuery == "popular"
-            ? {  rating: -1, "subProducts.sold": -1 }
+            ? { rating: -1, "subProducts.sold": -1 }
             : sortQuery == "newest"
             ? { createdAt: -1 }
             : sortQuery == "topSelling"
@@ -427,9 +444,12 @@ export async function getServerSideProps(context: any) {
         ...shipping,
         ...rating,
     })
+        .skip(pageSize * (page - 1))
+        .limit(pageSize)
         .sort(sort)
         .lean();
-    let products = sortQuery && sortQuery !== "" ? productsDb : randomize(productsDb);
+    let products =
+        sortQuery && sortQuery !== "" ? productsDb : randomize(productsDb);
     let categories = await Category.find().lean();
     let subCategories = await SubCategory.find()
         .populate({ path: "parent", model: Category })
@@ -447,6 +467,19 @@ export async function getServerSideProps(context: any) {
     let styles = removeDublicates(stylesDb);
     let materials = removeDublicates(materialsDb);
     let brands = removeDublicates(brandsDb);
+    let totalProducts = await Product.countDocuments({
+        ...search,
+        ...category,
+        ...brand,
+        ...style,
+        ...size,
+        ...color,
+        ...material,
+        ...gender,
+        ...price,
+        ...shipping,
+        ...rating,
+    })
 
     return {
         props: {
@@ -458,6 +491,7 @@ export async function getServerSideProps(context: any) {
             brands,
             styles,
             materials,
+            paginationCount: Math.ceil(totalProducts / pageSize),
         },
     };
 }
