@@ -39,6 +39,8 @@ const browse = ({
         material,
         gender,
         price,
+        shipping,
+        rating
     }: any) => {
         const path = router.pathname;
         const { query } = router;
@@ -51,6 +53,8 @@ const browse = ({
         if (material) query.material = material;
         if (gender) query.gender = gender;
         if (price) query.price = price;
+        if (shipping) query.shipping = shipping;
+        if (rating) query.rating = rating;
         router.push({
             pathname: path,
             query: query,
@@ -106,6 +110,13 @@ const browse = ({
 
     const multiPriceHandler = (min: any, max: any) => {
         filter({ price: `${min}_${max}` });
+    };
+
+    const shippingHandler = (shipping: any) => {
+        filter({ shipping });
+    };
+    const ratingHandler = (rating: any) => {
+        filter({ rating });
     };
 
     const replaceQuery = (queryName: any, value: any) => {
@@ -204,13 +215,19 @@ const browse = ({
                             materialHandler={materialHandler}
                             replaceQuery={replaceQuery}
                         />
-                        <GenderFilter genderHandler={genderHandler} replaceQuery={replaceQuery}/>
+                        <GenderFilter
+                            genderHandler={genderHandler}
+                            replaceQuery={replaceQuery}
+                        />
                     </div>
 
                     <div className="md:col-span-4 flex flex-wrap content-start">
                         <HeadingFilter
                             priceHandler={priceHandler}
                             multiPriceHandler={multiPriceHandler}
+                            shippingHandler={shippingHandler}
+                            ratingHandler={ratingHandler}
+                            replaceQuery={replaceQuery}
                         />
                         <div className="mt-6 flex flex-wrap items-start gap-4">
                             {products.map((product: any) => (
@@ -234,6 +251,8 @@ export async function getServerSideProps(context: any) {
     const searchQuery = query.search || "";
     const categoryQuery = query.category || "";
     const priceQuery = query.price?.split("_") || "";
+    const shippingQuery = query.shipping || 0;
+    const ratingQuery = query.rating || "";
     // --------------------------------------------------
     const brandQuery = query.brand?.split("_") || "";
     const brandRegex = `^${brandQuery[0]}`;
@@ -342,6 +361,20 @@ export async function getServerSideProps(context: any) {
                   },
               }
             : {};
+    const shipping =
+        shippingQuery && shippingQuery == "0"
+            ? {
+                  shipping: 0,
+              }
+            : {};
+    const rating =
+        ratingQuery && ratingQuery !== ""
+            ? {
+                  rating: {
+                      $gte: ratingQuery,
+                  },
+              }
+            : {};
     // --------------------------------------------------
     function createRegex(data: any, styleRegex: any) {
         if (data.length > 1) {
@@ -363,6 +396,8 @@ export async function getServerSideProps(context: any) {
         ...material,
         ...gender,
         ...price,
+        ...shipping,
+        ...rating,
     })
         .sort({ createdAt: -1 })
         .lean();

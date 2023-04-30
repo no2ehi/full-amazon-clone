@@ -1,14 +1,26 @@
-import { ChevronDownIcon } from "@heroicons/react/24/solid";
+import { ChevronDownIcon, StarIcon } from "@heroicons/react/24/solid";
 import { Rating, Tooltip } from "@mui/material";
 import { useRouter } from "next/dist/client/router";
 import Link from "next/link";
 import { useState } from "react";
 
-const HeadingFilter = ({ priceHandler, multiPriceHandler }: any) => {
+const HeadingFilter = ({
+    priceHandler,
+    multiPriceHandler,
+    shippingHandler,
+    replaceQuery,
+    ratingHandler,
+}: any) => {
     const router = useRouter();
     const [show, setShow] = useState(false);
+    const check = replaceQuery(
+        "shipping",
+        router.query.shipping == "0" ? false : "0"
+    );
+    const checkRating = replaceQuery("rating", "4");
+
     return (
-        <div className="w-full flex items-center gap-x-6">
+        <div className="w-full flex items-end gap-x-6">
             <div>
                 <span className="mr-2">Price:</span>
                 <input
@@ -34,7 +46,7 @@ const HeadingFilter = ({ priceHandler, multiPriceHandler }: any) => {
                     title={<h2>Check out products under 10$</h2>}
                     placement="top"
                     arrow
-                    onClick={() => multiPriceHandler(0,10)}
+                    onClick={() => multiPriceHandler(0, 10)}
                 >
                     <button className="tooltip_btn">
                         <span style={{ height: "15%" }}></span>
@@ -44,7 +56,7 @@ const HeadingFilter = ({ priceHandler, multiPriceHandler }: any) => {
                     title={<h2>Check out products between 10$ and 50$</h2>}
                     placement="top"
                     arrow
-                    onClick={() => multiPriceHandler(10,50)}
+                    onClick={() => multiPriceHandler(10, 50)}
                 >
                     <button className="tooltip_btn">
                         <span style={{ height: "30%" }}></span>
@@ -54,7 +66,7 @@ const HeadingFilter = ({ priceHandler, multiPriceHandler }: any) => {
                     title={<h2>Check out products between 50$ and 100$</h2>}
                     placement="top"
                     arrow
-                    onClick={() => multiPriceHandler(50,100)}
+                    onClick={() => multiPriceHandler(50, 100)}
                 >
                     <button className="tooltip_btn">
                         <span style={{ height: "50%" }}></span>
@@ -64,7 +76,7 @@ const HeadingFilter = ({ priceHandler, multiPriceHandler }: any) => {
                     title={<h2>Check out products between 100$ and 500$</h2>}
                     placement="top"
                     arrow
-                    onClick={() => multiPriceHandler(100,500)}
+                    onClick={() => multiPriceHandler(100, 500)}
                 >
                     <button className="tooltip_btn">
                         <span style={{ height: "75%" }}></span>
@@ -74,7 +86,7 @@ const HeadingFilter = ({ priceHandler, multiPriceHandler }: any) => {
                     title={<h2>Check out products for more than 500$</h2>}
                     placement="top"
                     arrow
-                    onClick={() => multiPriceHandler(500,"")}
+                    onClick={() => multiPriceHandler(500, "")}
                 >
                     <button className="tooltip_btn">
                         <span style={{ height: "100%" }}></span>
@@ -83,23 +95,40 @@ const HeadingFilter = ({ priceHandler, multiPriceHandler }: any) => {
             </div>
 
             <div>
-                <input type="checkbox" name="shipping" id="shipping" />
-                <label htmlFor="shipping" className="ml-1">
+                <label
+                    onClick={() => shippingHandler(check.result)}
+                    htmlFor="shipping"
+                    className="flex items-center cursor-pointer"
+                >
+                    <input
+                        className="w-4 h-4 mr-1.5"
+                        type="checkbox"
+                        name="shipping"
+                        id="shipping"
+                        checked={router.query.shipping == "0"}
+                    />
                     Free Shipping
                 </label>
             </div>
 
-            <div className="flex items-center">
-                <input type="checkbox" name="rating" id="rating" />
-                <label htmlFor="rating" className="flex items-center">
-                    <Rating
-                        name="half-rating-react"
-                        defaultValue={5}
-                        readOnly
-                        style={{ color: "#FACF19 " }}
-                        className="text-red-300"
+            <div>
+                <label
+                    onClick={() => ratingHandler(checkRating.result)}
+                    htmlFor="rating"
+                    className="flex items-center cursor-pointer"
+                >
+                    <input
+                        className="mr-1 h-4 w-4"
+                        type="checkbox"
+                        name="rating"
+                        id="rating"
+                        checked={router.query.rating == "4"}
                     />
-                    & up
+                    <StarIcon className="h-5 w-5 fill-[#FACF19]" />
+                    <StarIcon className="h-5 w-5 fill-[#FACF19]" />
+                    <StarIcon className="h-5 w-5 fill-[#FACF19]" />
+                    <StarIcon className="h-5 w-5 fill-[#FACF19]" />
+                    <span className="ml-1">& up</span>
                 </label>
             </div>
 
