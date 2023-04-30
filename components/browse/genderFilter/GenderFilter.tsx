@@ -1,7 +1,7 @@
 import { MinusIcon, PlusIcon } from "@heroicons/react/24/solid";
 import { useState } from "react";
 
-const GenderFilter = ({genderHandler}:any) => {
+const GenderFilter = ({ genderHandler, replaceQuery }: any) => {
     const genders = ["Men", "Women", "Unisex"];
     const [show, setShow] = useState(true);
     return (
@@ -21,22 +21,25 @@ const GenderFilter = ({genderHandler}:any) => {
             </h3>
             {show && (
                 <div className="grid grid-cols-2 gap-1">
-                    {genders.map((gender: any, i: any) => (
-                        <div onClick={() => genderHandler(gender)} key={i} className="flex items-center cursor-pointer">
-                            <input
-                                className="cursor-pointer  mr-2 w-4 h-4"
-                                type="checkbox"
-                                name="gender"
-                                id={gender}
-                            />
+                    {genders.map((gender: any, i: any) => {
+                        const check = replaceQuery("gender", gender);
+                        return (
                             <label
-                                className="cursor-pointer "
+                                onClick={() => genderHandler(check.result)}
+                                className="flex items-center cursor-pointer"
                                 htmlFor={gender}
                             >
+                                <input
+                                    className="cursor-pointer  mr-2 w-4 h-4"
+                                    type="checkbox"
+                                    name="gender"
+                                    id={gender}
+                                    checked={check.active}
+                                />
                                 {gender}
                             </label>
-                        </div>
-                    ))}
+                        );
+                    })}
                 </div>
             )}
         </div>

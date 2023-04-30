@@ -2,7 +2,7 @@ import { MinusIcon, PlusIcon } from "@heroicons/react/24/solid";
 import { useRouter } from "next/dist/client/router";
 import { useState } from "react";
 
-const ColorsFilter = ({ colors, colorHandler }: any) => {
+const ColorsFilter = ({ colors, colorHandler, replaceQuery }: any) => {
     const [show, setShow] = useState(true);
     const router = useRouter();
     const existedColors = router.query.color || "";
@@ -24,15 +24,21 @@ const ColorsFilter = ({ colors, colorHandler }: any) => {
             </h3>
             {show && (
                 <div className="flex flex-wrap gap-3">
-                    {colors.map((color: any, i: any) => (
-                        <button onClick={() => colorHandler(`${existedColors ? `${existedColors}_${color}` : color}`)}
-                            key={i}
-                            className="shadow w-6 h-6 rounded-full hover:outline 
-                            hover:outline-2 hover:outline-offset-4 hover:outline-slate-500
-                            focus:outline focus:outline-2 focus:outline-offset-4 focus:outline-slate-500"
-                            style={{ background: `${color}` }}
-                        ></button>
-                    ))}
+                    {colors.map((color: any, i: any) => {
+                        const check = replaceQuery("color", color);
+                        return (
+                            <button
+                                onClick={() =>
+                                    colorHandler(check.result)
+                                }
+                                key={i}
+                                className={`shadow w-6 h-6 rounded-full hover:outline 
+                                hover:outline-2 hover:outline-offset-4 hover:outline-slate-500
+                                ${check.active ? 'outline outline-[3px] outline-offset-[3px] outline-slate-500' : ''}`}
+                                style={{ background: `${color}` }}
+                            ></button>
+                        )
+                    })}
                 </div>
             )}
         </div>

@@ -94,15 +94,13 @@ const browse = ({
         let min = priceQuery[0] || "";
         let max = priceQuery[1] || "";
         let newPrice = "";
-        if(type == "min") {
+        if (type == "min") {
             newPrice = `${price}_${max}`;
         } else {
             newPrice = `${min}_${price}`;
         }
         // setTimeout(() => {
-
-            filter({price: newPrice});
-            
+        filter({ price: newPrice });
         // },2000)
     };
 
@@ -110,12 +108,41 @@ const browse = ({
         filter({ price: `${min}_${max}` });
     };
 
-    function checkChecked(queryName: any, value: any) {
-        if(router.query?.[queryName]?.search(value) !== -1) {
-            return true
+    const replaceQuery = (queryName: any, value: any) => {
+        const existedQeury = router.query[queryName];
+        const valueCheck = existedQeury?.search(value);
+        const _check = existedQeury?.search(`_${value}`);
+        let result = null;
+        if (existedQeury) {
+            if (existedQeury == value) {
+                result = {};
+            } else {
+                if (valueCheck !== -1) {
+                    // if filtered value is in query & we want to remove it.
+                    if (_check !== -1) {
+                        // last
+                        result = existedQeury?.replace(`_${value}`, "");
+                    } else if (valueCheck == 0) {
+                        // first
+                        result = existedQeury?.replace(`${value}_`, "");
+                    } else {
+                        // middle
+                        result = existedQeury?.replace(value, "");
+                    }
+                } else {
+                    // if filtered value doesn't exist in Query & we wan to add it.
+                    result = `${existedQeury}_${value}`;
+                }
+            }
+        } else {
+            result = value;
         }
-        return false;
-    }
+
+        return {
+            result,
+            active: existedQeury && valueCheck !== -1 ? true : false,
+        };
+    };
 
     return (
         <>
@@ -150,30 +177,41 @@ const browse = ({
                             categories={categories}
                             subCategories={subCategories}
                             categoryHandler={categoryHandler}
-                            checkChecked
+                            replaceQuery={replaceQuery}
                         />
-                        <SizesFilter sizes={sizes} sizeHandler={sizeHandler} />
+                        <SizesFilter
+                            sizes={sizes}
+                            sizeHandler={sizeHandler}
+                            replaceQuery={replaceQuery}
+                        />
                         <ColorsFilter
                             colors={colors}
                             colorHandler={colorHandler}
+                            replaceQuery={replaceQuery}
                         />
                         <BrandsFilter
                             brands={brands}
                             brandHandler={brandHandler}
+                            replaceQuery={replaceQuery}
                         />
                         <StylesFilter
                             styles={styles}
                             styleHandler={styleHandler}
+                            replaceQuery={replaceQuery}
                         />
                         <MaterialsFilter
                             materials={materials}
                             materialHandler={materialHandler}
+                            replaceQuery={replaceQuery}
                         />
-                        <GenderFilter genderHandler={genderHandler} />
+                        <GenderFilter genderHandler={genderHandler} replaceQuery={replaceQuery}/>
                     </div>
 
                     <div className="md:col-span-4 flex flex-wrap content-start">
-                        <HeadingFilter priceHandler={priceHandler} multiPriceHandler={multiPriceHandler} />
+                        <HeadingFilter
+                            priceHandler={priceHandler}
+                            multiPriceHandler={multiPriceHandler}
+                        />
                         <div className="mt-6 flex flex-wrap items-start gap-4">
                             {products.map((product: any) => (
                                 <ProductCard
@@ -346,8 +384,6 @@ export async function getServerSideProps(context: any) {
     let styles = removeDublicates(stylesDb);
     let materials = removeDublicates(materialsDb);
     let brands = removeDublicates(brandsDb);
-
-    console.log("styles2 > ", styles);
 
     return {
         props: {

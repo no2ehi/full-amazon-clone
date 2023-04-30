@@ -6,7 +6,7 @@ const CategoriesFilter = ({
     categories,
     subCategories,
     categoryHandler,
-    checkChecked
+    replaceQuery
 }: any) => {
     const [show, setShow] = useState(true);
     return (
@@ -36,8 +36,7 @@ const CategoriesFilter = ({
                         category={c}
                         subCategories={subCategories}
                         categoryHandler={categoryHandler}
-
-                        checkChecked
+                        replaceQuery={replaceQuery}
                     />
                 ))}
         </div>

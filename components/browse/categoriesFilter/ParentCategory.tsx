@@ -6,9 +6,10 @@ import {
 } from "@heroicons/react/24/solid";
 import { useState } from "react";
 
-const ParentCategory = ({ category, subCategories, categoryHandler, checkChecked }: any) => {
+const ParentCategory = ({ category, subCategories, categoryHandler, replaceQuery }: any) => {
     const [show, setShow] = useState(false);
-    const [activeCat, setActiveCat] = useState(false);
+    // const [activeCat, setActiveCat] = useState(false);
+    const check = replaceQuery("category",category._id);
 
     const selectSubCategory = subCategories.filter(
         (c: any) => c.parent?._id == category._id
@@ -17,7 +18,6 @@ const ParentCategory = ({ category, subCategories, categoryHandler, checkChecked
     const showSub = (e: any) => {
         e.stopPropagation();
         setShow((prev: any) => !prev);
-        setActiveCat((prev: any) => !prev);
     };
 
     return (
@@ -25,15 +25,14 @@ const ParentCategory = ({ category, subCategories, categoryHandler, checkChecked
             <h4
                 onClick={() => {
                     categoryHandler(category._id);
-                    setActiveCat((prev: any) => !prev);
                     setShow((prev: any) => !prev)
                 }}
                 className={`${
-                    activeCat && "text-red-500"
+                    check.active && "text-red-500"
                 } cursor-pointer my-2 flex items-center justify-between font-semibold`}
             >
                 <span className="flex items-center">
-                    {activeCat ? (
+                    {check.active ? (
                         <ChevronRightIcon className="w-4 h-4 mr-2" />
                     ) : (
                         <EllipsisHorizontalIcon className="w-4 h-4 mr-2" />
