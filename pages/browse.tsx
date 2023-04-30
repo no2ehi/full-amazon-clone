@@ -17,6 +17,7 @@ import GenderFilter from "@/components/browse/genderFilter/GenderFilter";
 import HeadingFilter from "@/components/browse/headingFilter/HeadingFilter";
 import { useRouter } from "next/router";
 import { Pagination } from "@mui/material";
+import { useEffect, useRef, useState } from "react";
 
 const browse = ({
     categories,
@@ -170,35 +171,60 @@ const browse = ({
             active: existedQeury && valueCheck !== -1 ? true : false,
         };
     };
+    // ----------------------------------------
+    const [scrollY, setScrollY] = useState(0);
+    const [height, setHeight] = useState(0);
+    const headerRef = useRef(null);
+    const el = useRef(null);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            setScrollY(window.scrollY);
+        };
+        handleScroll();
+        window.addEventListener("scroll", handleScroll);
+        setHeight(headerRef.current?.offsetHeight + el.current?.offsetHeight + 50);
+
+        return () => {
+            {
+                window.removeEventListener("scroll", handleScroll);
+            }
+        };
+    }, []);
+    console.log(scrollY, height);
 
     return (
         <>
             <Header title={"Browse Products"} searchHandler={searchHandler} />
             <div className="max-w-screen-2xl mx-auto bg-slate-100 p-1 md:p-6 gap-2">
-                <div className="flex items-center text-sm">
-                    <span className="text-slate-700">Home</span>
-                    <ChevronRightIcon className="w-4 h-4 mx-1 fill-slate-600 " />
-                    <span className="text-slate-700">Browse</span>
+                <div ref={headerRef}>
+                    <div  className="flex items-center text-sm">
+                        <span className="text-slate-700">Home</span>
+                        <ChevronRightIcon className="w-4 h-4 mx-1 fill-slate-600 " />
+                        <span className="text-slate-700">Browse</span>
+                    </div>
+
+                    <div ref={el} className="mt-2 flex gap-3 flex-wrap">
+                        {categories.map((c: any) => (
+                            <Link
+                                className="flex items-center justify-center w-56 h-10 border bg-white rounded  transition-all duration-300 hover:bg-amazon-blue_light hover:text-white hover:scale-95 hover:border-amazon-blue_dark"
+                                href={c.name}
+                                key={c._id}
+                            >
+                                {c.name}
+                            </Link>
+                        ))}
+                    </div>
                 </div>
 
-                <div className="mt-2 flex gap-3 flex-wrap">
-                    {categories.map((c: any) => (
-                        <Link
-                            className="flex items-center justify-center w-56 h-10 border bg-white rounded  transition-all duration-300 hover:bg-amazon-blue_light hover:text-white hover:scale-95 hover:border-amazon-blue_dark"
-                            href={c.name}
-                            key={c._id}
-                        >
-                            {c.name}
-                        </Link>
-                    ))}
-                </div>
+                <div className="relative mt-4 grid grid-cols-5 gap-1 md:gap-5">
 
-                <div className=" mt-4 grid grid-cols-5 gap-1 md:gap-5">
-                    <div className=" h-[800px] md:col-span-1 flex flex-col md:items-center  overflow-y-auto overflow-x-hidden">
+                    <div className={`h-[680px] md:col-span-1 flex flex-col md:items-center  overflow-y-auto overflow-x-hidden ${scrollY >= height ? 'fixed w-[274px] top-2 ' : ''}` }>
                         <button
+                            onClick={() => router.push('/browse')}
                             className={`flex items-center justify-center w-56 md:w-full py-2 rounded transition-all duration-300 bg-amazon-blue_light text-white hover:scale-95 border-amazon-blue_dark`}
                         >
-                            Clear All(3)
+                            Clear All ({Object.keys(router.query).length})
                         </button>
                         <CategoriesFilter
                             categories={categories}
@@ -236,6 +262,7 @@ const browse = ({
                             replaceQuery={replaceQuery}
                         />
                     </div>
+                    <div className={`${scrollY >= height ? 'md:block' : 'hidden'} max-md:hidden md:col-span-1`}></div>
 
                     <div className="md:col-span-4 flex flex-col content-start">
                         <HeadingFilter
@@ -260,9 +287,11 @@ const browse = ({
                                 variant="outlined"
                                 defaultPage={Number(router.query.page) || 1}
                                 onChange={pageHandler}
+                                size="large"
                             />
                         </div>
                     </div>
+
                 </div>
             </div>
         </>
@@ -479,7 +508,7 @@ export async function getServerSideProps(context: any) {
         ...price,
         ...shipping,
         ...rating,
-    })
+    });
 
     return {
         props: {
