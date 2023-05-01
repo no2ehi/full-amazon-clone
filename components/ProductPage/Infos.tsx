@@ -9,7 +9,6 @@ import {
     PlusIcon,
     ShoppingBagIcon,
 } from "@heroicons/react/24/outline";
-import Share from "./Share";
 import AccoridanProduct from "./AccoridanProduct";
 import axios from "axios";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
@@ -286,10 +285,6 @@ const Infos = ({ product, setActiveImg }: any) => {
                     </span>
                 )}
             </div>
-
-            {/* <div className="mt-4">
-                <Share />
-            </div> */}
 
             <div className="mt-4">
                 <AccoridanProduct
