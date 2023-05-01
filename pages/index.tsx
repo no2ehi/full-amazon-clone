@@ -7,12 +7,10 @@ import Product from "@/models/Product";
 import Category from "@/models/Category";
 import HomeProductSwiper from "@/components/Home/HomeProductSwiper";
 import CategoriesProduct from "@/components/Home/CategoriesProduct/CategoriesProducts";
+import db from "../utils/db";
 
 export default function Home({ products }: any) {
     const { data: session } = useSession();
-    // console.log("session: ", session);
-
-    // console.log("all product: ", allProduct);
 
     return (
         <>
@@ -40,16 +38,15 @@ export default function Home({ products }: any) {
 }
 
 export const getServerSideProps = async (context: any) => {
+    db.connectDb();
     const products = await Product.find()
         .populate({ path: "category", model: Category })
         .sort({ updatedAt: -1 })
         .lean();
-
+    db.disconnectDb();
     return {
         props: {
             products: JSON.parse(JSON.stringify(products)),
-            // products2: products2,
-            // categories: categories,
         },
     };
 };
