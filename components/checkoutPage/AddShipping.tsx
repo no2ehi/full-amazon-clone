@@ -7,14 +7,14 @@ import ShippingInput from "./ShippingInput";
 import { countries } from "./countries";
 import SingularSelect from "./SingularSelect";
 
-import { saveAddress } from "../../request/user";
+import { saveAddress } from "../../request/users";
 
 const AddShipping = ({
     shipping,
     setShipping,
     setAddresses,
     initialValue,
-    setSelectedAddress
+    setSelectedAddress,
 }: any) => {
     const {
         firstName,

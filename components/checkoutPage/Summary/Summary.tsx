@@ -2,7 +2,7 @@ import { Form, Formik } from "formik";
 import { useState } from "react";
 import * as Yup from "yup";
 import ShippingInput from "../ShippingInput";
-import { applyCoupon } from "../../../request/user";
+import { applyCoupon } from "../../../request/users";
 import axios from "axios";
 import Router from "next/router";
 
@@ -23,7 +23,7 @@ const Summary = ({
         coupon: Yup.string()
             .required("Please enter a coupon first!")
             .min(3, "Coupon code must Between 3 and 10 character")
-            .max(10, "Coupon code must Between 3 and 10 character")
+            .max(10, "Coupon code must Between 3 and 10 character"),
     });
 
     const applyCouponHandler = async () => {
@@ -32,7 +32,7 @@ const Summary = ({
         if (result.message) {
             setError(result.message);
             setDiscount("");
-            setTotalAfterDiscount("")
+            setTotalAfterDiscount("");
         } else {
             setTotalAfterDiscount(result.totalAfterDiscount);
             setDiscount(result.discount);
@@ -42,24 +42,27 @@ const Summary = ({
 
     const placeOrderHandler = async () => {
         try {
-            if(paymentMethod == ""){
+            if (paymentMethod == "") {
                 setOrder_Error("please choose a payment method.");
                 return;
-            } else if(!selectedAddress) {
+            } else if (!selectedAddress) {
                 setOrder_Error("please choose a shipping address.");
                 return;
             }
-            const { data } = await axios.post("/api/order/create",{
+            const { data } = await axios.post("/api/order/create", {
                 products: cart.products,
                 shippingAddress: selectedAddress,
                 paymentMethod,
-                total: totalAfterDiscount !== "" ? totalAfterDiscount : cart.cartTotal,
+                total:
+                    totalAfterDiscount !== ""
+                        ? totalAfterDiscount
+                        : cart.cartTotal,
                 totalBeforeDiscount: cart.cartTotal,
                 couponApplied: coupon,
             });
             Router.push(`/order/${data.order_id}`);
-        } catch (error:any) {
-            setOrder_Error(error.response.data.message)
+        } catch (error: any) {
+            setOrder_Error(error.response.data.message);
         }
     };
 
@@ -84,13 +87,18 @@ const Summary = ({
                                 placeholder="*Coupon"
                                 onChange={(e: any) => setCoupon(e.target.value)}
                             />
-                            {error && (<span className="text-red-500 mx-3 mt-2">{error}</span>)}
-                            <button type="submit"
+                            {error && (
+                                <span className="text-red-500 mx-3 mt-2">
+                                    {error}
+                                </span>
+                            )}
+                            <button
+                                type="submit"
                                 className={`mx-3 cursor-pointer text-amazon-blue_dark font-semibold bg-gradient-to-r hover:from-amazon-orange hover:to-yellow-300 hover:text-amazon-blue_dark  text-slate-100 hover:bg-gradient-to-r from-amazon-blue_light to-slate-500 w-full my-6 p-2 rounded-full transition duration-300`}
                             >
                                 Apply
                             </button>
-                            
+
                             <div className="mx-3 flex flex-col">
                                 <span>
                                     Total: <b>{cart.cartTotal}$</b>
