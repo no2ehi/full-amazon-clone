@@ -7,8 +7,8 @@ import SelectInputAdmin from "../inputs/SelectInputAdmin";
 
 
 const CreateSubCategory = ({ setSubCategories, categories }: any) => {
-    const [name, setName] = useState();
-    const [parent, setParent] = useState();
+    const [name, setName] = useState<any>();
+    const [parent, setParent] = useState<any>();
     const validate = Yup.object({
         name: Yup.string()
             .required("Sub Category name is required.")
