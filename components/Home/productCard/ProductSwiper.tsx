@@ -5,7 +5,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 
 const ProductSwiper = ({ images }: any) => {
-    const swiperRef = useRef(null);
+    const swiperRef = useRef<any>(null);
 
     useEffect(() => {
         swiperRef.current?.swiper?.autoplay.stop();
