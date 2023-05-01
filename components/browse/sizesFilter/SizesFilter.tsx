@@ -1,7 +1,7 @@
 import { MinusIcon, PlusIcon } from "@heroicons/react/24/solid";
 import { useState } from "react";
 
-const sizesFilter = ({ sizes, sizeHandler, replaceQuery }: any) => {
+const SizesFilter = ({ sizes, sizeHandler, replaceQuery }: any) => {
     const [show, setShow] = useState(true);
     return (
         <div className="w-full">
@@ -24,6 +24,7 @@ const sizesFilter = ({ sizes, sizeHandler, replaceQuery }: any) => {
                         const check = replaceQuery("size", size);
                         return (
                             <label
+                            key={i}
                                 onClick={() => sizeHandler(check.result)}
                                 className="flex items-center cursor-pointer text-sm"
                                 htmlFor={size}
@@ -45,4 +46,4 @@ const sizesFilter = ({ sizes, sizeHandler, replaceQuery }: any) => {
     );
 };
 
-export default sizesFilter;
+export default SizesFilter;

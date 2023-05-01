@@ -25,6 +25,7 @@ const BrandsFilter = ({ brands, brandHandler, replaceQuery }: any) => {
                         const check = replaceQuery("brand", brand);
                         return (
                             <button
+                                key={i}
                                 onClick={() => brandHandler(check.result)}
                                 className={`${
                                     check.active ? "border-slate-500" : ""

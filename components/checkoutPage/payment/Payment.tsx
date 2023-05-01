@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { paymentMethods } from "./paymentMethods";
 
-const Payment = ({ paymentMethod, setPaymentMethod, profile }: any) => {
+const PaymentCheckout = ({ paymentMethod, setPaymentMethod, profile }: any) => {
     return (
         <>
             {!profile && (
@@ -50,4 +50,4 @@ const Payment = ({ paymentMethod, setPaymentMethod, profile }: any) => {
     );
 };
 
-export default Payment;
+export default PaymentCheckout;

@@ -20,7 +20,7 @@ import { Pagination } from "@mui/material";
 import { useEffect, useRef, useState } from "react";
 // import DotLoaderSpinner from "@/components/loaders/dotLoader/DotLoaderSpinner";
 
-const browse = ({
+const Browse = ({
     categories,
     subCategories,
     products,
@@ -326,7 +326,7 @@ const browse = ({
     );
 };
 
-export default browse;
+export default Browse;
 
 export async function getServerSideProps(context: any) {
     const { query } = context;

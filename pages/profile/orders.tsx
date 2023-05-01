@@ -10,7 +10,7 @@ import slugify from "slugify";
 import { useRouter } from "next/dist/client/router";
 
 
-const orders = ({ user, tab, orders }: any) => {
+const Orders = ({ user, tab, orders }: any) => {
     const router = useRouter();
     return (
         <>
@@ -20,7 +20,7 @@ const orders = ({ user, tab, orders }: any) => {
                     <nav>
                         <ul className="flex">
                             {ordersLinks.map((order: any, i: any) => (
-                                <li className={`${router?.query?.q.split("__")[0] == slugify(order.name, {lower:true})  ? 'font-bold border-b' : '' } px-1 flex items-center justify-center hover:font-bold hover:border-b`} key={i}>
+                                <li className={`${router.query?.q?.split("__")[0] == slugify(order.name, {lower:true})  ? 'font-bold border-b' : '' } px-1 flex items-center justify-center hover:font-bold hover:border-b`} key={i}>
                                     <Link href={`/profile/orders?tab=${tab}&q=${slugify(order.name,{lower: true,})}__${order.filter}`}>{order.name}</Link>
                                 </li>
                             ))}
@@ -40,8 +40,8 @@ const orders = ({ user, tab, orders }: any) => {
                             </tr>
                         </thead>
                         <tbody>
-                            {orders.map((order: any) => (
-                                <tr>
+                            {orders.map((order: any, i: any) => (
+                                <tr key={i}>
                                     <td>{order._id}</td>
                                     <td className="flex">
                                         {order.products.map((p: any) => (
@@ -76,7 +76,7 @@ const orders = ({ user, tab, orders }: any) => {
     );
 };
 
-export default orders;
+export default Orders;
 
 export async function getServerSideProps(context: any) {
     db.connectDb();
@@ -96,19 +96,19 @@ export async function getServerSideProps(context: any) {
     let orders = [];
 
     if (!filter) {
-        orders = await Order.find({ user: session?.user.id })
+        orders = await Order.find({ user: session.user?.id })
             .sort({ createdAt: -1 })
             .lean();
     } else if (filter == "paid") {
-        orders = await Order.find({ user: session?.user.id, isPaid: true })
+        orders = await Order.find({ user: session.user?.id, isPaid: true })
             .sort({ createdAt: -1 })
             .lean();
     } else if (filter == "unpaid") {
-        orders = await Order.find({ user: session?.user.id, isPaid: false })
+        orders = await Order.find({ user: session.user?.id, isPaid: false })
             .sort({ createdAt: -1 })
             .lean();
     } else {
-        orders = await Order.find({ user: session?.user.id, status: filter })
+        orders = await Order.find({ user: session.user?.id, status: filter })
             .sort({ createdAt: -1 })
             .lean();
     }

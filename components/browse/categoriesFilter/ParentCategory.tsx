@@ -57,8 +57,8 @@ const ParentCategory = ({ category, subCategories, categoryHandler, replaceQuery
             </h4>
             {show && subCategories.length > 0 && (
                 <div className="my-1 ml-5">
-                    {selectSubCategory.map((sc: any) => (
-                        <h5
+                    {selectSubCategory.map((sc: any,i: any) => (
+                        <h5 key={i}
                             // onClick={() => setShow((prev: any) => !prev)}
                             className="cursor-pointer flex items-center  hover:font-semibold hover:text-yellow-500"
                         >

@@ -24,7 +24,8 @@ const GenderFilter = ({ genderHandler, replaceQuery }: any) => {
                     {genders.map((gender: any, i: any) => {
                         const check = replaceQuery("gender", gender);
                         return (
-                            <label
+                            <label 
+                            key={i}
                                 onClick={() => genderHandler(check.result)}
                                 className="flex items-center cursor-pointer"
                                 htmlFor={gender}

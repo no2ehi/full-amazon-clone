@@ -17,7 +17,7 @@ const initialPassword = {
     error: "",
 };
 
-const security = ({ user, tab, orders }: any) => {
+const Security = ({ user, tab, orders }: any) => {
     const [loading, setLoading] = useState(false);
     const [newPassword, setNewPassword] = useState(initialPassword);
     const { current_password, new_password, conf_password , success, error} = newPassword;
@@ -141,7 +141,7 @@ const security = ({ user, tab, orders }: any) => {
     );
 };
 
-export default security;
+export default Security;
 
 export async function getServerSideProps(context: any) {
     db.connectDb();

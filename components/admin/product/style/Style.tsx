@@ -1,7 +1,7 @@
 import { useAppDispatch } from "@/redux/hooks";
 import { showDialog } from "@/redux/slices/DialogSlice";
 import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
-import { useField } from "formik";
+import { ErrorMessage, useField } from "formik";
 import { useRef } from "react";
 
 const Style = ({ name, product, setProduct, colorImage, ...props }: any) => {
@@ -83,7 +83,7 @@ const Style = ({ name, product, setProduct, colorImage, ...props }: any) => {
         <button
             type="reset"
             className={`w-52 bg-slate-300 p-2 rounded `}
-            onClick={() => fileInput.current.click()}
+            onClick={() => fileInput.current?.click()}
         >
             Pic Style
         </button>

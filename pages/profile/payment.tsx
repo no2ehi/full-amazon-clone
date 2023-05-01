@@ -1,4 +1,4 @@
-import Payment from "@/components/checkoutPage/payment/Payment";
+import PaymentCheckout from "@/components/checkoutPage/payment/Payment";
 import Layout from "@/components/profile/layout/Layout";
 import User from "@/models/User";
 import db from "@/utils/db";
@@ -6,7 +6,7 @@ import axios from "axios";
 import { getSession } from "next-auth/react";
 import { useState } from "react";
 
-const payment = ({ user, tab, defaultPaymentMethod }: any) => {
+const Payment = ({ user, tab, defaultPaymentMethod }: any) => {
     const [dbPM, setDbPM] = useState(defaultPaymentMethod);
     const [paymentMethod, setPaymentMethod] = useState(defaultPaymentMethod);
     const [error, setErorr] = useState("");
@@ -36,7 +36,7 @@ const payment = ({ user, tab, defaultPaymentMethod }: any) => {
                         My Payment Methods
                     </h2>
                 </div>
-                <Payment
+                <PaymentCheckout
                     paymentMethod={paymentMethod}
                     setPaymentMethod={setPaymentMethod}
                     profile
@@ -58,7 +58,7 @@ const payment = ({ user, tab, defaultPaymentMethod }: any) => {
     );
 };
 
-export default payment;
+export default Payment;
 
 export async function getServerSideProps(context: any) {
     db.connectDb();
@@ -73,7 +73,7 @@ export async function getServerSideProps(context: any) {
             },
         };
     }
-    const user = await User.findById(session?.user.id).select(
+    const user = await User.findById(session.user?.id).select(
         "defaultPaymentMethod"
     );
     return {

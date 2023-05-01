@@ -12,7 +12,7 @@ import Product from "@/components/checkoutPage/product/Product";
 import Payment from "@/components/checkoutPage/payment/Payment";
 import Summary from "@/components/checkoutPage/Summary/Summary";
 
-const checkout = ({ cart, user }: any) => {
+const Checkout = ({ cart, user }: any) => {
     const [addresses, setAddresses] = useState(user?.address || []);
     const [paymentMethod, setPaymentMethod] = useState("paypal");
     const [totalAfterDiscount, setTotalAfterDiscount] = useState("");
@@ -54,7 +54,7 @@ const checkout = ({ cart, user }: any) => {
     );
 };
 
-export default checkout;
+export default Checkout;
 
 export async function getServerSideProps(context: any) {
     db.connectDb();

@@ -4,7 +4,7 @@ const UserInfo = ({ order }: any) => {
     return (
         <div className=" mb-2">
             <h3 className="text-2xl font-bold border-b pb-3 mb-3">
-                Customer's Order
+                {`Customer's Order`}
             </h3>
 
             <div className="flex items-center space-x-3">
@@ -25,7 +25,7 @@ const UserInfo = ({ order }: any) => {
                     Shipping Address
                 </h4>
                 <span>
-                    {order.shippingAddress.firstName}{" "}
+                    {order.shippingAddress.firstName}
                     {order.shippingAddress.lastName}
                 </span>
                 <span>
