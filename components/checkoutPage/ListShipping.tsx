@@ -8,7 +8,7 @@ import {
     PlusSmallIcon,
     UserIcon,
 } from "@heroicons/react/24/outline";
-import { changeActiveAddress, deleteAddress } from "@/request/user";
+import { changeActiveAddress, deleteAddress } from "../../request/users";
 
 const ListShipping = ({
     visible,

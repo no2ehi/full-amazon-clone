@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 const Product = ({ cart }: any) => {
-    console.log("cart", cart);
+    // console.log("cart", cart);
     return (
         // <div className="flex flex-col md:flex-row px-2 py-1 md:px-8 gap-4">
         <div>
