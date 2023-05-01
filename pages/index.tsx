@@ -32,9 +32,6 @@ export default function Home({ products }: any) {
                     <HomeProductSwiper products={products} category="Beauty" />
                     <HomeProductSwiper products={products} category="Kids" />
                 </div>
-
-                {/* {/* <TopProduct allProduct={allProduct} products={products} categories={categories[7]} title="Top Seller" /> */}
-                {/* <TopProduct products={products} categories={categories[2]} title="Popular items in" />  */}
             </main>
             <Footer />
             <MenuSideBar />
@@ -43,13 +40,6 @@ export default function Home({ products }: any) {
 }
 
 export const getServerSideProps = async (context: any) => {
-    // const products2 = await fetch(
-    //     "https://dummyjson.com/products?limit=100"
-    // ).then((res) => res.json());
-    // const categories = await fetch(
-    //     "https://dummyjson.com/products/categories"
-    // ).then((res) => res.json());
-
     const products = await Product.find()
         .populate({ path: "category", model: Category })
         .sort({ updatedAt: -1 })
