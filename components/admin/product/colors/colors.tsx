@@ -5,7 +5,7 @@ import {
 import { ErrorMessage, useField } from "formik";
 import Image from "next/image";
 import { useState } from "react";
-import { ColorExtractor } from "react-color-extractor";
+// import { ColorExtractor } from "react-color-extractor";
 
 const Colors = ({ product, setProduct, name, colorImage, ...props }: any) => {
     const [colors, setColors] = useState([]);
@@ -59,19 +59,18 @@ const Colors = ({ product, setProduct, name, colorImage, ...props }: any) => {
                 value={product.color.color}
                 name={name}
                 hidden
-                {...field}
                 {...props}
             />
 
             {/* <div>infos</div> */}
             <div>
-                <ColorExtractor getColors={(colors: any) => setColors(colors)}>
+                {/* <ColorExtractor getColors={(colors: any) => setColors(colors)}>
                     <img
                         src={colorImage}
                         alt="color-image"
                         className="hidden w-10 h-10"
                     />
-                </ColorExtractor>
+                </ColorExtractor> */}
 
                 <div className="flex mt-2">{renderSwatches()}</div>
             </div>

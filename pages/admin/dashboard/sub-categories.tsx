@@ -9,7 +9,6 @@ import SubCategory from "../../../models/SubCategory";
 
 const Categories = ({ categories, subCategories }: any) => {
     const [data, setData] = useState(subCategories);
-    console.log('inja subcat:', data)
 
     return (
         <Layout>

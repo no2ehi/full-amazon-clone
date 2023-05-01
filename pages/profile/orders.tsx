@@ -112,7 +112,7 @@ export async function getServerSideProps(context: any) {
             .sort({ createdAt: -1 })
             .lean();
     }
-    console.log("filter", filter, "orders > ", orders);
+    // console.log("filter", filter, "orders > ", orders);
     return {
         props: {
             user: session.user,

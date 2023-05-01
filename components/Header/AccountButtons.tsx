@@ -40,16 +40,26 @@ const AccountButtons = () => {
                 <div className="z-20 show-account-popup absolute w-96 -right-14 h-auto bg-white rounded-sm border shadow-md mt-1">
                     <div className="absolute h-3 w-3 bg-white rotate-45 -mt-1 right-[3.85rem] "></div>
                     {session ? (
-                        <div className="flex flex-col items-center p-3 m-3 border-b pb-2">
-                            <p className="text-xl text-gray-500">
-                                Hi, {session.user?.name}
+                        <div className="flex items-center justify-between p-3 border-b pb-2">
+                            <p className="text-xl text-amazon-blue_light">
+                                Hi,{" "}
+                                <Link href="/profile">
+                                    <b>{session.user?.name}</b>
+                                </Link>
                             </p>
-                            <button
-                                onClick={() => signOut()}
-                                className="button-orange px-16 py-[0.3rem] text-sm text-gray-900"
-                            >
-                                Sign Out
-                            </button>
+                            <div className="flex space-x-2">
+                                <Link href="/profile">
+                                <div className="button-orange px-6 py-[0.3rem] text-sm text-gray-900">
+                                    Profile
+                                </div>
+                                </Link>
+                                <button
+                                    onClick={() => signOut()}
+                                    className="button-orange px-2 py-[0.3rem] text-sm text-gray-900"
+                                >
+                                    Sign Out
+                                </button>
+                            </div>
                         </div>
                     ) : (
                         <div className="flex flex-col items-center p-3 m-3 border-b pb-2">

@@ -51,7 +51,7 @@ const Create = ({ parents, categories }: any) => {
     const [description_images, setDescription_images] = useState("");
     const [loading, setLoading] = useState(false);
 
-    console.log("product: ", product);
+    // console.log("product: ", product);
 
     useEffect(() => {    
         async function getParentData() {

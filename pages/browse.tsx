@@ -346,28 +346,23 @@ export async function getServerSideProps(context: any) {
     const styleQuery = query.style?.split("_") || "";
     const styleRegex = `^${styleQuery[0]}`;
     const styleSearchRegex = createRegex(styleQuery, styleRegex);
-    // console.log(styleSearchRegex);
     // --------------------------------------------------
     const sizeQuery = query.size?.split("_") || "";
     const sizeRegex = `^${sizeQuery[0]}`;
     const sizeSearchRegex = createRegex(sizeQuery, sizeRegex);
-    // console.log(sizeSearchRegex);
     // --------------------------------------------------
     const colorQuery = query.color?.split("_") || "";
     const colorRegex = `^${colorQuery[0]}`;
     const colorSearchRegex = createRegex(colorQuery, colorRegex);
-    // console.log(sizeSearchRegex);
     // --------------------------------------------------
     const materialQuery = query.material?.split("_") || "";
     const materialRegex = `^${materialQuery[0]}`;
     const materialSearchRegex = createRegex(materialQuery, materialRegex);
-    // console.log(sizeSearchRegex);
     // --------------------------------------------------
     // --------------------------------------------------
     const genderQuery = query.gender?.split("_") || "";
     const genderRegex = `^${genderQuery[0]}`;
     const genderSearchRegex = createRegex(genderQuery, genderRegex);
-    // console.log(sizeSearchRegex);
     // --------------------------------------------------
     const search =
         searchQuery && searchQuery !== ""

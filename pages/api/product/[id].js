@@ -12,7 +12,7 @@ handler.get(async (req, res) => {
 
         db.connectDb();
         const product = await Product.findById(id).lean();
-        console.log(product,'style: ',style, 'size: ', size)
+
         let discount = product.subProducts[style].discount;
         let priceBefore = product.subProducts[style].sizes[size].price;
         let price = discount ? priceBefore - priceBefore / discount : priceBefore;

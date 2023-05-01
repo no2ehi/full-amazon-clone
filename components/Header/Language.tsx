@@ -19,12 +19,12 @@ const Language = () => {
             </p>
 
             {/* popOver Language */}
-            <div className="z-20 show-account-popup absolute w-56 top-8 -right-[3.7rem] h-auto bg-white rounded-sm border shadow-md mt-1">
+            <div className="z-20 show-account-popup absolute w-56 top-5 -right-[3.8rem] h-auto bg-white rounded-sm border shadow-md mt-1">
                 <div className="absolute h-3 w-3 bg-white rotate-45 -mt-1 right-[3.85rem] "></div>
                 <div className="flex flex-col p-3">
                     <p className="text-xs text-gray-900 my-2">Change Language <a className="text-[#05a] ml-1" href="">Learn more</a></p>
                     <label className=" flex text-xs text-gray-900 mt-2 " htmlFor="">
-                        <input className="mr-2 text-amazon-orange" checked type="radio" name="" id="" />
+                        <input className="mr-2 text-amazon-orange" defaultChecked={true} type="radio" name="" id="" />
                         English - EN
                     </label>
                     <div className="w-full h-[1px] bg-gray-200 my-2" />

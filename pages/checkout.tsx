@@ -25,8 +25,6 @@ const checkout = ({ cart, user }: any) => {
         } else {
             setSelectedAddress("")
         }
-        console.log('selectedAddress >', selectedAddress, 'check > ', check)
-        console.log( 'check > ', check)
     },[addresses])
 
     return (

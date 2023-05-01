@@ -7,7 +7,7 @@ import UserInfo from "@/components/order/UserInfo";
 import Order from "../../models/Order";
 
 const OrderPage = ({ order }: any) => {
-    console.log(order);
+    // console.log(order);
     return (
         <>
             <Header title="Full Amazon Clone React" />

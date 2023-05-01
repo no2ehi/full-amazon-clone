@@ -51,7 +51,7 @@ const security = ({ user, tab, orders }: any) => {
                 current_password,
                 new_password,
             });
-            console.log(data)
+            // console.log(data)
 
             setNewPassword({
                 new_password: "",

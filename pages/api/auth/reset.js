@@ -9,7 +9,7 @@ handler.put( async (req, res) => {
     try {
         await db.connectDb();
         const { userId, password } = req.body;
-        console.log(userId)
+        // console.log(userId)
         const user = await User.findById(userId);
         if( !userId ){
             res.status(400).json({ message: "this account doesn't exist."})

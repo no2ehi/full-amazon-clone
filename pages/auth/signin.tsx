@@ -27,7 +27,7 @@ export default SignIn;
 export const getServerSideProps = async (context: any) => {
     const { req, query } = context;
     const { callbackUrl = null } = query || null;
-    console.log('call:',callbackUrl, query, context)
+    // console.log('call:',callbackUrl, query, context)
 
     const session = await getSession({req});
 

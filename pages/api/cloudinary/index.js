@@ -32,9 +32,7 @@ handler.post(async (req, res) => {
         let images = [];
 
         for (const file of files) {
-            // console.log('file',file, 'files', files)
             const img = await uploadToCloudinaryHandler(file, path);
-            // console.log('sdfsdfsdfsdf565656565','uploadToCloudinaryHandler' )
             images.push(img);
             removeTmp(file.tempFilePath);
         }

@@ -19,7 +19,6 @@ const Search = ({searchHandler}: any) => {
             searchHandler(query);
         }
     };
-    // console.log('router > ', router)
 
     return (
         <div className="flex-grow relative">
@@ -28,7 +27,7 @@ const Search = ({searchHandler}: any) => {
                 className="bg-amazon-orange flex flex-grow items-center rounded-md max-md:mx-4 max-md:mb-2"
             >
                 <select
-                    value="All"
+                    defaultValue="All"
                     className="hidden md:inline h-11 w-16 rounded-l text-gray-700 px-2 text-sm bg-gray-100 border-r border-gray-300 cursor-pointer outline-none"
                 >
                     <option disabled value="All">
@@ -45,7 +44,7 @@ const Search = ({searchHandler}: any) => {
                     className="outline-none w-full h-11 text-black pl-3 max-md:rounded-l"
                     placeholder="Search Amazon"
                     onChange={(e: any) => setQuery(e.target.value)}
-                    value={query}
+                    defaultValue={query}
                 />
                 <button type="submit">
                     <MagnifyingGlassIcon className="text-amazon-blue_dark h-8 w-8 my-1 mx-2 cursor-pointer" />
