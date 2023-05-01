@@ -38,7 +38,7 @@ const Sidebar = () => {
             <div className="flex mt-4 px-2">
                 <div className="relative w-10 h-10 ">
                     <img
-                        src={session?.user?.image}
+                        src={session?.user?.name ? session?.user?.name : 'https://i.stack.imgur.com/34AD2.jpg'}
                         alt="admin-logo"
                         className="object-contain w-10 h-10 rounded-full"
                     />
