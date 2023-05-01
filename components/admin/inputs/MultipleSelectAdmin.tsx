@@ -6,7 +6,7 @@ import OutlinedInput from "@mui/material/OutlinedInput";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
+import Select from "@mui/material/Select";
 import Chip from "@mui/material/Chip";
 
 const ITEM_HEIGHT = 48;
@@ -56,7 +56,7 @@ const MultipleSelectAdmin = ({ data, label, handleChange, ...rest }: any) => {
                     id="demo-multiple-chip"
                     multiple
                     name={field.name}
-                    disabled={rest.disabled}
+                    disabled={rest.disabled ? true : false}
                     value={field.value}
                     onChange={handleChange}
                     input={

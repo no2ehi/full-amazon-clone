@@ -51,11 +51,10 @@ const Create = ({ parents, categories }: any) => {
     const [description_images, setDescription_images] = useState("");
     const [loading, setLoading] = useState(false);
 
-    // console.log("product: ", product);
 
     useEffect(() => {    
         async function getParentData() {
-            const { data } = await axios.get(`/api/product/${product.parent || " "}`);
+            const { data } = await axios.get(`/api/product/${product.parent || ""}`);
             if(data) {
                 setProduct({
                     ...product,
@@ -66,6 +65,7 @@ const Create = ({ parents, categories }: any) => {
                     subCategories: data.subCategories,
                     questions: data.questions,
                     details: data.details,
+                    discount: data.discount
                 })
             }
             // console.log('id product: ', data)
@@ -76,7 +76,6 @@ const Create = ({ parents, categories }: any) => {
     }, [product.parent]);
 
     useEffect(() => {
- 
         async function getSubs() {
             const { data } = await axios.get("/api/admin/subcategory", {
                 params: {
@@ -101,6 +100,7 @@ const Create = ({ parents, categories }: any) => {
                 setColorImage={setColorImage}
                 colorImage={colorImage}
                 setLoading={setLoading}
+                loading={loading}
                 initialProduct={initialState}
             />
         </Layout>

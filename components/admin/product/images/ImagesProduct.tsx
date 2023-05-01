@@ -1,6 +1,6 @@
 import { useAppDispatch } from "@/redux/hooks";
 import { showDialog } from "@/redux/slices/DialogSlice";
-import { ErrorMessage, useField } from "formik";
+import { ErrorMessage, Field, useField } from "formik";
 import { useRef } from "react";
 import Image from "next/image";
 import noImage from "../../../../public/assets/images/no-image.png";
@@ -11,13 +11,12 @@ const ImagesProduct = ({
     setImages,
     header,
     text,
-    name,
     setColorImage,
     ...props
 }: any) => {
     const dispatch = useAppDispatch();
-    const fileInput = useRef(null);
-    const [meta, field] = useField(props);
+    const fileInput = useRef<any>(null);
+    const [field, meta] = useField(props);
 
     const handleImages = (e: any) => {
         let files = Array.from(e.target.files);
@@ -87,7 +86,7 @@ const ImagesProduct = ({
                     {meta.touched && meta.error && (
                         <div className="">
                             <span></span>
-                            <ErrorMessage name={name} />
+                            <ErrorMessage name={field.name} />
                         </div>
                     )}
                 </span>
@@ -95,7 +94,7 @@ const ImagesProduct = ({
 
             <input
                 type="file"
-                name={name}
+                name={field.name}
                 ref={fileInput}
                 hidden
                 multiple
@@ -123,7 +122,7 @@ const ImagesProduct = ({
                 >
                     {!images.length
                         ? (
-                            <Image src={noImage} width={250} height={250} className="object-contain" alt="noimage" />
+                            <Image src={noImage} width={250} height={250} priority className="object-contain" alt="noimage" />
                         )
                         : images.map((img: any, i: number) => (
                               <div className="relative" key={i}>
@@ -154,7 +153,7 @@ const ImagesProduct = ({
                 className={`w-52 bg-slate-300 p-2 rounded ${
                     images.length == 6 && "opacity-50"
                 }`}
-                onClick={() => fileInput.current.click()}
+                onClick={() => fileInput.current?.click()}
             >
                 {text}
             </button>

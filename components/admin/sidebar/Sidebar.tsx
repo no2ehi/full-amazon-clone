@@ -37,11 +37,10 @@ const Sidebar = () => {
 
             <div className="flex mt-4 px-2">
                 <div className="relative w-10 h-10 ">
-                    <Image
+                    <img
                         src={session?.user?.image}
                         alt="admin-logo"
-                        fill
-                        className="object-contain rounded-full"
+                        className="object-contain w-10 h-10 rounded-full"
                     />
                 </div>
 

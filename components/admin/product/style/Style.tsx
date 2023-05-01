@@ -4,10 +4,10 @@ import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 import { ErrorMessage, useField } from "formik";
 import { useRef } from "react";
 
-const Style = ({ name, product, setProduct, colorImage, ...props }: any) => {
+const Style = ({ product, setProduct, colorImage, ...props }: any) => {
     const dispatch = useAppDispatch();
-    const fileInput = useRef(null);
-    const [meta, field] = useField(props);
+    const fileInput = useRef<any>(null);
+    const [field, meta] = useField(props);
 
     const handleImage = (e: any) => {
         let img = e.target.files[0];
@@ -65,7 +65,7 @@ const Style = ({ name, product, setProduct, colorImage, ...props }: any) => {
                 {meta.touched && meta.error && (
                     <div className="">
                         <span></span>
-                        <ErrorMessage name={name} />
+                        <ErrorMessage name={field.name} />
                     </div>
                 )}
             </span>
@@ -73,7 +73,7 @@ const Style = ({ name, product, setProduct, colorImage, ...props }: any) => {
 
         <input
             type="file"
-            name="colorImageInput"
+            name={field.name}
             ref={fileInput}
             hidden
             accept="image/jpeg, image/png, image/webp, image/gif"

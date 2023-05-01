@@ -20,7 +20,7 @@ const SelectInputAdmin = ({
                 name={field.name}
                 value={field.value}
                 onChange={handleChange}
-                disabled={rest.disabled}
+                disabled={rest.disabled ? true : false}
             >
                 <MenuItem key={""} value={""}>
                     no selected

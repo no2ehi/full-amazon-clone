@@ -1,13 +1,10 @@
-import {
-    ArrowRightCircleIcon,
-    ExclamationTriangleIcon,
-} from "@heroicons/react/24/outline";
+import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 import { ErrorMessage, useField } from "formik";
 import Image from "next/image";
 import { useState } from "react";
 // import { ColorExtractor } from "react-color-extractor";
 
-const Colors = ({ product, setProduct, name, colorImage, ...props }: any) => {
+const Colors = ({ product, setProduct, colorImage, ...props }: any) => {
     const [colors, setColors] = useState([]);
     const [field, meta] = useField(props);
 
@@ -35,10 +32,10 @@ const Colors = ({ product, setProduct, name, colorImage, ...props }: any) => {
             <div className={`flex flex-col `}>
                 <div
                     className={`${
-                        meta.error[name] && meta.touched ? "text-red-500" : ""
+                        meta?.error && meta.touched ? "text-red-500" : ""
                     } w-full flex items-center border-b pb-1`}
                 >
-                    {meta.error[name] && (
+                    {meta?.error && (
                         <ExclamationTriangleIcon className="w-7 h-7 mr-2" />
                     )}
                     <span className="font-semibold">Pick a Product Color</span>
@@ -47,7 +44,7 @@ const Colors = ({ product, setProduct, name, colorImage, ...props }: any) => {
                     {meta.touched && meta.error && (
                         <div className="text-red-500">
                             <span></span>
-                            <ErrorMessage name={name} />
+                            <ErrorMessage name={field.name} />
                         </div>
                     )}
                 </span>
@@ -56,10 +53,9 @@ const Colors = ({ product, setProduct, name, colorImage, ...props }: any) => {
 
             <input
                 type="text"
-                value={product.color.color}
-                name={name}
+                defaultValue={product.color.color}
                 hidden
-                {...props}
+                name={field.name}
             />
 
             {/* <div>infos</div> */}

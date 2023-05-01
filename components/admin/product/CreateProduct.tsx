@@ -29,6 +29,7 @@ const CreateProduct = ({
     setColorImage,
     colorImage,
     setLoading,
+    loading,
     initialProduct,
 }: any) => {
     const dispatch = useDispatch();
@@ -286,11 +287,11 @@ const CreateProduct = ({
                             />
                         </div>
                         <button
-                            disabled={setLoading}
+                            disabled={loading}
                             type="submit"
-                            className="my-4 w-52 bg-green-500 py-2 px-4 rounded text-white"
+                            className={`my-4 w-52 py-2 px-4 rounded text-white ${loading ? ' bg-slate-400 ' : 'bg-green-500'}`}
                         >
-                            Create Product
+                            {loading ? 'Loading...' : 'Create Product'}
                         </button>
                     </Form>
                 )}
