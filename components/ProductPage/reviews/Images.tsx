@@ -4,7 +4,7 @@ import { useRef, useState } from "react";
 
 const ImagesReview = ({ images, setImages }: any) => {
     const [error, setError] = useState("");
-    const inputRef = useRef(null);
+    const inputRef = useRef<any>(null);
 
     const handleImages = (e: any) => {
         let files = Array.from(e.target.files);
