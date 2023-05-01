@@ -7,7 +7,6 @@ import Checkout from "./Checkout";
 import PaymentMethods from "./PaymentMethods";
 import Product from "./Product";
 import { saveCart } from "../../request/user";
-import axios from "axios";
 
 const CartPage = ({ cart }: any) => {
     const { data: session } = useSession();
@@ -16,7 +15,6 @@ const CartPage = ({ cart }: any) => {
     const [shippingFee, setShippingFee] = useState(0);
     const [subTotal, setSubTotal] = useState(0);
     const [total, setTotal] = useState(0);
-
 
     useEffect(()=> {
         setShippingFee(selected.reduce((total: any, product: any) => total + Number(product.shipping), 0).toFixed(2));
@@ -27,7 +25,7 @@ const CartPage = ({ cart }: any) => {
     const saveCartToDbHandler = async () => {
         if(session) {
             const res = await saveCart(selected);
-            console.log('cart page > ',res)
+            // console.log('cart page > ',res)
             router.push("/checkout");
         } else {
             router.push("/auth/singin");
