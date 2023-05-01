@@ -3,9 +3,8 @@ import {
     ChevronDownIcon,
     StarIcon,
 } from "@heroicons/react/24/solid";
-import { Rating, Tooltip } from "@mui/material";
-import { useRouter } from "next/dist/client/router";
-import Link from "next/link";
+import { Tooltip } from "@mui/material";
+import { useRouter, NextRouter } from "next/dist/client/router";
 import { useState } from "react";
 
 const HeadingFilter = ({
@@ -34,7 +33,7 @@ const HeadingFilter = ({
                     placeholder="min"
                     min="0"
                     onChange={(e) => priceHandler(e.target.value, "min")}
-                    value={router.query.price?.split("_")[0] || ""}
+                    value={(router.query.price as any)?.split("_")[0] || ""}
                 />
                 <input
                     className="mx-1 w-20 rounded border py-1.5 px-2 outline-none"
@@ -42,7 +41,7 @@ const HeadingFilter = ({
                     placeholder="max"
                     max="0"
                     onChange={(e) => priceHandler(e.target.value, "max")}
-                    value={router.query.price?.split("_")[1] || ""}
+                    value={(router.query.price as any)?.split("_")[1] || ""}
                 />
             </div>
 
