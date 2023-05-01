@@ -6,7 +6,7 @@ import CartHeader from "./CartHeader";
 import Checkout from "./Checkout";
 import PaymentMethods from "./PaymentMethods";
 import Product from "./Product";
-import { saveCart } from "../../request/user";
+import { savecart } from "../../request/user";
 
 const CartPage = ({ cart }: any) => {
     const { data: session } = useSession();
@@ -24,7 +24,7 @@ const CartPage = ({ cart }: any) => {
 
     const saveCartToDbHandler = async () => {
         if(session) {
-            const res = await saveCart(selected);
+            const res = await savecart(selected);
             // console.log('cart page > ',res)
             router.push("/checkout");
         } else {
