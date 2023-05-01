@@ -34,7 +34,7 @@ handler.post(async (req, res) => {
         for (const file of files) {
             const img = await uploadToCloudinaryHandler(file, path);
             images.push(img);
-            removeTmp(file.tempFilePath);
+            // removeTmp(file.tempFilePath);
         }
         
 
@@ -65,7 +65,7 @@ const uploadToCloudinaryHandler = async (file, path) => {
             },
             (err, res) => {
                 if (err) {
-                    removeTmp(file.tempFilePath);
+                    // removeTmp(file.tempFilePath);
                     console.log(err);
                     return res.status(400).json({ message: "upload image failed." });
                 }
@@ -78,9 +78,9 @@ const uploadToCloudinaryHandler = async (file, path) => {
     });
 };
 
-const removeTmp = (path) => {
+// const removeTmp = (path) => {
 
-    fs.unlink(path, (err) => {
-        if (err) throw err;
-    });
-};
+//     fs.unlink(path, (err) => {
+//         if (err) throw err;
+//     });
+// };
