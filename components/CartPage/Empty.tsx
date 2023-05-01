@@ -15,7 +15,7 @@ const Empty = () => {
             </Link>
             {!session ? (
                 <button onClick={() => signIn()} className="flex items-center justify-center  p-2 rounded-full space-x-2 bg-amazon-blue_light text-slate-100 transition duration-500 ease-in-out w-52 font-semibold">
-                    Sing In / Register
+                    Sign In / Register
                 </button>
             ) : (
                 ""

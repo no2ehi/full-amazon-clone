@@ -25,10 +25,9 @@ const CartPage = ({ cart }: any) => {
     const saveCartToDbHandler = async () => {
         if(session) {
             const res = await savecart(selected);
-            // console.log('cart page > ',res)
             router.push("/checkout");
         } else {
-            router.push("/auth/singin");
+            router.push("/auth/signin");
         }
     }
 
