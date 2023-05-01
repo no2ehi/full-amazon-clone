@@ -14,7 +14,7 @@ const Sidebar = () => {
     const route = router.pathname.split("/admin/dashboard/")[1];
     const dispatch = useAppDispatch();
     const menuSidebar = useAppSelector(selectMenuSidebarDashboard);
-    const { data: session } = useSession();
+    const { data: session } = useSession<any>();
 
     const handleMenu = () => {
         dispatch(toggleSidebar());
