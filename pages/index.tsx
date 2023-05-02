@@ -2,7 +2,6 @@ import CarouselContainer from "@/components/Home/CarouselContainer";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header/Header";
 import MenuSideBar from "@/components/Header/MenuSidebar";
-import { useSession } from "next-auth/react";
 import Product from "@/models/Product";
 import Category from "@/models/Category";
 import HomeProductSwiper from "@/components/Home/HomeProductSwiper";
@@ -10,18 +9,15 @@ import CategoriesProduct from "@/components/Home/CategoriesProduct/CategoriesPro
 import db from "../utils/db";
 
 export default function Home({ products }: any) {
-    const { data: session } = useSession();
-
     return (
         <>
             <Header title="Full Amazon Clone React" />
             <main className="max-w-screen-2xl mx-auto bg-gray-100">
                 <CarouselContainer />
-                {/* <CategoriesProduct
+                <CategoriesProduct
                     products={products}
-                    categories={categories}
-                /> */}
-                <div className="z-50 md:-mt-72 relative">
+                />
+                <div className="z-10 relative">
                     <HomeProductSwiper
                         products={products}
                         category="women clothing"
