@@ -31,7 +31,7 @@ const ProductSwiper = ({ images }: any) => {
             >
                 {images.map((img: any, i: number) => (
                     <SwiperSlide key={i}>
-                        <div className="rounded flex items-center justify-center bg-white w-[220px] h-[300px]">
+                        <div className="z-10 rounded flex items-center justify-center bg-white w-[220px] h-[300px]">
                             <img
                                 src={img.url}
                                 className="rounded w-auto h-auto object-cover"

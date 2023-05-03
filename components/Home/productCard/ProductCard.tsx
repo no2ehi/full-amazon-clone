@@ -25,12 +25,12 @@ const ProductCard = ({ product }: any) => {
     }, [active]);
 
     return (
-        <div className="flex flex-col relative w-[215px] rounded ">
+        <div className="flex flex-col relative w-[215px] rounded p-1">
             <Link href={`/product/${product.slug}?style=${active}${`${product.subProducts[active].sizes.length > 1 ? '&size='+ active : ''}`}`}>
                 <ProductSwiper images={images} />
             </Link>
             {product.subProducts[active].discount > 0 && (
-                <div className=" flex items-center justify-center absolute bg-yellow-400 w-9 h-9 rounded-full -top-2 -right-2 z-10 text-sm">
+                <div className=" flex items-center justify-center absolute bg-yellow-400 w-9 h-9 rounded-full top-0 -right-1 text-sm z-50">
                     -{product.subProducts[active].discount}%
                 </div>
             )}
