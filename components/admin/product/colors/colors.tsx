@@ -1,34 +1,28 @@
 import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 import { ErrorMessage, useField } from "formik";
-import Image from "next/image";
-import { useState } from "react";
-// import { ColorExtractor } from "react-color-extractor";
+import { useEffect, useState } from "react";
+import { prominent } from "color.js";
 
-const Colors = ({ product, setProduct, colorImage, ...props }: any) => {
-    const [colors, setColors] = useState([]);
+
+const Colors = ({ product, setProduct, colorImage, colors, setColors, ...props }: any) => {
     const [field, meta] = useField(props);
+    
 
-    const renderSwatches = () => {
-        return colors.map((color: any, id: any) => (
-            <div
-                style={{ backgroundColor: color }}
-                className="h-20 w-10  rounded-full m-1 cursor-pointer hover:scale-110 transition mr-2"
-                key={id}
-                onClick={() =>
-                    setProduct({
-                        ...product,
-                        color: { color, image: product.color.image },
-                    })
-                }
-            >
-                <div className="text-xs text-white rotate-90 mt-6">{color}</div>
-            </div>
-        ));
-    };
+    useEffect(() => {
+        const fetchData = async () => {
+            if (colorImage) {
+                const result = await prominent(colorImage, {
+                    format: "hex",
+                    amount: 6,
+                });
+                setColors(result);
+            }
+        };
+        fetchData();
+    }, [colorImage]);
 
     return (
         <div className="flex flex-col mt-2">
-            {/* {product.images > 0 ? ( */}
             <div className={`flex flex-col `}>
                 <div
                     className={`${
@@ -49,7 +43,6 @@ const Colors = ({ product, setProduct, colorImage, ...props }: any) => {
                     )}
                 </span>
             </div>
-            {/* ) : ''} */}
 
             <input
                 type="text"
@@ -58,17 +51,25 @@ const Colors = ({ product, setProduct, colorImage, ...props }: any) => {
                 name={field.name}
             />
 
-            {/* <div>infos</div> */}
-            <div>
-                {/* <ColorExtractor getColors={(colors: any) => setColors(colors)}>
-                    <img
-                        src={colorImage}
-                        alt="color-image"
-                        className="hidden w-10 h-10"
-                    />
-                </ColorExtractor> */}
-
-                <div className="flex mt-2">{renderSwatches()}</div>
+            <div className="flex mt-2">
+                {colors.map((color: any, id: any) => (
+                    <div
+                        style={{ backgroundColor: color }}
+                        className="h-28 w-10  rounded-full m-1 cursor-pointer hover:scale-110 hover:shadow transition-all mr-2"
+                        key={id}
+                        onClick={() =>
+                          setProduct((prevProduct: any) => ({
+                            ...prevProduct,
+                            color: { ...prevProduct.color, color },
+                          }))
+                        }
+                        
+                    >
+                        <div className="text-sm text-white rotate-90 flex mt-9 opacity-70 hover:opacity-100">
+                            {color}
+                        </div>
+                    </div>
+                ))}
             </div>
         </div>
     );

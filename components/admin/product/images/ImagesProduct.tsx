@@ -137,8 +137,8 @@ const ImagesProduct = ({
                                   </div>
                                     <div className="absolute z-50 top-0 right-0 bottom-0 left-0 hover:bg-slate-600/[0.5] transition rounded duration-300 ">
                                       <div className="btn-edit-post z-50">
-                                        <button onClick={() => handleRmove(img)}><TrashIcon className="w-6 h-6" /></button>
-                                        <button onClick={() => setColorImage(img)}><SwatchIcon className="w-6 h-6" /></button>
+                                        <button type="button" onClick={() => handleRmove(img)}><TrashIcon className="w-6 h-6" /></button>
+                                        <button type="button" onClick={() => setColorImage(img)}><SwatchIcon className="w-6 h-6" /></button>
                                         <button><ArrowsPointingInIcon className="w-6 h-6" /></button>
                                       </div>
                                     </div>

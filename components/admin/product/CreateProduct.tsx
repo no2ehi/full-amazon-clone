@@ -17,6 +17,9 @@ import { validateCreateProduct } from "../../../utils/validation";
 import dataURItoBlob from "../../../utils/dataURItoBlob";
 import { uploadImages } from "../../../request/upload";
 import axios from "axios";
+import { useState } from "react";
+
+type Color = string;
 
 const CreateProduct = ({
     parents,
@@ -33,6 +36,7 @@ const CreateProduct = ({
     initialProduct,
 }: any) => {
     const dispatch = useDispatch();
+    const [colors, setColors] = useState<Color[]>([]);
 
     const validate = Yup.object({
         name: Yup.string()
@@ -96,19 +100,20 @@ const CreateProduct = ({
                     image: style_img,
                 },
             });
-            setLoading(false);
             setProduct(initialProduct);
             setImages([]);
             setColorImage("");
+            setColors([]);
             dispatch(
                 showDialog({
                     header: "post created.",
-                    msgs:{
+                    msgs:[{
                         msg: data.message,
                         type: "success",
-                    },
+                    }],
                 })
             );
+            setLoading(false);
         } catch (error: any) {
             setLoading(false);
             console.log(error.response.data.message);
@@ -193,6 +198,8 @@ const CreateProduct = ({
                                 product={product}
                                 setProduct={setProduct}
                                 colorImage={colorImage}
+                                setColors={setColors}
+                                colors={colors}
                             />
                             <Style
                                 name="styleInput"

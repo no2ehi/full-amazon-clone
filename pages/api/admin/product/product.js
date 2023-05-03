@@ -26,6 +26,7 @@ handler.post( async (req, res) => {
                         }
                     }
                 },{new: true})
+                res.status(200).json({ message: "Product created successfully."});
             }
         } else {
             req.body.slug = slugify(req.body.name);
