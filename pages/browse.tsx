@@ -51,6 +51,7 @@ const Browse = ({
     }: any) => {
         const path = router.pathname;
         const { query } = router;
+
         if (search) query.search = search;
         if (category) query.category = category;
         if (brand) query.brand = brand;
@@ -64,6 +65,7 @@ const Browse = ({
         if (rating) query.rating = rating;
         if (sort) query.sort = sort;
         if (page) query.page = page;
+        console.log("price > ", price);
         router.push({
             pathname: path,
             query: query,
@@ -102,7 +104,32 @@ const Browse = ({
             filter({ gender });
         }
     };
-    const priceHandler = (price: any, type: any) => {
+
+    // function throttle(fn: any, delay: any) {
+    //     let lastInvoke: any = null;
+    //     console.log('throttle',delay);
+
+    //     return (...args: any[]) => {
+    //         console.log('not invoke',args[0]);
+    //         if (lastInvoke + delay < Date.now()) {
+    //             console.log('invoke ', args[0]);
+    //             lastInvoke = Date.now();
+    //             fn(args[0]);
+    //         }
+    //     };
+    // }
+
+    function debounce(fn: any, delay: any) {
+        let timeout: any = null;
+        return (...args: any) => {
+            clearTimeout(timeout);
+            timeout = setTimeout(() => {
+                fn(args[0]);
+            }, delay);
+        };
+    }
+
+    const priceHandler = (price: any, type: any, delay: any) => {
         let priceQuery = router.query.price?.split("_") || "";
         let min = priceQuery[0] || "";
         let max = priceQuery[1] || "";
@@ -112,9 +139,8 @@ const Browse = ({
         } else {
             newPrice = `${min}_${price}`;
         }
-        // setTimeout(() => {
-        filter({ price: newPrice });
-        // },2000)
+        let filterPrice = debounce((price: any) => filter(price), delay);
+        filterPrice({ price: newPrice });
     };
 
     const multiPriceHandler = (min: any, max: any) => {
@@ -187,7 +213,7 @@ const Browse = ({
         setHeight(
             headerRef.current?.offsetHeight + el.current?.offsetHeight + 50
         );
-        
+
         return () => {
             {
                 window.removeEventListener("scroll", handleScroll);

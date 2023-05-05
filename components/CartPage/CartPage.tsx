@@ -6,14 +6,30 @@ import Checkout from "./Checkout";
 import PaymentMethods from "./PaymentMethods";
 import Product from "./Product";
 import { saveCart } from "../../request/users";
+import axios from "axios";
+import { useAppDispatch } from "@/redux/hooks";
+import { updateCart } from "@/redux/slices/CartSlice";
 
 const CartPage = ({ cart }: any) => {
     const { data: session } = useSession();
+    const dispatch = useAppDispatch();
     const router = useRouter();
     const [selected, setSelected] = useState([]);
     const [shippingFee, setShippingFee] = useState(0);
     const [subTotal, setSubTotal] = useState(0);
     const [total, setTotal] = useState(0);
+
+    useEffect(()=> {
+        const update = async () => {
+            const {data} = await axios.post(`/api/user/updatecart`,{
+                products: cart.cartItems
+            });
+            dispatch(updateCart(data))
+        }
+        if(cart.cartItems.length > 0 ) {
+            update();
+        }
+    },[])
 
     useEffect(() => {
         setShippingFee(
@@ -71,6 +87,7 @@ const CartPage = ({ cart }: any) => {
                             key={i}
                             selected={selected}
                             setSelected={setSelected}
+                            cart={cart}
                         />
                     ))}
                 </div>

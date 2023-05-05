@@ -17,6 +17,9 @@ const HeadingFilter = ({
 }: any) => {
     const router = useRouter();
     const [show, setShow] = useState(false);
+    const [minPrice, setMinPrice] = useState("");
+    const [maxPrice, setMaxPrice] = useState("");
+
     const check = replaceQuery(
         "shipping",
         router.query.shipping == "0" ? false : "0"
@@ -32,16 +35,16 @@ const HeadingFilter = ({
                     type="number"
                     placeholder="min"
                     min="0"
-                    onChange={(e) => priceHandler(e.target.value, "min")}
-                    value={(router.query.price as any)?.split("_")[0] || ""}
+                    onChange={(e) => {priceHandler(e.target.value, "min",500); setMinPrice(e.target.value) }}
+                    value={minPrice || (router.query.price as any)?.split("_")[0]}
                 />
                 <input
                     className="mx-1 w-20 rounded border py-1.5 px-2 outline-none"
                     type="number"
                     placeholder="max"
                     max="0"
-                    onChange={(e) => priceHandler(e.target.value, "max")}
-                    value={(router.query.price as any)?.split("_")[1] || ""}
+                    onChange={(e) => {priceHandler(e.target.value, "max",500); setMaxPrice(e.target.value)  }}
+                    value={maxPrice || (router.query.price as any)?.split("_")[1] }
                 />
             </div>
 

@@ -1,4 +1,4 @@
-import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { useAppDispatch } from "@/redux/hooks";
 import {
     HeartIcon,
     MinusIcon,
@@ -10,14 +10,12 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { updateCart } from "../../redux/slices/CartSlice";
 
-const Product = ({ product, selected, setSelected }: any) => {
+const Product = ({ product, selected, setSelected, cart }: any) => {
     const dispatch = useAppDispatch();
-    const cart = useAppSelector((state: any) => state.cart.cartItems);
-    const [active, setActive] = useState();
-    
+    const {cartItems} = cart;
+    const [active, setActive] = useState(); 
 
     useEffect(() => {
-        // console.log("product selected:. ", selected);
         const check = selected.find((p: any) => p._uid == product._uid);
         setActive(check);
     }, [selected]);
@@ -40,7 +38,7 @@ const Product = ({ product, selected, setSelected }: any) => {
             setSelected(newSelected);
         }
 
-        let newCart = cart.map((p: any) => {
+        let newCart = cartItems.map((p: any) => {
             if (p._uid == product._uid) {
                 return {
                     ...p,
@@ -53,7 +51,7 @@ const Product = ({ product, selected, setSelected }: any) => {
     };
 
     const removeItemCart = (id: any) => {
-        let newCart = cart.filter((p: any) => p._uid != id);
+        let newCart = cartItems.filter((p: any) => p._uid != id);
         dispatch(updateCart(newCart));
         setSelected(selected.filter((p: any) => p._uid !== product._uid));
     };

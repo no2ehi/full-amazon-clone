@@ -8,7 +8,7 @@ export const saveCart = async (cart, user_id) => {
         });
         return data;
     } catch (error) {
-        console.log("erorr >>>", error);
+        console.log("erorr >>>", error.response.data.message);
     }
 };
 

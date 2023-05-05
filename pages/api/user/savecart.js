@@ -54,9 +54,9 @@ handler.post(async (req, res) => {
 
         return res
             .status(200)
-            .json({ message: "cart Items succesfully added." });
+            .json({ message: "cart Items succesfully added.", status: true });
     } catch (error) {
-        return res.status(500).json({ message: error.message });
+        return res.status(500).json({ message: error.message, status: false });
     }
 });
 
