@@ -13,7 +13,7 @@ const Address = ({ user, tab, addressData }: any) => {
             <div className="text-center">
                     <h2 className="text-4xl font-bold mb-6">My Addresses</h2>
             </div>
-                <ShippingPage user={user} addresses={addresses} setAddresses={setAddresses} profile/>
+                <ShippingPage user={user} addresses={addresses} setAddresses={setAddresses} profile={true}/>
             </Layout>
         </>
     );

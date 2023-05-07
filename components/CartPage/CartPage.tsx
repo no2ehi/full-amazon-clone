@@ -28,7 +28,7 @@ const CartPage = ({ cart }: any) => {
                     products: cart.cartItems,
                 });
                 dispatch(updateCart(data));
-                console.log("update cart > ", data);
+                // console.log("update cart > ", data);
             };
             if (cart.cartItems.length > 0) {
                 update();
@@ -73,7 +73,6 @@ const CartPage = ({ cart }: any) => {
             setLoading(true);
             const res = await saveCart(selected);
             router.push("/checkout");
-            setLoading(false);
         } else {
             router.push("/auth/signin");
         }

@@ -37,7 +37,7 @@ const ShippingPage = ({
                 addresses={addresses}
                 setAddresses={setAddresses}
                 user={user}
-                profile
+                profile={false}
             />
             {visible && (
                 <AddShipping

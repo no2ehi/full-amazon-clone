@@ -21,7 +21,7 @@ const Sidebar = () => {
     };
     return (
         <div
-            className={`relative bg-slate-100 h-screen md:p-3 
+            className={`relative bg-slate-100 h-auto md:p-3 
         ${menuSidebar ? 'opened' : "w-[80px]"}`}
         >
             <div
@@ -34,11 +34,11 @@ const Sidebar = () => {
                     }`}
                 />
             </div>
-
+            <div className="fixed">
             <div className="flex mt-4 px-2">
                 <div className="relative w-10 h-10 ">
                     <img
-                        src={session?.user?.name ? session?.user?.name : 'https://i.stack.imgur.com/34AD2.jpg'}
+                        src={session?.user?.name ? session?.user?.image : 'https://i.stack.imgur.com/34AD2.jpg'}
                         alt="admin-logo"
                         className="object-contain w-10 h-10 rounded-full"
                     />
@@ -120,6 +120,7 @@ const Sidebar = () => {
                         </Link>
                     </li>
                 </ul>
+            </div>
             </div>
         </div>
     );
