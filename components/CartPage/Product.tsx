@@ -73,6 +73,7 @@ const Product = ({ product, selected, setSelected, cart }: any) => {
                     name="product"
                     className="w-5 h-5 cursor-pointer hidden md:block"
                     onChange={() => handleSelect()}
+                    defaultChecked={false}
                     checked={active}
                 />
                 <Image
@@ -145,6 +146,11 @@ const Product = ({ product, selected, setSelected, cart }: any) => {
                         <PlusIcon className="w-4 h-4  text-slate-900" />
                     </button>
                 </div>
+            </div>
+            <div>
+                {
+                    product.quantity < product.qty ? 'sold out' : ''
+                }
             </div>
         </div>
     );

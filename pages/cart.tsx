@@ -6,7 +6,7 @@ import { useAppSelector } from "@/redux/hooks";
 
 const Cart = () => {
     const { cart } = useAppSelector((state: any) => ({ ...state }));
-    console.log('cart > ', cart)
+    // console.log('cart > ', cart);
     return (
         <>
             <Header />

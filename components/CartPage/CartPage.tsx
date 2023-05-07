@@ -20,16 +20,22 @@ const CartPage = ({ cart }: any) => {
     const [total, setTotal] = useState(0);
 
     useEffect(()=> {
-        const update = async () => {
-            const {data} = await axios.post(`/api/user/updatecart`,{
-                products: cart.cartItems
-            });
-            dispatch(updateCart(data))
+        if(session){
+            const update = async () => {
+                const {data} = await axios.post(`/api/user/updatecart`,{
+                    products: cart.cartItems
+                });
+                dispatch(updateCart(data))
+                console.log('update cart > ', data)
+            }
+            if(cart.cartItems.length > 0 ) {
+                update();
+            } 
+        } else {
+            console.log('hi')
+            router.push("/auth/signin");
         }
-        if(cart.cartItems.length > 0 ) {
-            update();
-        }
-    },[])
+    },[]);
 
     useEffect(() => {
         setShippingFee(

@@ -12,19 +12,19 @@ handler.post(async (req, res) => {
         db.connectDb;
         const promises = req.body.products.map( async(p) => {
             let productDb = await Product.findById(p._id).lean();
-            let originalPrice = productDb.subProducts[p.style].sizes.find((x) => x.size == p.size).price;
-            let quantity = productDb.subProducts[p.style].sizes.find((x) => x.size == x.size).qty;
-            let discount = productDb.subProducts[p.style].discount;
+            let originalPrice = Number(productDb.subProducts[p.style].sizes.find((x) => x.size == p.size).price);
+            let quantity = Number(productDb.subProducts[p.style].sizes.find((x) => x.size == x.size).qty);
+            let discount = Number(productDb.subProducts[p.style].discount);
+            console.log('price', originalPrice)
             return {
                 ...p,
                 priceBefore: originalPrice,
-                price: discount > 0 ? (originalPrice - (originalPrice / discount)).toFixed(2) : originalPrice,
+                price: discount > 0 ? Number((originalPrice - (originalPrice / discount)).toFixed(2)) : originalPrice,
                 quantity: quantity,
                 shippingFee: productDb.shipping,
             }
         });
-        const data = await Promises.all(promises);
-
+        const data = await Promise.all(promises);
         db.disconnectDb();
 
         return res

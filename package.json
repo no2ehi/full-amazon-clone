@@ -40,6 +40,8 @@
     "react-responsive-carousel": "^3.2.23",
     "react-share": "^4.4.1",
     "react-spinners": "^0.13.8",
+    "redux-persist": "^6.0.0",
+    "redux-thunk": "^2.4.2",
     "slugify": "^1.6.5",
     "swiper": "^9.2.2",
     "tailwind-scrollbar-hide": "^1.1.7",
