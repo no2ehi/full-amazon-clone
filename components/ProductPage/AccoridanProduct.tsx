@@ -93,7 +93,7 @@ export default function AccoridanProduct({ details, questions }: any) {
                     {questions
                         .slice(0, questions.length)
                         .map((info: any, i: any) => (
-                            <div className="grid grid-cols-2 gap-y-3">
+                            <div key={i} className="grid grid-cols-2 gap-y-3">
                                 <span>{info.question}</span>
                                 <span>{info.answer}</span>
                             </div>
