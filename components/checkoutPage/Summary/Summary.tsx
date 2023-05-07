@@ -13,6 +13,7 @@ const Summary = ({
     paymentMethod,
     totalAfterDiscount,
     setTotalAfterDiscount,
+    setLoading
 }: any) => {
     const [coupon, setCoupon] = useState("");
     const [discount, setDiscount] = useState("");
@@ -27,26 +28,32 @@ const Summary = ({
     });
 
     const applyCouponHandler = async () => {
+        setLoading(true);
         const result = await applyCoupon(coupon);
 
         if (result.message) {
             setError(result.message);
             setDiscount("");
             setTotalAfterDiscount("");
+            setLoading(false);
         } else {
             setTotalAfterDiscount(result.totalAfterDiscount);
             setDiscount(result.discount);
             setError("");
+            setLoading(false);
         }
     };
 
     const placeOrderHandler = async () => {
         try {
+            setLoading(true);
             if (paymentMethod == "") {
                 setOrder_Error("please choose a payment method.");
+                setLoading(false);
                 return;
             } else if (!selectedAddress) {
                 setOrder_Error("please choose a shipping address.");
+                setLoading(false);
                 return;
             }
             const { data } = await axios.post("/api/order/create", {
@@ -61,7 +68,9 @@ const Summary = ({
                 couponApplied: coupon,
             });
             Router.push(`/order/${data.order_id}`);
+            // setLoading(false);
         } catch (error: any) {
+            setLoading(false);
             setOrder_Error(error.response.data.message);
         }
     };

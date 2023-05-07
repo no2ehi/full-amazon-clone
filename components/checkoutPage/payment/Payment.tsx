@@ -23,6 +23,7 @@ const PaymentCheckout = ({ paymentMethod, setPaymentMethod, profile }: any) => {
                                 type="radio"
                                 name="payment"
                                 id={payment.id}
+                                readOnly
                                 checked={paymentMethod == payment.id}
                             />
                         </label>

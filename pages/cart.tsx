@@ -3,6 +3,8 @@ import MenuSideBar from "@/components/Header/MenuSidebar";
 import CartPage from "@/components/CartPage/CartPage";
 import Empty from "@/components/CartPage/Empty";
 import { useAppSelector } from "@/redux/hooks";
+import { getSession } from "next-auth/react";
+
 
 const Cart = () => {
     const { cart } = useAppSelector((state: any) => ({ ...state }));
@@ -23,3 +25,17 @@ const Cart = () => {
 };
 
 export default Cart;
+
+export async function getServerSideProps(context: any) {
+    const session = await getSession(context);
+    if (!session) {
+        return {
+            redirect: {
+                destination: "/auth/signin",
+            },
+        };
+    }
+    return {
+        props: {},
+    };
+}

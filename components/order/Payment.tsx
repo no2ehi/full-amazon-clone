@@ -1,17 +1,27 @@
+import { useAppDispatch } from "@/redux/hooks";
+import { emptyCart } from "@/redux/slices/CartSlice";
 import axios from "axios";
 import Image from "next/image";
 import { paymentMethods } from "../checkoutPage/payment/paymentMethods";
 
-const Payment = ({ order }: any) => {
+const Payment = ({ order, setLoading, setOrder }: any) => {
+    const dispatch = useAppDispatch();
 
     const paymentHandler = async () => {
         try {
-            const { data } = await axios.put("/api/order/payment", {
-                id: order._id,
-            });
-            console.log('res > ', data);
+            setLoading(true);
+            setTimeout(async () => {
+                const { data } = await axios.put("/api/order/payment", {
+                    id: order._id,
+                });
+                setOrder(data);
+                dispatch(emptyCart(data));
+                setLoading(false);
+            }, 500);
+
         } catch (error: any) {
-            console.log('errr > ', error);
+            setLoading(false);
+            console.log("errr > ", error);
         }
     };
 
@@ -36,7 +46,8 @@ const Payment = ({ order }: any) => {
                                         type="radio"
                                         name="payment"
                                         id={payment.id}
-                                        checked={
+                                        readOnly
+                                        defaultChecked={
                                             order.paymentMethod == payment.id
                                         }
                                     />
@@ -62,7 +73,12 @@ const Payment = ({ order }: any) => {
                         );
                     }
                 })}
-                <button className=" mt-2 w-full rounded-xl bg-amazon-blue_light text-white p-4 font-semibold text-2xl hover:bg-amazon-blue_dark hover:scale-95 transition" onClick={() => paymentHandler()}>Pay</button>
+                <button
+                    className=" mt-2 w-full rounded-xl bg-amazon-blue_light text-white p-4 font-semibold text-2xl hover:bg-amazon-blue_dark hover:scale-95 transition"
+                    onClick={() => paymentHandler()}
+                >
+                    Pay
+                </button>
             </div>
         </>
     );

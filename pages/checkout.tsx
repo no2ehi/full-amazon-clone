@@ -11,24 +11,26 @@ import ShippingPage from "@/components/checkoutPage/ShippingPage";
 import Product from "@/components/checkoutPage/product/Product";
 import Payment from "@/components/checkoutPage/payment/Payment";
 import Summary from "@/components/checkoutPage/Summary/Summary";
+import DotLoaderSpinner from "@/components/loaders/dotLoader/DotLoaderSpinner";
 
 const Checkout = ({ cart, user }: any) => {
     const [addresses, setAddresses] = useState(user?.address || []);
     const [paymentMethod, setPaymentMethod] = useState("paypal");
     const [totalAfterDiscount, setTotalAfterDiscount] = useState("");
     const [selectedAddress, setSelectedAddress] = useState("");
+    const [loading, setLoading] = useState(false);
     useEffect(() => {
         let check = addresses.find((address: any) => address.active == true);
-        if(check) {
-
-            setSelectedAddress(check)
+        if (check) {
+            setSelectedAddress(check);
         } else {
-            setSelectedAddress("")
+            setSelectedAddress("");
         }
-    },[addresses])
+    }, [addresses]);
 
     return (
         <>
+            {loading && <DotLoaderSpinner loading={loading} />}
             <Header />
             <main className="grid grid-cols-3 md:px-10 mb-10 py-4 gap-8 ">
                 <section className="col-span-2">
@@ -46,7 +48,15 @@ const Checkout = ({ cart, user }: any) => {
                         paymentMethod={paymentMethod}
                         setPaymentMethod={setPaymentMethod}
                     />
-                    <Summary selectedAddress={selectedAddress}  user={user} cart={cart} paymentMethod={paymentMethod} totalAfterDiscount={totalAfterDiscount} setTotalAfterDiscount={setTotalAfterDiscount} />
+                    <Summary
+                        selectedAddress={selectedAddress}
+                        user={user}
+                        cart={cart}
+                        paymentMethod={paymentMethod}
+                        totalAfterDiscount={totalAfterDiscount}
+                        setTotalAfterDiscount={setTotalAfterDiscount}
+                        setLoading={setLoading}
+                    />
                 </section>
             </main>
             <MenuSideBar />

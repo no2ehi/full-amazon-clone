@@ -39,7 +39,7 @@ const Payment = ({ user, tab, defaultPaymentMethod }: any) => {
                 <PaymentCheckout
                     paymentMethod={paymentMethod}
                     setPaymentMethod={setPaymentMethod}
-                    profile
+                    profile={true}
                 />
                 <button
                     disabled={!paymentMethod || paymentMethod == dbPM}
